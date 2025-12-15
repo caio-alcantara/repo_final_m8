@@ -47,7 +47,7 @@ jobs:
       - name: Install and Build
         run: |
           bun install --frozen-lockfile
-          NEXT_PUBLIC_BASE_PATH="/2025-2B-T12-EC08-DOCS" bun run build
+          NEXT_PUBLIC_BASE_PATH="/repo_final_m8" bun run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
