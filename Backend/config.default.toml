@@ -1,0 +1,14 @@
+[settings.server]
+host = "0.0.0.0"
+port = 8080
+
+[settings.database]
+host = "127.0.0.1"
+username = "postgres"
+password = "p0s1gr3s"
+database = "db"
+max_connections = 5
+# port = 5432 defaults to 5432
+
+[settings.robot]
+ip = "192.168.0.189"

@@ -1,0 +1,43 @@
+[package]
+name = "m08-backend"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+sqlx = { version = "0.8.6", features = [
+  "runtime-tokio",
+  "tls-rustls",
+  "postgres",
+  "chrono",
+] }
+actix-web = "4.12.1"
+actix-ws = "0.3.0"
+chrono = { version = "0.4.42", features = ["serde"] }
+chrono-tz = { version = "0.10.4", features = ["serde"] }
+clap = { version = "4.5.53", features = ["derive"] }
+colog = "1.4.0"
+colored = "3.0.0"
+dur = "0.5.3"
+easy-config-store = "0.2.2"
+env_logger = "0.11.8"
+eyre = "0.6.12"
+futures-util = "0.3.31"
+log = "0.4.28"
+serde = { version = "1.0.228", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+tokio-tungstenite = "0.21"
+toml = "0.9.8"
+utoipa = { version = "5.4.0", features = ["actix_extras", "chrono"] }
+utoipa-actix-web = "0.1.2"
+utoipa-scalar = { version = "0.3.0", features = ["actix-web"] }
+serde_json = "1.0.145"
+actix = "0.13"
+actix-web-actors = "4.3"
+actix-files = "0.6"
+bytes = "1.0"
+futures = "0.3"
+dotenvy = "0.15"
+base64 = "0.22"
+reqwest = { version = "0.11", features = ["json"] }
+uuid = { version = "1.6", features = ["v4"] }
+lazy_static = "1.4"

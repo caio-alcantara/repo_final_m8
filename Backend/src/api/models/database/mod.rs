@@ -1,0 +1,23 @@
+mod alertas;
+mod checkpoint;
+mod notificacoes;
+mod pergunta;
+mod rastreio_robo;
+mod resposta;
+mod robo;
+mod tour;
+mod tour_status_log;
+mod tour_visitante;
+mod visitante;
+
+pub use alertas::*;
+pub use checkpoint::*;
+pub use notificacoes::*;
+pub use pergunta::*;
+pub use rastreio_robo::*;
+pub use resposta::*;
+pub use robo::*;
+pub use tour::*;
+pub use tour_status_log::*;
+pub use tour_visitante::*;
+pub use visitante::*;
