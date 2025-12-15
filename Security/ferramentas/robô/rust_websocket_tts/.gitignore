@@ -1,0 +1,5 @@
+/target
+/.ruff_cache
+requirements.txt
+send_audio.py
+Cargo.lock
