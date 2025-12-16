@@ -7564,442 +7564,6 @@ Esta arquitetura forma a base técnica sólida sobre a qual o projeto será dese
 </Cards>
 
 
-# Análise Financeira Atualizada (/docs/sprint-2/entendimento-do-negocio/analise-financeira-atualizada)
-
-# Introdução
-
-  Esta documentação traz a análise financeira atualizada, considerando os custos apenas de operação e necessários para manter o projeto rodando durante um período de 12 meses após o seu desenvolvimento completo. Além disso, estes custos desconsideram as ferramentas e outro gastos, como jurídico, contabilidade, internet, entre outros, que o parceiro já possui. A planilha com o detalhamento dos gastos de operação pode ser encontrada [aqui](https://docs.google.com/spreadsheets/d/1Rfc-X_f0lI5Y1oXJLWrr4Uq6wzQ6qkgw_KJwlaRfr2g/edit?usp=sharing)
-
-# Investimento
-
-  O investimento inicial engloba todos os custos necessários para começar a implementação e operação do projeto, incluindo custo de contratação da equipe e aquisição dos equipamentos.
-
-| Item                           | Quantidade | Valor (R$)     |
-| ------------------------------ | ---------- | -------------- |
-| Contratação de Funcionários    | 3          | 13.545,00      |
-| Notebooks para Desenvolvedores | 3          | 16.200,00      |
-| Tablet                         | 1          | 2.500,00       |
-| Cachorro Robô                  | 1          | 155.966,44     |
-| **Total Investimento Inicial** | —          | **188.211,44** |
-
-# Custos Operacionais
-
-  Os custos operacionais representam as despesas mensais para manter o projeto funcionando. Entre eles estão o salário da equipe técnica, assim como seus benefícios, e a infraestrutura digital. Estes custos garantem a viabilidade do projeto, garantindo que possíveis manutenções, correções e atualizações possam ser feitas conforme necessário.
-
-| Item                            | Quantidade | Valor (R$)    |
-| ------------------------------- | ---------- | ------------- |
-| Estagiário de TI                | 2          | 3.625,00      |
-| Engenheiro de Computação Sênior | 1          | 11.600,00     |
-| Benefícios                      | 3          | 1.160,00      |
-| Armazenamento AWS               | 4          | 152,40        |
-| **Total Mensal de Operação**    | —          | **16.537,40** |
-
-## Gasto Total
-
-  A soma do investimento inicial e dos custos operacionais projetados para um período de 12 meses representa o custo total estimado para manter o projeto rodando.
-
-| Categoria               | Valor (R$)     |
-| ----------------------- | -------------- |
-| Investimento Inicial    | 188.211,44     |
-| Operação (12 meses)     | 198.448,80     |
-| **Total Geral (1 ano)** | **386.660,24** |
-
-# Conclusão
-
-  Após o desenvolvimento, o projeto entra em uma fase de manutenção e operação contínua, exigindo uma estrutura mínima composta por profissionais técnicos, equipamentos e serviços de nuvem.\
-O custo anual estimado de **R$ 386.660,24** cobre todos os recursos necessários para garantir o funcionamento estável, suporte e atualização do sistema ao longo de um ano.
-
-  Essa análise permite compreender a sustentabilidade financeira da solução e será atualizada conforme necessário durante o desenvolvimento do projeto.
-
-
-# Guide Line (/docs/sprint-2/guia-de-opera%C3%A7%C3%A3o/guide-line)
-
-# Guia de Operação e Segurança - Robô Unitree Go2
-
-**Projeto:** Tour Autônomo - Inteli Instituto de Tecnologia e Liderança
-**Equipe:** Segurança e Robô
-**Versão:** Sprint 02
-
-***
-
-## Introdução
-
-Este documento tem como objetivo estabelecer as **diretrizes iniciais (guide line)** para o uso, operação e segurança do robô Unitree Go2 durante o desenvolvimento do projeto de **tour autônomo com visitantes** no campus do Inteli.
-
-Por se tratar de uma fase inicial (Sprint 02), as orientações descritas aqui servirão como **base operacional** e **padrões de conduta** para todos os membros da equipe, garantindo segurança, padronização e registro de boas práticas durante os testes.
-
-***
-
-## Situação Atual do Projeto
-
-O robô encontra-se em **fase de calibração e testes de controle/autonomia**.
-Durante essa etapa, foram identificadas **situações críticas e comportamentos relevantes** que impactam diretamente a segurança e confiabilidade do sistema:
-
-* **Superaquecimento na pata frontal esquerda:**
-  O robô apresentou, em algumas ocasiões, aquecimento excessivo nesta região, resultando em queda brusca e necessidade de desligamento completo até o resfriamento.
-
-* **Sistema de diagnóstico via aplicativo:**
-  Todos os erros são reportados em tempo real por meio de **cards vermelhos** no aplicativo do robô, permitindo rápida identificação da falha e tratativa.
-
-* **Alta responsividade aos comandos via aplicativo e controle:**
-  O robô responde de forma imediata aos comandos do controle/app.
-
-* **Delay no reconhecimento de obstáculos (LiDAR):**
-  Observou-se um atraso na atualização das leituras do LiDAR, possivelmente devido à sobrecarga de código. A equipe técnica realizará testes e otimizações para corrigir o problema.
-
-* **Proibição de movimento em ré durante o tour:**
-  O robô **não deve andar de ré** sob nenhuma circunstância.
-  Isso se deve à **ausência de sensores traseiros de detecção de obstáculos**, o que representa risco de colisão com visitantes ou objetos durante o tour.
-
-***
-
-## Diretrizes Gerais de Operação
-
-1. **Seguir rigorosamente a sequência de inicialização e desligamento.**
-   A ordem de ligar primeiro o controle e depois o robô evita falhas de pareamento.
-
-2. **Evitar comandos repetidos ou simultâneos.**
-   O robô pode interpretar múltiplos sinais como comandos contínuos, causando movimentos inesperados.
-
-3. **Monitorar a temperatura constantemente.**
-   Se o sistema indicar superaquecimento, o robô deve ser imediatamente desligado.
-
-4. **Jamais levantar o robô em modo operacional ou de parada forçada.**
-   Isso pode causar danos a pessoas ou até mesmo ao patrimônio.
-
-5. **Durante o tour, priorizar o deslocamento com uma velocidade segura.**
-   O objetivo é garantir estabilidade e interação segura com os visitantes.
-
-6. **Realizar testes de funcionamento em ambientes controlados antes de operações públicas.**
-
-***
-
-## Procedimentos de Segurança
-
-* **Modo de emergência:**
-  Caso o robô apresente comportamento inesperado, utilize **L2 + B** para realizar a **parada forçada imediata**.
-
-* **Falhas críticas:**
-  Se houver qualquer anomalia (queda, superaquecimento, falha de controle), **desligar o robô**, ver diagnóstico no aplicativo, aguardar o resfriamento e **registrar o incidente**.
-
-* **Zona de segurança:**
-  Durante testes, manter uma distância mínima de **1 metro** entre o robô e qualquer pessoa.
-
-***
-
-## Procedimentos Operacionais
-
-<table>
-  <thead>
-    <tr>
-      <th>
-        ID
-      </th>
-
-      <th>
-        Área Responsável
-      </th>
-
-      <th>
-        Procedimento / Situação
-      </th>
-
-      <th>
-        Critério de Aceite / Resultado Esperado
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>
-        OP01
-      </td>
-
-      <td>
-        Operação
-      </td>
-
-      <td>
-        O controle deve ser ligado antes do robô.
-      </td>
-
-      <td>
-        A sequência de inicialização é concluída com sucesso sem falhas de
-        conexão.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP02
-      </td>
-
-      <td>
-        Operação
-      </td>
-
-      <td>
-        Para ligar o controle: apertar o botão de ligar uma vez e soltar; em
-        seguida, apertar novamente e segurar até iniciar.
-      </td>
-
-      <td>
-        O controle é reconhecido e pareado corretamente com o robô.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP03
-      </td>
-
-      <td>
-        Operação
-      </td>
-
-      <td>
-        Para ligar o robô: apertar o botão de ligar uma vez e soltar; em
-        seguida, apertar novamente e segurar até iniciar.
-      </td>
-
-      <td>
-        O robô liga corretamente e responde aos comandos do controle.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP04
-      </td>
-
-      <td>
-        Operação
-      </td>
-
-      <td>
-        Em caso de perda de controle das movimentações, pressionar L2 + A.
-      </td>
-
-      <td>
-        O robô trava os seus movimentos, estabilizando sua posição.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP05
-      </td>
-
-      <td>
-        Segurança
-      </td>
-
-      <td>
-        Em caso de risco de dano ou acidente, pressionar L2 + B para parada
-        forçada.
-      </td>
-
-      <td>
-        O robô interrompe imediatamente todos os movimentos e cai no chão.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP06
-      </td>
-
-      <td>
-        Segurança
-      </td>
-
-      <td>
-        Para sair do modo de parada forçada, pressionar Start.
-      </td>
-
-      <td>
-        O robô retorna ao modo operacional normal e aceita novos comandos.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP07
-      </td>
-
-      <td>
-        Operação
-      </td>
-
-      <td>
-        Evitar o comando A + A, pois pode causar comportamento incorreto
-        (movimento infinito para trás).
-      </td>
-
-      <td>
-        Durante o teste, o robô não executa o comando e mantém controle estável.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP08
-      </td>
-
-      <td>
-        Segurança
-      </td>
-
-      <td>
-        Durante o modo de parada forçada, não levantar o robô.
-      </td>
-
-      <td>
-        Evita danos mecânicos, à pessoas e ao patrimônio do Inteli.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP09
-      </td>
-
-      <td>
-        Técnica
-      </td>
-
-      <td>
-        Conectar hub USB-C na Jetson com monitor e mouse para acesso ao
-        terminal.
-      </td>
-
-      <td>
-        Interface da Jetson exibida corretamente e terminal acessível.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP10
-      </td>
-
-      <td>
-        Técnica
-      </td>
-
-      <td>
-        Em caso de falha de conexão ou inicialização, reiniciar o robô.
-      </td>
-
-      <td>
-        O sistema reinicia e funciona corretamente.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP11
-      </td>
-
-      <td>
-        Técnica
-      </td>
-
-      <td>
-        Utilizar adaptador Wi-Fi para conectar a Jetson e liberar acesso SSH
-        remoto.
-      </td>
-
-      <td>
-        Conexão SSH estabelecida com sucesso e acesso remoto habilitado.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP12
-      </td>
-
-      <td>
-        Operação
-      </td>
-
-      <td>
-        Para desligar o robô: apertar o botão de ligar uma vez e soltar; em
-        seguida, apertar novamente e segurar até desligar completamente.
-      </td>
-
-      <td>
-        O robô desliga com segurança, sem perda de dados ou travamentos.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP13
-      </td>
-
-      <td>
-        Operação
-      </td>
-
-      <td>
-        Após o robô desligar, repetir o mesmo processo para desligar o controle.
-      </td>
-
-      <td>
-        O controle é desligado corretamente e o sistema encerra a comunicação
-        com sucesso.
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        OP14
-      </td>
-
-      <td>
-        Segurança
-      </td>
-
-      <td>
-        Garantir sempre o desligamento do robô antes do controle.
-      </td>
-
-      <td>
-        Evita falhas de comunicação ou estados incorretos entre os dispositivos.
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-***
-
-## Próximos Passos
-
-* Realizar **testes** para monitorar a frequência do superaquecimento.
-* Avaliar **otimizações no código do LiDAR** para reduzir o delay de resposta.
-* Criar **protocolo de redundância** para garantir segurança em caso de falhas críticas.
-* Desenvolver versão revisada do guide line com base nos resultados da Sprint 03.
-
-***
-
-## Observações Finais
-
-Este documento é **dinâmico**, sendo atualizado conforme os avanços do projeto e novos aprendizados sobre o comportamento do robô.
-Todas as ocorrências devem ser registradas e revisadas pela equipe de segurança antes da próxima sprint.
-
-
-# Guia de Operação do Robô (/docs/sprint-2/guia-de-opera%C3%A7%C3%A3o)
-
-<Cards>
-  <Card href="/docs/sprint-2/guia-de-operação/guide-line" title="Guide Line">
-    Documento com o guia de operação do robô e informações relevantes.
-  </Card>
-</Cards>
-
-
 # Chatbot Inteli v1 (/docs/sprint-2/chatbot-v1/documentacao)
 
 
@@ -8594,6 +8158,442 @@ Este chatbot representa uma solução completa e profissional para fornecer info
 
 <Cards>
   <Card title="Documentação Completa" description="Documentação técnica completa do Chatbot Inteli, incluindo arquitetura, instalação e uso." href="/docs/sprint-2/chatbot-v1/documentacao" />
+</Cards>
+
+
+# Análise Financeira Atualizada (/docs/sprint-2/entendimento-do-negocio/analise-financeira-atualizada)
+
+# Introdução
+
+  Esta documentação traz a análise financeira atualizada, considerando os custos apenas de operação e necessários para manter o projeto rodando durante um período de 12 meses após o seu desenvolvimento completo. Além disso, estes custos desconsideram as ferramentas e outro gastos, como jurídico, contabilidade, internet, entre outros, que o parceiro já possui. A planilha com o detalhamento dos gastos de operação pode ser encontrada [aqui](https://docs.google.com/spreadsheets/d/1Rfc-X_f0lI5Y1oXJLWrr4Uq6wzQ6qkgw_KJwlaRfr2g/edit?usp=sharing)
+
+# Investimento
+
+  O investimento inicial engloba todos os custos necessários para começar a implementação e operação do projeto, incluindo custo de contratação da equipe e aquisição dos equipamentos.
+
+| Item                           | Quantidade | Valor (R$)     |
+| ------------------------------ | ---------- | -------------- |
+| Contratação de Funcionários    | 3          | 13.545,00      |
+| Notebooks para Desenvolvedores | 3          | 16.200,00      |
+| Tablet                         | 1          | 2.500,00       |
+| Cachorro Robô                  | 1          | 155.966,44     |
+| **Total Investimento Inicial** | —          | **188.211,44** |
+
+# Custos Operacionais
+
+  Os custos operacionais representam as despesas mensais para manter o projeto funcionando. Entre eles estão o salário da equipe técnica, assim como seus benefícios, e a infraestrutura digital. Estes custos garantem a viabilidade do projeto, garantindo que possíveis manutenções, correções e atualizações possam ser feitas conforme necessário.
+
+| Item                            | Quantidade | Valor (R$)    |
+| ------------------------------- | ---------- | ------------- |
+| Estagiário de TI                | 2          | 3.625,00      |
+| Engenheiro de Computação Sênior | 1          | 11.600,00     |
+| Benefícios                      | 3          | 1.160,00      |
+| Armazenamento AWS               | 4          | 152,40        |
+| **Total Mensal de Operação**    | —          | **16.537,40** |
+
+## Gasto Total
+
+  A soma do investimento inicial e dos custos operacionais projetados para um período de 12 meses representa o custo total estimado para manter o projeto rodando.
+
+| Categoria               | Valor (R$)     |
+| ----------------------- | -------------- |
+| Investimento Inicial    | 188.211,44     |
+| Operação (12 meses)     | 198.448,80     |
+| **Total Geral (1 ano)** | **386.660,24** |
+
+# Conclusão
+
+  Após o desenvolvimento, o projeto entra em uma fase de manutenção e operação contínua, exigindo uma estrutura mínima composta por profissionais técnicos, equipamentos e serviços de nuvem.\
+O custo anual estimado de **R$ 386.660,24** cobre todos os recursos necessários para garantir o funcionamento estável, suporte e atualização do sistema ao longo de um ano.
+
+  Essa análise permite compreender a sustentabilidade financeira da solução e será atualizada conforme necessário durante o desenvolvimento do projeto.
+
+
+# Guide Line (/docs/sprint-2/guia-de-opera%C3%A7%C3%A3o/guide-line)
+
+# Guia de Operação e Segurança - Robô Unitree Go2
+
+**Projeto:** Tour Autônomo - Inteli Instituto de Tecnologia e Liderança
+**Equipe:** Segurança e Robô
+**Versão:** Sprint 02
+
+***
+
+## Introdução
+
+Este documento tem como objetivo estabelecer as **diretrizes iniciais (guide line)** para o uso, operação e segurança do robô Unitree Go2 durante o desenvolvimento do projeto de **tour autônomo com visitantes** no campus do Inteli.
+
+Por se tratar de uma fase inicial (Sprint 02), as orientações descritas aqui servirão como **base operacional** e **padrões de conduta** para todos os membros da equipe, garantindo segurança, padronização e registro de boas práticas durante os testes.
+
+***
+
+## Situação Atual do Projeto
+
+O robô encontra-se em **fase de calibração e testes de controle/autonomia**.
+Durante essa etapa, foram identificadas **situações críticas e comportamentos relevantes** que impactam diretamente a segurança e confiabilidade do sistema:
+
+* **Superaquecimento na pata frontal esquerda:**
+  O robô apresentou, em algumas ocasiões, aquecimento excessivo nesta região, resultando em queda brusca e necessidade de desligamento completo até o resfriamento.
+
+* **Sistema de diagnóstico via aplicativo:**
+  Todos os erros são reportados em tempo real por meio de **cards vermelhos** no aplicativo do robô, permitindo rápida identificação da falha e tratativa.
+
+* **Alta responsividade aos comandos via aplicativo e controle:**
+  O robô responde de forma imediata aos comandos do controle/app.
+
+* **Delay no reconhecimento de obstáculos (LiDAR):**
+  Observou-se um atraso na atualização das leituras do LiDAR, possivelmente devido à sobrecarga de código. A equipe técnica realizará testes e otimizações para corrigir o problema.
+
+* **Proibição de movimento em ré durante o tour:**
+  O robô **não deve andar de ré** sob nenhuma circunstância.
+  Isso se deve à **ausência de sensores traseiros de detecção de obstáculos**, o que representa risco de colisão com visitantes ou objetos durante o tour.
+
+***
+
+## Diretrizes Gerais de Operação
+
+1. **Seguir rigorosamente a sequência de inicialização e desligamento.**
+   A ordem de ligar primeiro o controle e depois o robô evita falhas de pareamento.
+
+2. **Evitar comandos repetidos ou simultâneos.**
+   O robô pode interpretar múltiplos sinais como comandos contínuos, causando movimentos inesperados.
+
+3. **Monitorar a temperatura constantemente.**
+   Se o sistema indicar superaquecimento, o robô deve ser imediatamente desligado.
+
+4. **Jamais levantar o robô em modo operacional ou de parada forçada.**
+   Isso pode causar danos a pessoas ou até mesmo ao patrimônio.
+
+5. **Durante o tour, priorizar o deslocamento com uma velocidade segura.**
+   O objetivo é garantir estabilidade e interação segura com os visitantes.
+
+6. **Realizar testes de funcionamento em ambientes controlados antes de operações públicas.**
+
+***
+
+## Procedimentos de Segurança
+
+* **Modo de emergência:**
+  Caso o robô apresente comportamento inesperado, utilize **L2 + B** para realizar a **parada forçada imediata**.
+
+* **Falhas críticas:**
+  Se houver qualquer anomalia (queda, superaquecimento, falha de controle), **desligar o robô**, ver diagnóstico no aplicativo, aguardar o resfriamento e **registrar o incidente**.
+
+* **Zona de segurança:**
+  Durante testes, manter uma distância mínima de **1 metro** entre o robô e qualquer pessoa.
+
+***
+
+## Procedimentos Operacionais
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        ID
+      </th>
+
+      <th>
+        Área Responsável
+      </th>
+
+      <th>
+        Procedimento / Situação
+      </th>
+
+      <th>
+        Critério de Aceite / Resultado Esperado
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        OP01
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        O controle deve ser ligado antes do robô.
+      </td>
+
+      <td>
+        A sequência de inicialização é concluída com sucesso sem falhas de
+        conexão.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP02
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Para ligar o controle: apertar o botão de ligar uma vez e soltar; em
+        seguida, apertar novamente e segurar até iniciar.
+      </td>
+
+      <td>
+        O controle é reconhecido e pareado corretamente com o robô.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP03
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Para ligar o robô: apertar o botão de ligar uma vez e soltar; em
+        seguida, apertar novamente e segurar até iniciar.
+      </td>
+
+      <td>
+        O robô liga corretamente e responde aos comandos do controle.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP04
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Em caso de perda de controle das movimentações, pressionar L2 + A.
+      </td>
+
+      <td>
+        O robô trava os seus movimentos, estabilizando sua posição.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP05
+      </td>
+
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Em caso de risco de dano ou acidente, pressionar L2 + B para parada
+        forçada.
+      </td>
+
+      <td>
+        O robô interrompe imediatamente todos os movimentos e cai no chão.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP06
+      </td>
+
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Para sair do modo de parada forçada, pressionar Start.
+      </td>
+
+      <td>
+        O robô retorna ao modo operacional normal e aceita novos comandos.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP07
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Evitar o comando A + A, pois pode causar comportamento incorreto
+        (movimento infinito para trás).
+      </td>
+
+      <td>
+        Durante o teste, o robô não executa o comando e mantém controle estável.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP08
+      </td>
+
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Durante o modo de parada forçada, não levantar o robô.
+      </td>
+
+      <td>
+        Evita danos mecânicos, à pessoas e ao patrimônio do Inteli.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP09
+      </td>
+
+      <td>
+        Técnica
+      </td>
+
+      <td>
+        Conectar hub USB-C na Jetson com monitor e mouse para acesso ao
+        terminal.
+      </td>
+
+      <td>
+        Interface da Jetson exibida corretamente e terminal acessível.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP10
+      </td>
+
+      <td>
+        Técnica
+      </td>
+
+      <td>
+        Em caso de falha de conexão ou inicialização, reiniciar o robô.
+      </td>
+
+      <td>
+        O sistema reinicia e funciona corretamente.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP11
+      </td>
+
+      <td>
+        Técnica
+      </td>
+
+      <td>
+        Utilizar adaptador Wi-Fi para conectar a Jetson e liberar acesso SSH
+        remoto.
+      </td>
+
+      <td>
+        Conexão SSH estabelecida com sucesso e acesso remoto habilitado.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP12
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Para desligar o robô: apertar o botão de ligar uma vez e soltar; em
+        seguida, apertar novamente e segurar até desligar completamente.
+      </td>
+
+      <td>
+        O robô desliga com segurança, sem perda de dados ou travamentos.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP13
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Após o robô desligar, repetir o mesmo processo para desligar o controle.
+      </td>
+
+      <td>
+        O controle é desligado corretamente e o sistema encerra a comunicação
+        com sucesso.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP14
+      </td>
+
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Garantir sempre o desligamento do robô antes do controle.
+      </td>
+
+      <td>
+        Evita falhas de comunicação ou estados incorretos entre os dispositivos.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+***
+
+## Próximos Passos
+
+* Realizar **testes** para monitorar a frequência do superaquecimento.
+* Avaliar **otimizações no código do LiDAR** para reduzir o delay de resposta.
+* Criar **protocolo de redundância** para garantir segurança em caso de falhas críticas.
+* Desenvolver versão revisada do guide line com base nos resultados da Sprint 03.
+
+***
+
+## Observações Finais
+
+Este documento é **dinâmico**, sendo atualizado conforme os avanços do projeto e novos aprendizados sobre o comportamento do robô.
+Todas as ocorrências devem ser registradas e revisadas pela equipe de segurança antes da próxima sprint.
+
+
+# Guia de Operação do Robô (/docs/sprint-2/guia-de-opera%C3%A7%C3%A3o)
+
+<Cards>
+  <Card href="/docs/sprint-2/guia-de-operação/guide-line" title="Guide Line">
+    Documento com o guia de operação do robô e informações relevantes.
+  </Card>
 </Cards>
 
 
@@ -11185,275 +11185,6 @@ Para mais detalhes sobre a arquitetura e o contexto do projeto, consulte:
 </Cards>
 
 
-# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
-
-# Sprint 3 – Automação de Movimentação e Integração Dinâmica
-
-## Objetivos Principais
-
-* Implementar execução automatizada de movimentos via JSON.
-* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
-* Permitir movimentação completa por **checkpoints** com áudio associado.
-* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
-* Iniciar integração com backend e percepção de obstáculos.
-
-***
-
-## Atividades Realizadas na Sprint 3
-
-### Implementação da fila de requisições
-
-Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
-O formato padronizado para os checkpoints segue o modelo abaixo:
-
-```json title="Exemplo de arquivo JSON de checkpoints"
-{
-  "checkpoint1": [
-    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
-    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
-  ],
-  "checkpoint2": [
-    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
-    ...
-  ]
-}
-```
-
-Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
-Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
-
-***
-
-## Execução e Testes
-
-Para executar o sistema de movimentação automatizada:
-
-1. **Inicie o ambiente virtual:**
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-2. **Execute o script principal de movimentação:**
-
-   ```bash
-   python3 testes/move_path.py
-   ```
-
-   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
-
-3. **Para iniciar um checkpoint manualmente (em outro terminal):**
-
-   ```bash
-   python3 external_trigger.py play
-   ```
-
-4. **Para interromper a execução a qualquer momento:**
-
-   ```bash
-   python3 external_trigger.py stop
-   ```
-
-   Ao parar, o robô entra automaticamente em **modo estático em pé**.
-
-***
-
-## Novas Funcionalidades
-
-* Leitura e execução automática de checkpoints via JSON.
-* Execução ordenada com fila de comandos.
-* Reprodução de áudio correspondente a cada checkpoint.
-* Interrupção imediata da execução via comando externo (`stop`).
-* Conexão e controle assíncrono com o robô via **WebRTC**.
-
-***
-
-## Problemas e Impeditivos Encontrados
-
-Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
-
-* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
-* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
-* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
-* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
-
-Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
-
-***
-
-## Próximos Passos
-
-* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
-* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
-* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
-* Revisar parâmetros de movimentação e segurança térmica das juntas.
-
-***
-
-## Aprendizados
-
-* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
-* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
-* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
-* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
-
-***
-
-## Links Relevantes
-
-* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
-
-***
-
-## Conclusão
-
-Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
-Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
-
-
-# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
-
-<Cards>
-  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
-
-  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
-</Cards>
-
-
-# Simulação (/docs/sprint-3/robo/simulacao-robo)
-
-
-
-# Sprint 3 – Simulação do Robô com ROS2
-
-## Objetivos Principais
-
-* Configurar o ambiente ROS e entender seu funcionamento;
-* Simular o robô Unitree Go2 no Gazebo;
-* Continuar testes no ambiente Unity (Autonomous Stack GO2);
-* Entender como funciona os tópicos do LiDAR do GO2;
-* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
-
-***
-
-## Atividades Realizadas na Sprint 3
-
-### Gazebo
-
-  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
-
-### Unity
-
-  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
-
-* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
-* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
-
-### Docker
-
-  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
-
-* Estudo da viabilidade do uso do Docker;
-* Estudo da implementação do Docker com simuladores;
-* Estudo da implementação do Docker com ROS2;
-* Tentativa de implementação do simulador Unity em um container Docker.
-
-### Visualização de dados de sensores do robô
-
-  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Visualização da Point Cloud real no RViz
-</p>
-
-<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Produzida pelos autores (2025).
-</p>
-
-***
-
-## Problemas e Impeditivos Encontrados
-
-### Gazebo
-
-* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
-
-### Unity
-
-* Problemas de importação de modelos de espaço para o simulador;
-* Dificuldade de comunicação do ROS com o sistema;
-* Dificuldade de achar utilidade nas informações transferidas
-* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
-
-### Docker
-
-* Falta de exemplos que utilizassem todas as tecnologias juntas;
-* Uso excessivo de memória RAM ao *buildar* os simuladores;
-* Necessidade do Ubuntu 22.04 (especificamente).
-
-***
-
-## Próximos Passos
-
-* Começar testes de ROS no robô físico;
-* Começar testes de LiDAR no robô físico;
-* Começar a integração dos repositórios encontrados com o robô físico;
-* Colocar em containers os simuladores escolhidos com implementação ROS.
-
-***
-
-## Aprendizados
-
-### Gazebo
-
-* Comunicação código e robô via ROS2;
-* Como funciona a nuvem de pontos do LiDAR;
-* Diversos modelos de navegação autônoma e controle manual para o Go2.
-
-### Unity
-
-* Entendi da comunicação do ROS2;
-* Funcionamento do LiDAR;
-
-### Docker
-
-* Formas de rodar ROS em um container;
-* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
-* Formas de reduzir o uso da memória RAM ao rodar simuladores.
-
-***
-
-## Links Relevantes
-
-### Gazebo
-
-* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
-* [NAV2](https://docs.nav2.org/)
-* [RViz](https://wiki.ros.org/rviz)
-
-### Unity
-
-* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
-
-### Docker
-
-* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
-* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
-* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
-* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
-
-***
-
-## Conclusão
-
-Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
-Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
-
-
 # Protótipo de Alta Fidelidade do Dashboard Staff (/docs/sprint-3/prototipo-alta)
 
 <Cards>
@@ -11770,6 +11501,275 @@ F -->|HTTP| BUCKET
     <File name="meta.json" />
   </Folder>
 </Files>
+
+
+# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
+
+# Sprint 3 – Automação de Movimentação e Integração Dinâmica
+
+## Objetivos Principais
+
+* Implementar execução automatizada de movimentos via JSON.
+* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
+* Permitir movimentação completa por **checkpoints** com áudio associado.
+* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
+* Iniciar integração com backend e percepção de obstáculos.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Implementação da fila de requisições
+
+Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
+O formato padronizado para os checkpoints segue o modelo abaixo:
+
+```json title="Exemplo de arquivo JSON de checkpoints"
+{
+  "checkpoint1": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
+    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
+  ],
+  "checkpoint2": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
+    ...
+  ]
+}
+```
+
+Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
+Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
+
+***
+
+## Execução e Testes
+
+Para executar o sistema de movimentação automatizada:
+
+1. **Inicie o ambiente virtual:**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+2. **Execute o script principal de movimentação:**
+
+   ```bash
+   python3 testes/move_path.py
+   ```
+
+   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
+
+3. **Para iniciar um checkpoint manualmente (em outro terminal):**
+
+   ```bash
+   python3 external_trigger.py play
+   ```
+
+4. **Para interromper a execução a qualquer momento:**
+
+   ```bash
+   python3 external_trigger.py stop
+   ```
+
+   Ao parar, o robô entra automaticamente em **modo estático em pé**.
+
+***
+
+## Novas Funcionalidades
+
+* Leitura e execução automática de checkpoints via JSON.
+* Execução ordenada com fila de comandos.
+* Reprodução de áudio correspondente a cada checkpoint.
+* Interrupção imediata da execução via comando externo (`stop`).
+* Conexão e controle assíncrono com o robô via **WebRTC**.
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
+
+* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
+* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
+* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
+* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
+
+Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
+
+***
+
+## Próximos Passos
+
+* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
+* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
+* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
+* Revisar parâmetros de movimentação e segurança térmica das juntas.
+
+***
+
+## Aprendizados
+
+* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
+* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
+* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
+* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
+
+***
+
+## Links Relevantes
+
+* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+***
+
+## Conclusão
+
+Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
+Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
+
+
+# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
+
+<Cards>
+  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
+
+  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
+</Cards>
+
+
+# Simulação (/docs/sprint-3/robo/simulacao-robo)
+
+
+
+# Sprint 3 – Simulação do Robô com ROS2
+
+## Objetivos Principais
+
+* Configurar o ambiente ROS e entender seu funcionamento;
+* Simular o robô Unitree Go2 no Gazebo;
+* Continuar testes no ambiente Unity (Autonomous Stack GO2);
+* Entender como funciona os tópicos do LiDAR do GO2;
+* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Gazebo
+
+  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
+
+### Unity
+
+  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
+
+* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
+* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
+
+### Docker
+
+  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
+
+* Estudo da viabilidade do uso do Docker;
+* Estudo da implementação do Docker com simuladores;
+* Estudo da implementação do Docker com ROS2;
+* Tentativa de implementação do simulador Unity em um container Docker.
+
+### Visualização de dados de sensores do robô
+
+  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Visualização da Point Cloud real no RViz
+</p>
+
+<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Produzida pelos autores (2025).
+</p>
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+### Gazebo
+
+* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
+
+### Unity
+
+* Problemas de importação de modelos de espaço para o simulador;
+* Dificuldade de comunicação do ROS com o sistema;
+* Dificuldade de achar utilidade nas informações transferidas
+* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
+
+### Docker
+
+* Falta de exemplos que utilizassem todas as tecnologias juntas;
+* Uso excessivo de memória RAM ao *buildar* os simuladores;
+* Necessidade do Ubuntu 22.04 (especificamente).
+
+***
+
+## Próximos Passos
+
+* Começar testes de ROS no robô físico;
+* Começar testes de LiDAR no robô físico;
+* Começar a integração dos repositórios encontrados com o robô físico;
+* Colocar em containers os simuladores escolhidos com implementação ROS.
+
+***
+
+## Aprendizados
+
+### Gazebo
+
+* Comunicação código e robô via ROS2;
+* Como funciona a nuvem de pontos do LiDAR;
+* Diversos modelos de navegação autônoma e controle manual para o Go2.
+
+### Unity
+
+* Entendi da comunicação do ROS2;
+* Funcionamento do LiDAR;
+
+### Docker
+
+* Formas de rodar ROS em um container;
+* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
+* Formas de reduzir o uso da memória RAM ao rodar simuladores.
+
+***
+
+## Links Relevantes
+
+### Gazebo
+
+* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
+* [NAV2](https://docs.nav2.org/)
+* [RViz](https://wiki.ros.org/rviz)
+
+### Unity
+
+* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+### Docker
+
+* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
+* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
+* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
+* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+***
+
+## Conclusão
+
+Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
+Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
 
 
 # S-SDLC — Secure Software Development Life Cycle (/docs/sprint-3/secure-software)
