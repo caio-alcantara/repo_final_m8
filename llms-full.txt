@@ -1105,6 +1105,10 @@ else:
   <Card href="/docs/sprint-4/backend" title="Backend">
     Desenvolvimento do backend na sprint 4.
   </Card>
+
+  <Card href="/docs/sprint-4/botao-de-stop" title="Kill Switch do robô">
+    Documentação sobre a implementação do botão Kill Switch do robô.
+  </Card>
 </Cards>
 
 
@@ -9705,173 +9709,6 @@ Via navbar:
 O protótipo de alta fidelidade documentado aqui representa a versão visual final do aplicativo do visitante. Ele estabelece como será a experiência completa, desde a chegada do usuário ao tour até sua interação com a LIA e a navegação pelas informações exibidas. Esta documentação serve como referência para designers, desenvolvedores e avaliadores durante a construção oficial do aplicativo.
 
 
-# Exploração e Integração (/docs/sprint-2/robo/exploracao-robo)
-
-
-
-
-
-
-
-# Sprint 2 – Exploração e Integração com WebRTC
-
-## Objetivos Principais
-
-* Estabelecer comunicação estável com o robô via WebRTC.
-* Validar movimentações nos eixos X, Y e Z.
-* Compreender e aplicar parâmetros corretos de velocidade e rotação.
-* Criar abstração de código e leitura via JSON.
-* Testar tópicos adicionais como `OBSTACLES_AVOID`.
-
-***
-
-## Atividades Realizadas na semana 3
-
-### Primeiros testes com WebRTC
-
-* Fizemos a implementação inicial do WebRTC com sucesso nas primeiras movimentações.
-
-#### Exemplo de Requisição via WebRTC
-
-```python title="Exemplo de requisição WebRTC para movimentação"
-await conn.datachannel.pub_sub.publish_request_new(
-    RTC_TOPIC["SPORT_MOD"],
-    {
-        "api_id": SPORT_CMD["Move"],
-        "parameter": {"x": 1, "y": 0, "z": 0}
-    }
-)
-```
-
-* Testes manuais dos eixos:
-  * X = 1 → movimentação de 1 metro
-  * Y = 1 → movimentação de 0,5 metro
-  * Z = 1 → rotação de 90°
-
-* Direções observadas durante os testes:
-  * X > 0: frente | X \< 0: trás
-  * Y, Z > 0: direita | Y, Z \< 0: esquerda
-
-### Testes no térreo
-
-* Testamos o robô no térreo para validarmos em trajetórias mais longas.
-* Problemas encontrados:
-  * Identificamos que as distâncias percorridas eram constantes, independentemente do valor de X e Y.
-  * O robô se movimenta em velocidades excessivas quando aumentamos os valores de X e Y.
-* Tentamos ajustar a velocidade via tópico `SpeedLevel`, mas não tivemos nenhum sucesso devido à falta de documentação.
-
-### Pesquisa e descoberta
-
-* Estudamos a arquitetura do sistema e identificamos os fluxos de comunicação.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Arquitetura Unitree Go2
-</p>
-
-<img alt="Arquitetura Unitree" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte:
-  [support.unitree](https://support.unitree.com/home/en/developer/Architecture%20Description)
-</p>
-
-<p style={{ textAlign: "center" }}>
-  Figura 2 - Arquitetura de hardware Unitree Go2
-</p>
-
-<img alt="Arquitetura Unitree" src={__img1} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte:
-  [support.unitree](https://support.unitree.com/home/en/developer/about_Go2)
-</p>
-
-* Descobrimos que o modo `Sport Mode` precisa estar desativado para o SDK operar.
-
-<p style={{ textAlign: "center" }}>
-  Figura 3 - SportMode
-</p>
-
-<img alt="SportMode" src={__img2} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte:
-  [support.unitree](https://support.unitree.com/home/en/developer/Quick_start)
-</p>
-
-* Descoberta de documentação técnica do SDK (com parâmetros e APIs idênticas ao WebRTC):
-  * [Motion Services Interface V2.0](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* Descobrimos que os parâmetros X, Y e Z esperam receber valores de velocidade em metros por segundo (m/s) e que todas as requisições enviadas para o robô duram apenas um segundo.
-* Sendo assim, precisamos enviar a mesma requisição durante mais tempo caso precisemos de movimentações mais longas.
-
-<Callout type="info">
-  Após uma conversa com o professor Nicola, constatamos que o WebRTC é uma engenharia reversa do SDK, portanto, é possível utilizar os mesmos parâmetros descritos na documentação oficial.
-</Callout>
-
-### Aplicação e calibração
-
-* Após as descobertas fizemos a implementação dos parâmetros descobertos.
-* A movimentação foi bem-sucedida e o robô se movimenta em múltiplas distâncias
-* Testamos com waypoints múltiplos e conseguimos validar a movimentação encadeada.
-
-### Abstração e leitura dinâmica
-
-* Resolvemos criar uma camada de abstração para comunicação com o robô, permitindo colocarmos a distância em metros ao invés de metros por segundo.
-* Também resolvemos implementar a leitura de waypoints via JSON.
-* Código concluído, testes pendentes.
-
-***
-
-## Atividades Realizadas na semana 3
-
-### Apoio ao time de Security
-
-* Colaboração direta com a equipe de Security no uso do LiDAR do robô.
-* Auxiliamos na coleta e análise dos dados brutos provenientes do sensor, garantindo que o time conseguisse interpretar corretamente os valores e padrões retornados.
-* Nosso foco foi apoiar a equipe na identificação de padrões espaciais (distâncias, ângulos e presença de obstáculos) para que pudessem desenvolver soluções de prevenção de colisões com pessoas ou objetos no ambiente.
-* Esse trabalho contribuiu para conectar os dados do sensor à camada de controle do robô, servindo de base para futuras implementações de detecção e desvio automático de obstáculos.
-
-### Testes para evitar colisões
-
-* Utilizando da documentação tentamos enviar uma requisição para um tópico chamado `OBSTACLES_AVOID`
-* Testamos os seguintes tópicos:
-  * API ID 1001 → Set parameters (True / False) → Habilitamos ou desabilitamos a colisão
-  * API ID 1002 → Get current parameter → Verificamos o estado atual da funcionalidade (se está ativa ou não)
-* Resultado: o robô ainda colide, sem efeito prático.
-
-***
-
-## Links Relevantes
-
-* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* [Repositório utilizado pelo grupo](https://github.com/DaniloMartinsMerlo/go2_webrtc)
-
-***
-
-## Aprendizados
-
-* O **WebRTC** utiliza os mesmos parâmetros de controle do SDK oficial da Unitree, apenas variando o tópico em que devemos enviar as requisições.
-* A calibração prática foi essencial para definir a relação entre valores e deslocamento real.
-* Movimentações tornaram-se mais previsíveis e controladas após a aplicação correta dos parâmetros.
-* Documentações técnicas do SDK são referências fundamentais mesmo para implementações via WebRTC.
-
-***
-
-## Dificuldades Encontradas
-
-* Ausência de documentação específica do WebRTC.
-* Tópico `OBSTACLES_AVOID` sem funcionamento aparente.
-* Calibração dependente de testes empíricos.
-
-***
-
-## Próximos Passos
-
-* Finalizar e testar a abstração JSON.
-* Explorar alternativas para o `OBSTACLES_AVOID`.
-* Integrar movimentação autônoma com múltiplos waypoints.
-
-
 # Wireframes dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/wireframes)
 
 <Cards>
@@ -10396,6 +10233,173 @@ Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o
 </Steps>
 
 
+# Exploração e Integração (/docs/sprint-2/robo/exploracao-robo)
+
+
+
+
+
+
+
+# Sprint 2 – Exploração e Integração com WebRTC
+
+## Objetivos Principais
+
+* Estabelecer comunicação estável com o robô via WebRTC.
+* Validar movimentações nos eixos X, Y e Z.
+* Compreender e aplicar parâmetros corretos de velocidade e rotação.
+* Criar abstração de código e leitura via JSON.
+* Testar tópicos adicionais como `OBSTACLES_AVOID`.
+
+***
+
+## Atividades Realizadas na semana 3
+
+### Primeiros testes com WebRTC
+
+* Fizemos a implementação inicial do WebRTC com sucesso nas primeiras movimentações.
+
+#### Exemplo de Requisição via WebRTC
+
+```python title="Exemplo de requisição WebRTC para movimentação"
+await conn.datachannel.pub_sub.publish_request_new(
+    RTC_TOPIC["SPORT_MOD"],
+    {
+        "api_id": SPORT_CMD["Move"],
+        "parameter": {"x": 1, "y": 0, "z": 0}
+    }
+)
+```
+
+* Testes manuais dos eixos:
+  * X = 1 → movimentação de 1 metro
+  * Y = 1 → movimentação de 0,5 metro
+  * Z = 1 → rotação de 90°
+
+* Direções observadas durante os testes:
+  * X > 0: frente | X \< 0: trás
+  * Y, Z > 0: direita | Y, Z \< 0: esquerda
+
+### Testes no térreo
+
+* Testamos o robô no térreo para validarmos em trajetórias mais longas.
+* Problemas encontrados:
+  * Identificamos que as distâncias percorridas eram constantes, independentemente do valor de X e Y.
+  * O robô se movimenta em velocidades excessivas quando aumentamos os valores de X e Y.
+* Tentamos ajustar a velocidade via tópico `SpeedLevel`, mas não tivemos nenhum sucesso devido à falta de documentação.
+
+### Pesquisa e descoberta
+
+* Estudamos a arquitetura do sistema e identificamos os fluxos de comunicação.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Arquitetura Unitree Go2
+</p>
+
+<img alt="Arquitetura Unitree" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte:
+  [support.unitree](https://support.unitree.com/home/en/developer/Architecture%20Description)
+</p>
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Arquitetura de hardware Unitree Go2
+</p>
+
+<img alt="Arquitetura Unitree" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte:
+  [support.unitree](https://support.unitree.com/home/en/developer/about_Go2)
+</p>
+
+* Descobrimos que o modo `Sport Mode` precisa estar desativado para o SDK operar.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - SportMode
+</p>
+
+<img alt="SportMode" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte:
+  [support.unitree](https://support.unitree.com/home/en/developer/Quick_start)
+</p>
+
+* Descoberta de documentação técnica do SDK (com parâmetros e APIs idênticas ao WebRTC):
+  * [Motion Services Interface V2.0](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* Descobrimos que os parâmetros X, Y e Z esperam receber valores de velocidade em metros por segundo (m/s) e que todas as requisições enviadas para o robô duram apenas um segundo.
+* Sendo assim, precisamos enviar a mesma requisição durante mais tempo caso precisemos de movimentações mais longas.
+
+<Callout type="info">
+  Após uma conversa com o professor Nicola, constatamos que o WebRTC é uma engenharia reversa do SDK, portanto, é possível utilizar os mesmos parâmetros descritos na documentação oficial.
+</Callout>
+
+### Aplicação e calibração
+
+* Após as descobertas fizemos a implementação dos parâmetros descobertos.
+* A movimentação foi bem-sucedida e o robô se movimenta em múltiplas distâncias
+* Testamos com waypoints múltiplos e conseguimos validar a movimentação encadeada.
+
+### Abstração e leitura dinâmica
+
+* Resolvemos criar uma camada de abstração para comunicação com o robô, permitindo colocarmos a distância em metros ao invés de metros por segundo.
+* Também resolvemos implementar a leitura de waypoints via JSON.
+* Código concluído, testes pendentes.
+
+***
+
+## Atividades Realizadas na semana 3
+
+### Apoio ao time de Security
+
+* Colaboração direta com a equipe de Security no uso do LiDAR do robô.
+* Auxiliamos na coleta e análise dos dados brutos provenientes do sensor, garantindo que o time conseguisse interpretar corretamente os valores e padrões retornados.
+* Nosso foco foi apoiar a equipe na identificação de padrões espaciais (distâncias, ângulos e presença de obstáculos) para que pudessem desenvolver soluções de prevenção de colisões com pessoas ou objetos no ambiente.
+* Esse trabalho contribuiu para conectar os dados do sensor à camada de controle do robô, servindo de base para futuras implementações de detecção e desvio automático de obstáculos.
+
+### Testes para evitar colisões
+
+* Utilizando da documentação tentamos enviar uma requisição para um tópico chamado `OBSTACLES_AVOID`
+* Testamos os seguintes tópicos:
+  * API ID 1001 → Set parameters (True / False) → Habilitamos ou desabilitamos a colisão
+  * API ID 1002 → Get current parameter → Verificamos o estado atual da funcionalidade (se está ativa ou não)
+* Resultado: o robô ainda colide, sem efeito prático.
+
+***
+
+## Links Relevantes
+
+* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* [Repositório utilizado pelo grupo](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+***
+
+## Aprendizados
+
+* O **WebRTC** utiliza os mesmos parâmetros de controle do SDK oficial da Unitree, apenas variando o tópico em que devemos enviar as requisições.
+* A calibração prática foi essencial para definir a relação entre valores e deslocamento real.
+* Movimentações tornaram-se mais previsíveis e controladas após a aplicação correta dos parâmetros.
+* Documentações técnicas do SDK são referências fundamentais mesmo para implementações via WebRTC.
+
+***
+
+## Dificuldades Encontradas
+
+* Ausência de documentação específica do WebRTC.
+* Tópico `OBSTACLES_AVOID` sem funcionamento aparente.
+* Calibração dependente de testes empíricos.
+
+***
+
+## Próximos Passos
+
+* Finalizar e testar a abstração JSON.
+* Explorar alternativas para o `OBSTACLES_AVOID`.
+* Integrar movimentação autônoma com múltiplos waypoints.
+
+
 # Banco de Dados 2.0 (/docs/sprint-3/bd-v2/bd-v2)
 
 # **Banco de dados - Versão 2.0**
@@ -10646,211 +10650,6 @@ A Versão 2 (V2) do banco, já disponível no Supabase, foi projetada para dar s
 * **Escalabilidade** para futuras features (placas LoRa, IA no robô, classificação automática de perguntas)
 
 O banco está pronto para desenvolvimento, integração e escalabilidade futura — servindo como a base sólida da aplicação tanto para o painel do gestor quanto para o app do visitante.
-
-
-# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
-
-
-
-## 1. Introdução
-
-  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
-
-***
-
-## 2. Arquitetura do Projeto
-
-  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
-
-  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
-
-### 2.1 Estrutura de Pastas
-
-A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
-
-```txt
-
-.
-├── android/
-│
-├── app
-│   ├── _layout.tsx
-│   └── (tabs)/
-│
-├── assets
-│   └── images
-│       └── icons/
-│
-├── components
-│   └── ui/
-│
-├── constants/
-│
-├── hooks/
-│
-├── scripts/
-│
-└── README.md
-
-```
-
-* **`/app`** - Gerenciamento das páginas
-
-* **`/assets`** Ícones, imagens e o logotipo do Inteli
-
-* **`/components`** - Componentes reutilizáveis
-
-* **`/constants`** - Temas de cores e variáveis globais
-
-* **`/hooks`** - Hooks auxiliares como detecção de tema
-
-* **`/scripts`** - Scripts internos do projeto
-
-* **`README`** - Instruções para rodar o projeto
-
-*Pastas Android geradas automaticamente pelo Expo*
-
-  Para a realização deste projeto a estrutura de pastas utilizada permite:
-
-* Melhor organização entre rotas, componentes e estilos
-
-* Facilidade para extensões futuras
-
-* Modularização dos componentes usados nas telas
-
-* Padrão de Componentes Reutilizáveis
-
-### 2.2 Componentes
-
-  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
-
-* **CardTour** - Cartão de exibição de tours na lista da home
-
-* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
-
-* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
-
-* **Navbar e Header** - Estruturas permanentes no HUD
-
-***
-
-## 3. Fluxo de Navegação
-
-### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
-
-<Callout type="info">
-  **Fluxo Geral**
-
-  1. Login
-
-  2. Lista de Tours (HUD ativo)
-
-  3. Seleção de um tour
-
-  4. Edição do Tour
-
-  5. Pop-up Informações Gerais do Tour
-
-  6. Pop-up Código do Tour
-
-  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
-
-  8. Tela de Emergência
-
-  9. Menu acessível pelo HUD em qualquer etapa permitida
-
-  **O HUD inclui:**
-
-  * Barra inferior com navegação (Tours / Mapa / Menu)
-
-  * Botão de emergência destacado em telas críticas
-
-  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
-</Callout>
-
-***
-
-## 4. Como Rodar o Projeto e Dependências
-
-  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
-O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
-
-### 4.1. Requisitos
-
-<Callout type="info">
-  ***
-
-  Node.js (*Node 18 LTS ou Node 20 LTS*)
-
-  Baixar em: [https://nodejs.org/](https://nodejs.org/)
-
-  ***
-
-  Expo CLI (Será necessário intalar globalmente para que funcione)
-
-  `npm install -g expo-cli`
-
-  ***
-
-  Android Studio (para usar emulador Android)
-
-  É possível usar tanto a versão CLI quanto o APK:
-  [https://developer.android.com/studio](https://developer.android.com/studio)
-
-  ***
-
-  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
-</Callout>
-
-<Callout type="warn">
-  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
-</Callout>
-
-### 4.2. Instalando Dependências e Executando o Projeto
-
-Na raiz do projeto:
-
-```bash
-npm install
-```
-
-Isso instala todas as dependências declaradas em `package.json.`
-
-Ainda no terminal:
-
-```bash
-npx expo start
-
-```
-
-Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
-
-As informações que aparecerem no seu terminal devem ser semelhantes a esta:
-
-<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
-
-Entre as opções você pode escolher:
-
-* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
-* Abrir a aplicação no seu navegador web
-* Abrir a aplicação no android studio
-
-Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
-
-```bash
-npx expo run:android
-```
-
-## 5. Conclusão
-
-Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
-
-
-# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
-
-<Cards>
-  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
-</Cards>
 
 
 # Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG) (/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG)
@@ -11182,6 +10981,211 @@ Para mais detalhes sobre a arquitetura e o contexto do projeto, consulte:
 
 <Cards>
   <Card title="Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG)" description="Documentação do sistema RAG no agente" href="docs/content/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG.mdx" />
+</Cards>
+
+
+# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
+
+
+
+## 1. Introdução
+
+  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
+
+  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
+
+### 2.1 Estrutura de Pastas
+
+A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
+
+```txt
+
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   └── (tabs)/
+│
+├── assets
+│   └── images
+│       └── icons/
+│
+├── components
+│   └── ui/
+│
+├── constants/
+│
+├── hooks/
+│
+├── scripts/
+│
+└── README.md
+
+```
+
+* **`/app`** - Gerenciamento das páginas
+
+* **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+* **`/components`** - Componentes reutilizáveis
+
+* **`/constants`** - Temas de cores e variáveis globais
+
+* **`/hooks`** - Hooks auxiliares como detecção de tema
+
+* **`/scripts`** - Scripts internos do projeto
+
+* **`README`** - Instruções para rodar o projeto
+
+*Pastas Android geradas automaticamente pelo Expo*
+
+  Para a realização deste projeto a estrutura de pastas utilizada permite:
+
+* Melhor organização entre rotas, componentes e estilos
+
+* Facilidade para extensões futuras
+
+* Modularização dos componentes usados nas telas
+
+* Padrão de Componentes Reutilizáveis
+
+### 2.2 Componentes
+
+  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
+
+* **CardTour** - Cartão de exibição de tours na lista da home
+
+* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
+
+* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
+
+* **Navbar e Header** - Estruturas permanentes no HUD
+
+***
+
+## 3. Fluxo de Navegação
+
+### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
+
+<Callout type="info">
+  **Fluxo Geral**
+
+  1. Login
+
+  2. Lista de Tours (HUD ativo)
+
+  3. Seleção de um tour
+
+  4. Edição do Tour
+
+  5. Pop-up Informações Gerais do Tour
+
+  6. Pop-up Código do Tour
+
+  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
+
+  8. Tela de Emergência
+
+  9. Menu acessível pelo HUD em qualquer etapa permitida
+
+  **O HUD inclui:**
+
+  * Barra inferior com navegação (Tours / Mapa / Menu)
+
+  * Botão de emergência destacado em telas críticas
+
+  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
+</Callout>
+
+***
+
+## 4. Como Rodar o Projeto e Dependências
+
+  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
+O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
+
+### 4.1. Requisitos
+
+<Callout type="info">
+  ***
+
+  Node.js (*Node 18 LTS ou Node 20 LTS*)
+
+  Baixar em: [https://nodejs.org/](https://nodejs.org/)
+
+  ***
+
+  Expo CLI (Será necessário intalar globalmente para que funcione)
+
+  `npm install -g expo-cli`
+
+  ***
+
+  Android Studio (para usar emulador Android)
+
+  É possível usar tanto a versão CLI quanto o APK:
+  [https://developer.android.com/studio](https://developer.android.com/studio)
+
+  ***
+
+  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+</Callout>
+
+<Callout type="warn">
+  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+</Callout>
+
+### 4.2. Instalando Dependências e Executando o Projeto
+
+Na raiz do projeto:
+
+```bash
+npm install
+```
+
+Isso instala todas as dependências declaradas em `package.json.`
+
+Ainda no terminal:
+
+```bash
+npx expo start
+
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
+
+Entre as opções você pode escolher:
+
+* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+* Abrir a aplicação no seu navegador web
+* Abrir a aplicação no android studio
+
+Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
+
+```bash
+npx expo run:android
+```
+
+## 5. Conclusão
+
+Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
+
+
+# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
+
+<Cards>
+  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
 </Cards>
 
 
@@ -14204,6 +14208,875 @@ npm run dev
 
   <Card title="Dashboard" description="Documentação referente ao Dashboard." href="/docs/sprint-4/documentacao-frontend/dashboard" />
 </Cards>
+
+
+# Fundamentos, Arquitetura e Especificações (/docs/sprint-4/botao-de-stop/fundamentos-arquitetura)
+
+# Kill Switch - Fundamentos, Arquitetura e Especificações
+
+<Callout type="warn">
+  **AVISO**: O acionamento deste botão de emergência resulta em uma **parada brusca** (Dump Mode) que pode causar danos mecânicos ao robô. Esta é uma medida de **último recurso**, mas **obrigatória** para garantir a segurança física dos humanos presentes durante o tour. A segurança humana tem prioridade absoluta sobre a preservação do equipamento.
+</Callout>
+
+## 1. Fundamentos e Requisitos
+
+### Objetivo do Sistema
+
+O Kill Switch é um mecanismo essencial de segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente. O sistema utiliza comunicação serial via USB-C para garantir comunicação rápida.
+
+### Requisitos Funcionais (RF)
+
+| ID            | Descrição                                        | Prioridade |
+| :------------ | :----------------------------------------------- | :--------- |
+| **RF-KS-001** | Sistema deve detectar pressão do botão em ≤ 50ms | GRAVE      |
+| **RF-KS-002** | Sistema deve enviar sinal via serial em ≤ 100ms  | GRAVE      |
+| **RF-KS-003** | Serviço Rust deve processar sinal em ≤ 150ms     | GRAVE      |
+| **RF-KS-004** | ROS 2 deve publicar comando em ≤ 200ms           | GRAVE      |
+| **RF-KS-005** | Robô deve ativar Dump Mode em ≤ 500ms            | GRAVE      |
+| **RF-KS-006** | ACK total deve ser recebido em ≤ 1 segundo       | GRAVE      |
+
+### Requisitos Não-Funcionais (RNF)
+
+| ID             | Descrição                | Valor       |
+| :------------- | :----------------------- | :---------- |
+| **RNF-KS-001** | Disponibilidade          | ≥ 99%       |
+| **RNF-KS-002** | Latência p95             | ≤ 500ms     |
+| **RNF-KS-003** | Taxa de falsos positivos | \< 1/hora   |
+| **RNF-KS-004** | MTTR                     | ≤ 5 minutos |
+| **RNF-KS-005** | Retenção de logs         | 90 dias     |
+
+## 2. Arquitetura do Sistema
+
+### Visão Geral
+
+O sistema é composto por três camadas: **Sensor** (botão + microcontrolador), **Transmissão** (Serial), e **Atuação** (Rust + ROS 2).
+
+<Mermaid
+  chart="flowchart TD
+A[Operador Pressiona Botão] --> B[ESP32C3 Detecta GPIO 0]
+B --> C[Serial TTY AM0<br/>115200 baud]
+C --> D[Rust Service<br/>Monitora Serial]
+D --> E[Flip-Flop Logic<br/>Detecta Transição]
+E --> F[ROS 2 Topic<br/>/cmd/dump]
+F --> G[Robot State Machine]
+G --> H[DUMP MODE ATIVADO]
+H --> I[Motores Desligados]
+I --> J[Robô Colapsado<br/>Estado Seguro]
+"
+/>
+
+### Componentes de Hardware
+
+| Componente           | Modelo             | Função        | Especificação          |
+| :------------------- | :----------------- | :------------ | :--------------------- |
+| **Botão**            | Metaltex CP1-E     | Sensor físico | Cogumelo amarelo, IP65 |
+| **Microcontrolador** | ESP32C3 Super Mini | Processamento | RISC-V 32-bit, 160 MHz |
+| **Conexão Serial**   | USB-C (tty AM0)    | Comunicação   | 115200 baud, CDC       |
+
+### Componentes de Software
+
+| Componente          | Tecnologia    | Responsabilidade                      |
+| :------------------ | :------------ | :------------------------------------ |
+| **Firmware Serial** | C++ (Arduino) | Leitura de GPIO e envio serial        |
+| **Serviço Rust**    | Rust          | Monitoramento serial e publicação ROS |
+| **ROS 2 Node**      | ROS 2 (C++)   | Comando de dump e state machine       |
+
+## 3. Especificações Técnicas
+
+### Microcontrolador ESP32C3
+
+| Parâmetro               | Valor                     |
+| :---------------------- | :------------------------ |
+| **Processador**         | RISC-V 32-bit single-core |
+| **Frequência de Clock** | 160 MHz                   |
+| **Memória RAM**         | 400 KB                    |
+| **Flash**               | 4 MB                      |
+| **Tensão de Operação**  | 3.3V                      |
+| **Corrente Típica**     | 80 mA                     |
+
+### Configuração de Pinagem
+
+| Pino          | Função               | Configuração                 | Notas                 |
+| :------------ | :------------------- | :--------------------------- | :-------------------- |
+| **GPIO 0**    | Entrada do Botão     | INPUT\_PULLUP (ativo em LOW) | Resistor interno 10kΩ |
+| **USB D+/D-** | Comunicação Serial   | CDC @ 115200 baud            | Porta virtual tty AM0 |
+| **3V3**       | Alimentação Positiva | 3.3V                         | Máximo 500mA          |
+| **GND**       | Referência de Terra  | 0V                           | Comum a todos         |
+
+### Botão Metaltex CP1-E
+
+| Aspecto              | Especificação                      |
+| :------------------- | :--------------------------------- |
+| **Tipo**             | Cogumelo com trava                 |
+| **Acionamento**      | Push-lock (pressionar para ativar) |
+| **Liberação**        | Turn-reset (girar para desativar)  |
+| **Cor**              | Amarelo (segurança industrial)     |
+| **Grau de Proteção** | IP65                               |
+| **Diâmetro**         | \~60mm                             |
+
+### Mapeamento de Conexões
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    BOTÃO METALTEX                       │
+│  Terminal 1 ────────────────┐                          │
+│  (Entrada)                  │                          │
+│                        ┌────▼────┐                     │
+│                        │ Contato │                     │
+│                        │  (NC)   │                     │
+│                        └────┬────┘                     │
+│  Terminal 2 ────────────────┘                          │
+│  (Saída)                                               │
+└─────────────────────────────────────────────────────────┘
+                        │
+        ┌───────────────┴───────────────┐
+        │                               │
+   ┌────▼────┐                   ┌──────▼─────┐
+   │ GPIO 0  │                   │    GND     │
+   │ (3.3V)  │                   │   (0V)     │
+   │ Pull-up │                   │ Referência │
+   └─────────┘                   └────────────┘
+        │                               │
+        └───────────────┬───────────────┘
+                        │
+                   ┌────▼────────┐
+                   │  ESP32C3    │
+                   │  INPUT_     │
+                   │  PULLUP     │
+                   └─────────────┘
+```
+
+| Componente           | Pino    | Conexão         | Tipo   |
+| :------------------- | :------ | :-------------- | :----- |
+| **Botão Terminal 1** | GPIO 0  | ESP32C3 GPIO 0  | Sinal  |
+| **Botão Terminal 2** | GND     | ESP32C3 GND     | Terra  |
+| **USB-C**            | D+/D-   | Computador/Robô | Serial |
+| **Alimentação**      | 3V3/GND | Fonte 3.3V      | Power  |
+
+<Callout type="warn">
+  Nunca conecte tensões superiores a 3.3V aos pinos do ESP32C3. Isso pode danificar o microcontrolador permanentemente.
+</Callout>
+
+## Resumo
+
+O Kill Switch é um sistema simples mas robusto que combina hardware confiável (botão industrial + microcontrolador) com software bem estruturado (Rust + ROS 2) para garantir parada de emergência segura e rápida do robô Unitree.
+
+
+# Hardware e Protocolos de Comunicação (/docs/sprint-4/botao-de-stop/hardware-protocolos)
+
+# Kill Switch - Hardware e Protocolos de Comunicação
+
+## 1. Hardware - Detalhes de Implementação
+
+### Circuito de Entrada
+
+O botão Metaltex está conectado ao GPIO 0 do ESP32C3 com pull-up interno:
+
+```
+Botão Metaltex CP1-E
+│
+├─ Terminal 1 ──────────────► GPIO 0 (INPUT_PULLUP)
+│                             │
+│                             ├─ Resistor Pull-up 10kΩ (interno)
+│                             │
+│                             └─ Lê estado: HIGH (solto) ou LOW (pressionado)
+│
+└─ Terminal 2 ──────────────► GND (0V)
+```
+
+### Estados do GPIO
+
+| Estado          | Botão       | Valor Lido | Significado           |
+| :-------------- | :---------- | :--------- | :-------------------- |
+| **HIGH (3.3V)** | Solto       | 1          | Botão não pressionado |
+| **LOW (0V)**    | Pressionado | 0          | Botão pressionado     |
+
+### Consumo de Energia
+
+| Componente          | Corrente Típica | Modo            |
+| :------------------ | :-------------- | :-------------- |
+| **ESP32C3 (ativo)** | 80 mA           | Polling @ 20 Hz |
+| **Botão Metaltex**  | \< 1 mA         | Passivo         |
+| **Serial USB**      | 50 mA           | Transmissão     |
+| **Total**           | \~130 mA        | Operação normal |
+
+## 2. Protocolo de Comunicação Serial
+
+### Especificação Geral
+
+| Parâmetro             | Valor                                  |
+| :-------------------- | :------------------------------------- |
+| **Tipo**              | Serial UART via USB-C (CDC)            |
+| **Porta**             | /dev/ttyAM0 (Linux) ou COM\* (Windows) |
+| **Baud Rate**         | 115200                                 |
+| **Data Bits**         | 8                                      |
+| **Stop Bits**         | 1                                      |
+| **Paridade**          | Nenhuma                                |
+| **Controle de Fluxo** | Nenhum                                 |
+
+### Formato de Dados
+
+O ESP32C3 envia um caractere por linha a cada 50ms:
+
+```
+Formato: <ESTADO>\n
+
+ESTADO:
+  '1' = Botão pressionado (GPIO 0 = LOW)
+  '0' = Botão solto (GPIO 0 = HIGH)
+
+Exemplo de sequência:
+0
+0
+1  ← Botão pressionado
+1
+1
+0  ← Botão liberado
+0
+```
+
+### Timeline de Transmissão
+
+| Evento          | Tempo                    | Descrição                          |
+| :-------------- | :----------------------- | :--------------------------------- |
+| **T+0ms**       | Operador pressiona botão | GPIO 0 muda de HIGH para LOW       |
+| **T+0-50ms**    | Próxima leitura          | ESP32C3 detecta transição          |
+| **T+50-100ms**  | Envio serial             | Caractere '1' enviado via serial   |
+| **T+100-150ms** | Recebimento Rust         | Serviço Rust recebe '1'            |
+| **T+150-200ms** | ROS publicação           | Comando publicado em /cmd/dump     |
+| **T+200-300ms** | Motor controller         | Recebe comando ROS                 |
+| **T+300-500ms** | Dump Mode ativo          | Torque cortado, motores desligados |
+
+**SLA Total**: ACK ≤ 1 segundo
+
+### Lógica de Flip-Flop
+
+O Rust service implementa detecção de transição para evitar falsos positivos:
+
+```rust
+previous_state = '0';
+
+loop {
+  current_byte = serial_port.read();
+
+  if current_byte == '1' && previous_state == '0' {
+    // Transição 0→1: Botão pressionado
+    trigger_kill_switch();
+  } else if current_byte == '0' && previous_state == '1' {
+    // Transição 1→0: Botão liberado
+    trigger_recover();
+  }
+
+  previous_state = current_byte;
+}
+```
+
+### Benefícios da Flip-Flop Logic
+
+* **Evita Bouncing**: Ruído mecânico do botão não causa múltiplos acionamentos
+* **Detecta Transições**: Apenas mudanças de estado são processadas
+* **Reduz Falsos Positivos**: Valores ruidosos são ignorados
+* **Eficiência**: Menos processamento desnecessário
+
+## 3. Comunicação Serial - Implementação
+
+### Teste de Comunicação
+
+```bash
+# Monitorar porta serial em Linux
+screen /dev/ttyAM0 115200
+
+# Esperado:
+# 0
+# 0
+# 1  (botão pressionado)
+# 1
+# 0  (botão liberado)
+# 0
+
+# Para sair do screen: Ctrl+A, depois X
+```
+
+### Diagnóstico de Problemas
+
+| Problema                 | Causa Provável        | Solução                    |
+| :----------------------- | :-------------------- | :------------------------- |
+| **Nenhuma saída serial** | Porta não encontrada  | Verificar conexão USB-C    |
+| **Caracteres ilegíveis** | Baud rate incorreto   | Confirmar 115200 baud      |
+| **Valores constantes**   | GPIO preso            | Verificar contato do botão |
+| **Transições lentas**    | Debouncing inadequado | Aumentar delay de 50ms     |
+
+### Integração com ROS 2
+
+O serviço Rust se inscreve na porta serial e publica em dois tópicos:
+
+```rust
+// Pseudocódigo
+match serial_port.read() {
+    Ok(byte) => {
+        if byte == '1' && previous_state == '0' {
+            ros_publisher.publish(EmergencyStopCommand {
+                action: "DUMP",
+                timestamp: get_current_time_utc(),
+                trace_id: generate_trace_id(),
+            });
+        }
+    }
+    Err(e) => {
+        log_error("SERIAL_READ_ERROR", e);
+    }
+}
+```
+
+### Tópicos ROS 2
+
+| Tópico           | Mensagem             | Frequência  | Descrição               |
+| :--------------- | :------------------- | :---------- | :---------------------- |
+| **/cmd/dump**    | EmergencyStopCommand | Sob demanda | Ativa Dump Mode         |
+| **/cmd/recover** | RecoverCommand       | Sob demanda | Ativa Recover from Fall |
+
+<Callout type="info">
+  O trace\_id é essencial para rastrear o evento através de múltiplos serviços e facilitar debugging.
+</Callout>
+
+## Resumo
+
+O protocolo serial é simples, robusto e confiável. A comunicação ocorre a 115200 baud com polling a cada 50ms, garantindo detecção rápida de pressão do botão e acionamento do Kill Switch imediato.
+
+
+# Kill Switch - Sistema de Parada de Emergência (/docs/sprint-4/botao-de-stop)
+
+# Kill Switch - Sistema de Parada de Emergência
+
+<Callout type="warn">
+  **AVISO**: O acionamento deste botão de emergência resulta em uma **parada brusca** (Dump Mode) que pode causar danos mecânicos ao robô. Esta é uma medida de **último recurso**, mas **obrigatória** para garantir a segurança física dos humanos presentes durante o tour. A segurança humana tem prioridade absoluta sobre a preservação do equipamento.
+</Callout>
+
+## Visão Geral
+
+O Kill Switch é um mecanismo nessesário para garantir a segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente. O sistema utiliza comunicação serial via USB-C para garantir confiabilidade máxima, com tempo de resposta garantido em menos de 1 segundo.
+
+Este documento fornece a documentação técnica completa, incluindo especificações de hardware, protocolos de comunicação, firmware, procedimentos operacionais e conformidade com padrões de segurança.
+
+## Próximas Fases
+
+Na próxima sprint, será adicionado um **protocolo HTTP/WiFi** como canal redundante. Isso permitirá acionamento do Kill Switch sem dependência da conexão USB-C, aumentando a disponibilidade do sistema.
+
+
+# Monitoramento, Segurança e Conformidade (/docs/sprint-4/botao-de-stop/seguranca-conformidade)
+
+# Kill Switch - Monitoramento, Segurança e Conformidade
+
+## 1. Monitoramento e Observabilidade
+
+### Esquema Canônico de Logs
+
+Todos os eventos de Kill Switch devem ser registrados com o seguinte esquema:
+
+```json title="Estrutura de Log Padrão"
+{
+  "timestamp": "2025-12-10T16:30:45.123Z",
+  "trace_id": "550e8400-e29b-41d4-a716-446655440000",
+  "span_id": "f4a8c5b1-2d9e-4f7a-b3c2-1a5d8e9f0c4b",
+  "correlation_id": "tour-session-20251210-001",
+  "environment": "production",
+  "asset_id": "unitree-robot-001",
+  "component": "kill-switch-system",
+  "service.name": "rust-serial-emergency-button",
+  "event.category": "kill-switch",
+  "event.type": "activation",
+  "severity": "CRITICAL",
+  "message": "Emergency stop button activated via serial port",
+  "latency_ms": 245,
+  "ack_stop_ms": 450,
+  "source_channel": "serial",
+  "operator_id": "op-001",
+  "session_id": "session-20251210-16-30-45"
+}
+```
+
+### Campos Obrigatórios
+
+| Campo               | Tipo     | Descrição                     | Exemplo                              |
+| :------------------ | :------- | :---------------------------- | :----------------------------------- |
+| **timestamp**       | ISO 8601 | Data/hora UTC                 | 2025-12-10T16:30:45.123Z             |
+| **trace\_id**       | UUID     | Identificador único do evento | 550e8400-e29b-41d4-a716-446655440000 |
+| **severity**        | String   | Nível de severidade           | CRITICAL, HIGH, MEDIUM, LOW          |
+| **event.type**      | String   | Tipo de evento                | activation, release, error           |
+| **source\_channel** | String   | Canal de origem               | serial                               |
+| **latency\_ms**     | Integer  | Latência em milissegundos     | 245                                  |
+
+<Callout type="info">
+  O trace\_id é essencial para rastrear o evento através de múltiplos serviços e facilitar debugging.
+</Callout>
+
+### Eventos Importantes
+
+<Callout title="Eventos Monitorados pelo SIEM">
+  | Evento                          | Severidade | Descrição                             | Ação                            |
+  | :------------------------------ | :--------- | :------------------------------------ | :------------------------------ |
+  | **KILL\_SWITCH\_ACTIVATED**     | CRITICAL   | Botão pressionado, Dump Mode ativado  | Alerta imediato, log crítico    |
+  | **KILL\_SWITCH\_RELEASED**      | HIGH       | Botão liberado, Recover Mode iniciado | Log, correlação com telemetria  |
+  | **KILL\_SWITCH\_ACK\_TIMEOUT**  | CRITICAL   | ACK não recebido em 1s                | Escalação imediata              |
+  | **SERIAL\_DISCONNECTED**        | CRITICAL   | Perda de conexão serial               | Alerta grave, investigar        |
+  | **BUTTON\_STUCK**               | CRITICAL   | Botão permanece pressionado > 30s     | Investigar hardware, isolar     |
+  | **FALSE\_POSITIVE\_RATE\_HIGH** | MEDIUM     | Taxa de falsos positivos > 1/hora     | Revisar logs, ajustar threshold |
+</Callout>
+
+### Alertas e SLAs
+
+| Alerta                       | Condição                       | SLA      | Ação                    | Escalação   |
+| :--------------------------- | :----------------------------- | :------- | :---------------------- | :---------- |
+| **Kill Switch Acionado**     | Evento KILL\_SWITCH\_ACTIVATED | Imediato | Notificar operador      | Analista 4  |
+| **ACK Timeout**              | ACK não recebido em 1s         | 60s      | Escalar para Analista 4 | Coordenação |
+| **Serial Desconectado**      | Perda de conexão > 5s          | 60s      | Investigar e restaurar  | Analista 4  |
+| **Botão Preso**              | Pressionado > 30s              | 2min     | Investigar hardware     | Operador    |
+| **Taxa de Falsos Positivos** | > 1 por hora                   | 5min     | Revisar logs, ajustar   | Analista 4  |
+| **Latência Elevada**         | > 1s (serial)                  | 5min     | Investigar causa        | Analista 4  |
+
+<Callout type="warn">
+  Qualquer evento CRITICAL dispara notificação automática via ChatOps (Slack/Teams) com SLA de 60 segundos.
+</Callout>
+
+## 2. Análise de Ameaças
+
+### Modelo de Ameaças STRIDE
+
+<Callout title="Ameaças Identificadas">
+  | Ameaça                   | Categoria              | Impacto                 | Probabilidade | Mitigação                                      |
+  | :----------------------- | :--------------------- | :---------------------- | :------------ | :--------------------------------------------- |
+  | **Spoofing de Sinal**    | Spoofing               | Acionamento falso       | Média         | Validação de trace\_id, autenticação JWT       |
+  | **Tampering de Botão**   | Tampering              | Desativação intencional | Baixa         | Monitoramento contínuo, detecção de anomalias  |
+  | **Replay Attack**        | Tampering              | Acionamento repetido    | Média         | Timestamp validation, detecção de seqüência    |
+  | **Perda de Conexão**     | Denial of Service      | Falha de comunicação    | Alta          | Failsafe mecânico, monitoramento               |
+  | **Injection em Serial**  | Injection              | Comando malicioso       | Baixa         | Validação de caracteres, detecção de anomalias |
+  | **Eavesdropping**        | Information Disclosure | Exposição de dados      | Baixa         | Conexão física USB-C, logs mascarados          |
+  | **Privilege Escalation** | Elevation of Privilege | Acesso não autorizado   | Baixa         | RBAC, ACLs entre serviços                      |
+  | **Man-in-the-Middle**    | Tampering              | Interceptação de sinal  | Baixa         | Conexão física dedicada                        |
+</Callout>
+
+### Matriz de Risco
+
+| Ameaça                  | Severidade | Detectabilidade | Score | Prioridade |
+| :---------------------- | :--------- | :-------------- | :---- | :--------- |
+| **Perda de Conexão**    | GRAVE      | Fácil           | 9/10  | GRAVE      |
+| **Spoofing de Sinal**   | ALTA       | Média           | 7/10  | ALTA       |
+| **Injection em Serial** | MÉDIA      | Fácil           | 4/10  | MÉDIA      |
+| **Man-in-the-Middle**   | MÉDIA      | Difícil         | 3/10  | BAIXA      |
+| **Tampering de Botão**  | MÉDIA      | Fácil           | 4/10  | MÉDIA      |
+| **Replay Attack**       | MÉDIA      | Média           | 5/10  | MÉDIA      |
+
+<Callout type="warn">
+  Ameaças com score ≥ 7/10 requerem mitigação imediata e monitoramento contínuo.
+</Callout>
+
+## 3. Controles de Segurança
+
+### Controles Implementados
+
+| Controle                  | Tipo       | Implementação                         | Status         |
+| :------------------------ | :--------- | :------------------------------------ | :------------- |
+| **Failsafe Mecânico**     | Preventivo | Desliga motores se falhar             | ✓ Implementado |
+| **Validação de Entrada**  | Preventivo | Validação de caracteres serial        | ✓ Implementado |
+| **Detecção de Anomalias** | Detectivo  | Monitoramento de taxa de acionamentos | ✓ Implementado |
+| **Logging Estruturado**   | Detectivo  | Esquema canônico com trace\_id        | ✓ Implementado |
+| **Monitoramento SIEM**    | Detectivo  | Alertas em tempo real                 | ✓ Implementado |
+| **Proteção Física**       | Preventivo | Conexão USB-C dedicada                | ✓ Implementado |
+| **Autenticação Serial**   | Preventivo | Validação de trace\_id                | ✓ Implementado |
+| **Auditoria Completa**    | Detectivo  | Trilha de eventos com trace\_id       | ✓ Implementado |
+
+### Controles Recomendados
+
+| Controle                   | Benefício                                | Esforço | Prioridade |
+| :------------------------- | :--------------------------------------- | :------ | :--------- |
+| **Failsafe Mecânico**      | Segurança adicional se eletrônico falhar | Alto    | ALTA       |
+| **Encriptação End-to-End** | Proteção contra MITM                     | Médio   | ALTA       |
+| **Testes de Penetração**   | Validação de segurança                   | Médio   | MÉDIA      |
+| **Certificados Digitais**  | Autenticação mútua (mTLS)                | Médio   | MÉDIA      |
+| **Backup Redundante**      | Recuperação de desastres                 | Médio   | MÉDIA      |
+
+## 4. Mapeamento NIST CSF
+
+O sistema Kill Switch está alinhado com o NIST Cybersecurity Framework em suas 5 funções principais:
+
+### 1. Identify (Identificar)
+
+| Atividade               | Implementação                                      |
+| :---------------------- | :------------------------------------------------- |
+| **Asset Inventory**     | ESP32C3 + Botão Metaltex registrados em CMDB       |
+| **Risk Assessment**     | Análise STRIDE completa                            |
+| **Data Classification** | Logs classificados como CRÍTICOS                   |
+| **Access Control**      | RBAC definido por função (Operador, Dev, Analista) |
+
+### 2. Protect (Proteger)
+
+| Atividade                 | Implementação                                 |
+| :------------------------ | :-------------------------------------------- |
+| **Access Control**        | RBAC para acesso a logs e configurações       |
+| **Encryption**            | AES-256 para logs at-rest                     |
+| **Secure Configuration**  | Hardening de ESP32C3 e serviço Rust           |
+| **Supply Chain Security** | Validação de bibliotecas via SCA (Dependabot) |
+
+### 3. Detect (Detectar)
+
+| Atividade                 | Implementação                      |
+| :------------------------ | :--------------------------------- |
+| **Anomaly Detection**     | SIEM monitora taxa de acionamentos |
+| **Continuous Monitoring** | Logs em tempo real via OTel        |
+| **Security Testing**      | Testes automatizados em CI/CD      |
+| **Event Logging**         | Esquema canônico com trace\_id     |
+
+### 4. Respond (Responder)
+
+| Atividade              | Implementação                          |
+| :--------------------- | :------------------------------------- |
+| **Incident Response**  | Playbooks KS-001/002/003 documentados  |
+| **Communication Plan** | Alertas via ChatOps (Slack/Teams)      |
+| **Containment**        | Isolamento automático em caso de falha |
+| **Recovery Plan**      | Failsafe mecânico se eletrônico falhar |
+
+### 5. Recover (Recuperar)
+
+| Atividade               | Implementação                    |
+| :---------------------- | :------------------------------- |
+| **Recovery Procedures** | Recover from Fall automático     |
+| **Backup & Restore**    | Logs retidos por 90 dias         |
+| **Disaster Recovery**   | Plano DR com RTO 15min, RPO 1min |
+| **Lessons Learned**     | Post-mortems após cada incidente |
+
+<Callout type="info">
+  O sistema Kill Switch está alinhado com NIST CSF v1.1. Revisão anual recomendada para manter conformidade.
+</Callout>
+
+## 5. Conformidade com Padrões
+
+### Padrões Aplicáveis
+
+| Padrão           | Seção                                              | Conformidade        |
+| :--------------- | :------------------------------------------------- | :------------------ |
+| **ISO 13849-1**  | Safety-related parts of control systems            | Parcial (Nível PLd) |
+| **IEC 61508**    | Functional safety of electrical/electronic systems | Parcial (SIL 2)     |
+| **OWASP Top 10** | Web Application Security                           | Completo            |
+| **CIS Controls** | Critical Security Controls                         | Completo (v8)       |
+
+### Certificações Recomendadas
+
+* **SOC 2 Type II**: Para conformidade com clientes
+* **ISO 27001**: Para gerenciamento de informações de segurança
+* **ISO 13849-1 PLe**: Para segurança de máquinas (upgrade futuro)
+
+## 6. Testes de Segurança
+
+### SAST (Static Application Security Testing)
+
+```bash
+# Análise estática do código
+semgrep --config=p/security-audit robot-button.cpp
+
+# Esperado: Nenhum problema grave
+```
+
+### Teste de Comunicação Serial
+
+```bash
+# Monitorar porta serial
+screen /dev/ttyAM0 115200
+
+# Esperado:
+# 0
+# 0
+# 1  (botão pressionado)
+# 1
+# 0  (botão liberado)
+```
+
+<Callout type="warn">
+  Sempre teste em ambiente seguro antes de usar em produção com o robô ativo.
+</Callout>
+
+## Resumo
+
+O Kill Switch implementa controles de segurança robustos, está alinhado com NIST CSF, e segue padrões internacionais de segurança funcional. O monitoramento contínuo via SIEM garante detecção rápida de anomalias e resposta imediata a incidentes.
+
+
+# Software, Firmware e Operação (/docs/sprint-4/botao-de-stop/software-operacao)
+
+# Kill Switch - Software, Firmware e Operação
+
+## 1. Firmware Serial (ESP32C3)
+
+### Código-Fonte: robot-button.cpp
+
+```cpp title="robot-button.cpp"
+void setup() {
+  pinMode(0, INPUT_PULLUP);  // Botão no GPIO 0
+  Serial.begin(115200);       // Inicializa serial a 115200 baud
+}
+
+void loop() {
+  int state = digitalRead(0);
+  // Lógica invertida: LOW = pressionado (1), HIGH = solto (0)
+  Serial.println(state == LOW ? "1" : "0");
+  delay(50);  // Polling a cada 50ms
+}
+```
+
+### Explicação da Lógica
+
+| Linha                      | Explicação                                        |
+| :------------------------- | :------------------------------------------------ |
+| `pinMode(0, INPUT_PULLUP)` | Configura GPIO 0 como entrada com pull-up interno |
+| `Serial.begin(115200)`     | Inicializa comunicação serial a 115200 baud       |
+| `digitalRead(0)`           | Lê o estado atual do GPIO 0                       |
+| `state == LOW ? "1" : "0"` | Se LOW (pressionado), envia "1"; senão envia "0"  |
+| `delay(50)`                | Aguarda 50ms antes de próxima leitura (\~20 Hz)   |
+
+### Comportamento
+
+* Lê o estado do GPIO 0 a cada 50ms
+* Envia "1" quando o botão está pressionado (LOW)
+* Envia "0" quando o botão está solto (HIGH)
+* Taxa de transmissão: \~20 mensagens por segundo
+
+<Callout type="info">
+  A taxa de 50ms é um bom compromisso entre responsividade e economia de energia. Pode ser ajustada conforme necessário.
+</Callout>
+
+## 2. Serviço Rust no Robô
+
+O serviço Rust roda no sistema do robô e é responsável por monitorar a porta serial e traduzir sinais para comandos ROS.
+
+### Responsabilidades Principais
+
+1. **Monitoramento Serial**: Escuta continuamente a porta tty AM0
+2. **Lógica de Flip-Flop**: Detecta transições de estado
+3. **Publicação ROS**: Envia comando para tópico `/cmd/dump`
+4. **Logging Estruturado**: Registra eventos com trace\_id
+
+### Pseudocódigo
+
+```rust title="rust-serial-emergency-button"
+use serialport;
+use ros2_client;
+
+fn main() {
+    let mut serial_port = serialport::open("/dev/ttyAM0")
+        .expect("Failed to open serial port");
+
+    serial_port.set_baud_rate(115200)
+        .expect("Failed to set baud rate");
+
+    let mut ros_publisher = ros2_client::create_publisher("/cmd/dump");
+    let mut previous_state = '0';
+
+    loop {
+        let mut buffer = [0; 1];
+        match serial_port.read_exact(&mut buffer) {
+            Ok(_) => {
+                let current_byte = buffer[0] as char;
+
+                if current_byte == '1' && previous_state == '0' {
+                    // Transição 0→1: Botão pressionado
+                    log_event("KILL_SWITCH_ACTIVATED", "CRITICAL");
+
+                    ros_publisher.publish(EmergencyStopCommand {
+                        action: "DUMP".to_string(),
+                        timestamp: get_current_time_utc(),
+                        trace_id: generate_trace_id(),
+                    });
+                } else if current_byte == '0' && previous_state == '1' {
+                    // Transição 1→0: Botão liberado
+                    log_event("KILL_SWITCH_RELEASED", "HIGH");
+
+                    ros_publisher.publish(RecoverCommand {
+                        action: "RECOVER_FROM_FALL".to_string(),
+                        timestamp: get_current_time_utc(),
+                    });
+                }
+
+                previous_state = current_byte;
+            }
+            Err(e) => {
+                log_event("SERIAL_READ_ERROR", "ERROR");
+                eprintln!("Error reading from serial: {}", e);
+            }
+        }
+    }
+}
+```
+
+### Estrutura de Eventos Publicados
+
+```json title="Evento: KILL_SWITCH_ACTIVATED"
+{
+  "timestamp": "2025-12-10T16:30:45.123Z",
+  "trace_id": "550e8400-e29b-41d4-a716-446655440000",
+  "event": "KILL_SWITCH_ACTIVATED",
+  "severity": "CRITICAL",
+  "source": "SERIAL",
+  "action": "DUMP",
+  "ack_time_ms": 245
+}
+```
+
+```json title="Evento: KILL_SWITCH_RELEASED"
+{
+  "timestamp": "2025-12-10T16:30:50.456Z",
+  "trace_id": "550e8400-e29b-41d4-a716-446655440001",
+  "event": "KILL_SWITCH_RELEASED",
+  "severity": "HIGH",
+  "source": "SERIAL",
+  "action": "RECOVER_FROM_FALL"
+}
+```
+
+## 3. Integração com ROS 2
+
+O serviço Rust publica em dois tópicos ROS 2:
+
+| Tópico         | Mensagem             | Frequência  | Descrição               |
+| :------------- | :------------------- | :---------- | :---------------------- |
+| `/cmd/dump`    | EmergencyStopCommand | Sob demanda | Ativa Dump Mode         |
+| `/cmd/recover` | RecoverCommand       | Sob demanda | Ativa Recover from Fall |
+
+### Subscribers ROS 2
+
+O robot controller (outro nó ROS 2) se inscreve nesses tópicos e executa as ações correspondentes:
+
+```cpp title="robot-controller.cpp (exemplo)"
+void estop_callback(const EmergencyStopCommand& msg) {
+    // Desliga todos os motores
+    for (auto& motor : motors) {
+        motor.set_torque(0);
+    }
+    robot_state = DUMP_MODE;
+    log_event("DUMP_MODE_ACTIVATED");
+}
+
+void recover_callback(const RecoverCommand& msg) {
+    // Inicia sequência de recuperação
+    robot_state = RECOVERING;
+    execute_recovery_sequence();
+}
+```
+
+## 4. Fluxo Operacional
+
+### Sequência de Acionamento
+
+A sequência de acionamento segue 8 etapas principais:
+
+| Etapa | Ação                               | Tempo        | Responsável      | Status  |
+| :---- | :--------------------------------- | :----------- | :--------------- | :------ |
+| 1     | Operador pressiona botão           | T+0ms        | Operador         | Crítica |
+| 2     | ESP32C3 detecta transição GPIO     | T+0-50ms     | Microcontrolador | Crítica |
+| 3     | Transmissão Serial iniciada        | T+50-100ms   | ESP32C3          | Crítica |
+| 4     | Serviço Rust recebe sinal serial   | T+100-150ms  | Rust Service     | Crítica |
+| 5     | ROS Topic `/cmd/dump` publicado    | T+150-200ms  | ROS 2            | Crítica |
+| 6     | Motor controllers recebem comando  | T+200-300ms  | Robot Hardware   | Crítica |
+| 7     | Torque cortado (Dump Mode ativado) | T+300-500ms  | Robot Motors     | Crítica |
+| 8     | Dump Mode confirmado               | T+500-1000ms | Robot            | Crítica |
+
+**SLA**: ACK ≤ 1 segundo (RF-KS-006)
+
+### Diagrama de Sequência
+
+<Mermaid
+  chart="sequenceDiagram
+participant O as Operador
+participant E as ESP32C3
+participant R as Rust Service
+participant ROS as ROS 2
+participant M as Motor Controller
+
+O->>E: Pressiona Botão
+E->>E: Detecta GPIO 0 = LOW
+E->>R: Envia '1' via Serial
+R->>R: Flip-Flop: 0→1
+R->>ROS: Publica /cmd/dump
+ROS->>M: Comando DUMP
+M->>M: Desliga Torque
+M->>O: Dump Mode Ativado
+O->>O: Robô Seguro
+"
+/>
+
+### Playbooks de Resposta
+
+#### Playbook KS-001: Acionamento Normal
+
+<Callout title="Procedimento Operacional Completo" type="note">
+  **Gatilho**: Operador detecta situação de risco iminente
+
+  **Passos**:
+
+  1. Operador pressiona o botão de emergência (cogumelo amarelo)
+  2. Sistema detecta pressão e envia sinal via Serial
+  3. Robô entra em Dump Mode (motores desligados)
+  4. Operador aguarda confirmação visual (robô imóvel)
+  5. Operador libera o botão após situação controlada
+  6. Robô entra em modo Recover from Fall (sequência automática)
+  7. Operador aguarda recuperação completa
+  8. Revisar logs de telemetria
+  9. Verificar se houve danos ao robô
+  10. Atualizar relatório de incidentes
+</Callout>
+
+#### Playbook KS-002: Falha de Comunicação Serial
+
+<Callout title="Recuperação de Falha Serial" type="warning">
+  **Gatilho**: Serviço Rust não recebe sinal serial por > 5 segundos
+
+  **Passos**:
+
+  1. Sistema detecta perda de comunicação serial
+  2. Ativar failsafe mecânico (se disponível)
+  3. Registrar evento importante no SIEM com trace\_id
+  4. Notificar Analista 4 via ChatOps em \< 60 segundos
+  5. Investigar causa raiz (cabo solto, driver serial, etc.)
+  6. Restaurar conexão e validar funcionamento
+  7. Executar teste de carga Kill Switch para confirmar
+
+  **SLA de Resposta**: 5 minutos para mitigação
+
+  **Responsável**: Analista 4 (SIEM-ROB)
+
+  **Investigação**:
+
+  * Verificar logs de erro do ESP32C3
+  * Testar conexão USB-C
+  * Validar baud rate e configuração serial
+</Callout>
+
+#### Playbook KS-003: Acionamento Indevido
+
+<Callout title="Falso Positivo" type="note">
+  **Gatilho**: Botão acionado sem situação de emergência
+
+  **Passos**:
+
+  1. Registrar timestamp e contexto do acionamento
+  2. Verificar logs de telemetria do robô (bateria, sensores, etc.)
+  3. Investigar se houve contato acidental ou falha de hardware
+  4. Se falso positivo confirmado, documentar em post-mortem
+  5. Avaliar necessidade de proteção física adicional (capa, etc.)
+  6. Atualizar guidelines operacionais se necessário
+  7. Comunicar ao operador sobre o incidente
+
+  **SLA de Resposta**: 2 minutos para contenção
+
+  **Responsável**: Operador + Analista 4
+
+  **Análise**:
+
+  * Taxa de falsos positivos por hora
+  * Padrão de acionamentos (acidental vs. intencional)
+  * Necessidade de ajuste de sensibilidade
+</Callout>
+
+## Resumo
+
+O software do Kill Switch é composto por firmware simples no ESP32C3, um serviço Rust robusto que monitora a porta serial, e integração com ROS 2 para acionamento de Dump Mode. O fluxo operacional garante resposta em menos de 1 segundo com procedimentos bem documentados para diferentes cenários.
 
 
 # Refatoração dos Serviços de STT e TTS (/docs/sprint-4/modelo)
