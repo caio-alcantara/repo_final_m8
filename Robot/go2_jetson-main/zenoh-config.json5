@@ -1,0 +1,128 @@
+{
+  plugins: {
+    ros2dds: {
+      domain: 0,
+
+      allow: {
+        publishers: [
+          "/amcl_pose",
+          "/api/sport/request",
+          "/bt_navigator/transition_event",
+          "/cmd_vel",
+          "/goal_pose",
+          "/initialpose",
+          "/joint_states",
+          "/map",
+          "/map_updates",
+          "/odom",
+          "/parameter_events",
+          "/plan",
+          "/robot_description",
+          "/rosout",
+          "/scan",
+          "/tf",
+          "/tf_static",
+          "/utlidar/cloud_deskewed",
+          "/utlidar/robot_pose",
+          "/waypoint_follower/transition_event",
+          "/waypoints",
+          
+          // Action feedback topics
+          "/FollowWaypoints/_action/.*",
+          "/assisted_teleop/_action/.*",
+          "/back_up/_action/.*",
+          "/backup/_action/.*",
+          "/compute_path_through_poses/_action/.*",
+          "/compute_path_to_pose/_action/.*",
+          "/follow_path/_action/.*",
+          "/follow_waypoints/_action/.*",
+          "/navigate_through_poses/_action/.*",
+          "/navigate_to_pose/_action/.*",
+          "/smooth_path/_action/.*",
+          "/spin/_action/.*",
+          "/wait/_action/.*"
+        ],
+        
+        subscribers: [
+          "/amcl_pose",
+          "/api/sport/request",
+          "/bt_navigator/transition_event",
+          "/cmd_vel",
+          "/goal_pose",
+          "/initialpose",
+          "/joint_states",
+          "/map",
+          "/map_updates",
+          "/odom",
+          "/parameter_events",
+          "/plan",
+          "/robot_description",
+          "/rosout",
+          "/scan",
+          "/tf",
+          "/tf_static",
+          // NOTE: /trans_cloud NOT included here - this stops the flapping
+          "/utlidar/cloud_deskewed",
+          "/utlidar/robot_pose",
+          "/waypoint_follower/transition_event",
+          "/waypoints",
+          
+          // Action goal/cancel topics
+          "/FollowWaypoints/_action/.*",
+          "/assisted_teleop/_action/.*",
+          "/back_up/_action/.*",
+          "/backup/_action/.*",
+          "/compute_path_through_poses/_action/.*",
+          "/compute_path_to_pose/_action/.*",
+          "/follow_path/_action/.*",
+          "/follow_waypoints/_action/.*",
+          "/navigate_through_poses/_action/.*",
+          "/navigate_to_pose/_action/.*",
+          "/smooth_path/_action/.*",
+          "/spin/_action/.*",
+          "/wait/_action/.*"
+        ],
+        
+        service_servers: [
+          "/.*"  // Allow all services - easier than listing 100+
+        ],
+        
+        service_clients: [
+          "/.*"  // Allow all service clients
+        ],
+        
+        action_servers: [
+          "/FollowWaypoints",
+          "/assisted_teleop",
+          "/back_up",
+          "/backup",
+          "/compute_path_through_poses",
+          "/compute_path_to_pose",
+          "/follow_path",
+          "/follow_waypoints",
+          "/navigate_through_poses",
+          "/navigate_to_pose",
+          "/smooth_path",
+          "/spin",
+          "/wait"
+        ],
+        
+        action_clients: [
+          "/FollowWaypoints",
+          "/assisted_teleop",
+          "/back_up",
+          "/backup",
+          "/compute_path_through_poses",
+          "/compute_path_to_pose",
+          "/follow_path",
+          "/follow_waypoints",
+          "/navigate_through_poses",
+          "/navigate_to_pose",
+          "/smooth_path",
+          "/spin",
+          "/wait"
+        ]
+      }
+    }
+  }
+}
