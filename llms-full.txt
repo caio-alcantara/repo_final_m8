@@ -2,6 +2,14 @@
 
 Bem-vindo à documentação do projeto! Aqui você encontrará informações detalhadas sobre o desenvolvimento, arquitetura, requisitos e muito mais.
 
+# Video de Apresentação
+
+<div style={{ display: "flex", justifyContent: "center", marginTop: "2rem", marginBottom: "2rem" }}>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/6iZGF7xBc4I?si=HqMq8NtxOrvFr_gc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+</div>
+
+# Sprints
+
 <Cards>
   <Card href="/docs/sprint-1" title="Sprint 1">
     Documentação referente à Sprint 1 do projeto.
@@ -1115,151 +1123,34 @@ else:
 # Sprint 5 (/docs/sprint-5)
 
 <Cards>
-  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
-    Modelo básico para criação de novos arquivos MDX.
+  <Card href="/docs/sprint-5/backend" title="Backend">
+    Documentação do time de backend.
   </Card>
 
-  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
-    Modelo de estrutura para criação de novas pastas de documentação.
+  <Card href="/docs/sprint-5/security" title="Security">
+    Documentação do time de segurança.
+  </Card>
+
+  <Card href="/docs/sprint-5/botao-de-stop-pt2" title="Kill Switch Atualizações">
+    Extensões HTTP/WiFi e sistema de emotes para o Kill Switch.
+  </Card>
+
+  <Card href="/docs/sprint-5/robo" title="Robô">
+    Documentação do time de robô.
+  </Card>
+
+  <Card href="/docs/sprint-5/modelo" title="Documentação Modelo">
+    Documentação da Sprint 5 do time de Modelo.
+  </Card>
+
+  <Card href="/docs/sprint-5/manual-de-operacao" title="Manual de Operação">
+    Documentação do Manual de Operação.
+  </Card>
+
+  <Card href="/docs/sprint-5/frontend" title="Frontend">
+    Documentação do time de frontend.
   </Card>
 </Cards>
-
-
-# Título do Documento (/docs/sprint-5/template)
-
-
-
-
-
-# Cabeçalho Principal
-
-## Callouts/Admonitions
-
-<Callout type="info">
-  Esta é uma nota importante para destacar algo relevante no documento.
-</Callout>
-
-<Callout type="warn">
-  Esta é uma advertência para chamar a atenção para um possível problema.
-</Callout>
-
-<Callout>
-  Hello World
-</Callout>
-
-<Callout title="Title">
-  Hello World
-</Callout>
-
-<Callout title="Title" type="error">
-  Hello World
-</Callout>
-
-## Bloco de Código
-
-```python
-# Código de exemplo em Python
-def exemplo():
-    print("Olá, Mundo!")
-```
-
-```rust title="Exemplo em Rust com título"
-// Código de exemplo em Rust
-fn exemplo() {
-    println!("Olá, Mundo!");
-}
-```
-
-## Flowcharts MermaidJS
-
-<Mermaid
-  chart="flowchart TD
-U[Usuário] --> P[Proxy Reverso]
-
-P --> FE[React.js Frontend]
-P --> C[ASP.NET Core]
-P --> FA[FastAPI]
-P --> F[Flask]
-
-B[Broker MQTT] -->|MQTT| C
-
-C -->|Query e HTTP| PG[(PostgreSQL)]
-C -->|HTTP| BUCKET[(MinIO DataLake)]
-
-FA -->|Função Direta| ML[Módulo de Retreinamento]
-FA -->|Função Direta| IF[Gerador de Inferências]
-FA -->|HTTP| BUCKET
-
-F -->|Query e HTTP| PG
-F -->|HTTP| BUCKET
-"
-/>
-
-w
-
-## Imagens e Links
-
-<img alt="Imagem" src={__img0} placeholder="blur" />
-
-<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
-
-[Link](https://www.example.com)
-
-[Link Relativo](./template-pasta)
-
-## Estrutura de pastas
-
-<Files>
-  <Folder name="sprint-1" defaultOpen>
-    <Folder name="entendimento-do-negocio" defaultOpen>
-      <File name="analise-financeira.mdx" />
-
-      <File name="canvas-proposta-de-valor.mdx" />
-
-      <File name="index.mdx" />
-
-      <File name="matriz-de-risco.mdx" />
-
-      <File name="matriz-oceano-azul.mdx" />
-
-      <File name="meta.json" />
-    </Folder>
-
-    <Folder name="entendimento-do-projeto" defaultOpen>
-      <File name="index.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="proposta-de-arquitetura.mdx" />
-
-      <File name="requisitos-funcionais.mdx" />
-
-      <File name="requisitos-nao-funcionais.mdx" />
-    </Folder>
-
-    <Folder name="entendimento-do-usuario" defaultOpen>
-      <Folder name="personas" defaultOpen>
-        <File name="index.mdx" />
-
-        <File name="persona-1.mdx" />
-      </Folder>
-
-      <File name="index.mdx" />
-
-      <File name="mapa-de-jornada-do-usuario.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="user-stories.mdx" />
-    </Folder>
-
-    <File name="analise-de-impacto-etico.mdx" />
-
-    <File name="index.mdx" />
-
-    <File name="meta.json" />
-  </Folder>
-</Files>
 
 
 # Equidade e Justiça (/docs/sprint-1/analise-de-impacto-etico/equidade-justica)
@@ -8965,171 +8856,171 @@ Além da operação diária dos aplicativos, o modelo suporta análises avançad
 Em síntese, o banco de dados não apenas armazena informações, mas estrutura o ecossistema completo do **Tour Cão-Robô**, viabilizando a integração entre tecnologia, gestão e experiência interativa.
 
 
-# Exploração e Integração (/docs/sprint-2/robo/exploracao-robo)
+# Pipeline de Arquivos (/docs/sprint-2/pipeline-de-docs/files-pipeline)
 
 
 
+# Pipeline de Ingestão de Arquivos
 
+## Introdução
 
+O pipeline de ingestão de dados foi construído para processar, vetorializar e armazenar documentos institucionais do Inteli em um banco de dados vetorial.
 
-
-# Sprint 2 – Exploração e Integração com WebRTC
-
-## Objetivos Principais
-
-* Estabelecer comunicação estável com o robô via WebRTC.
-* Validar movimentações nos eixos X, Y e Z.
-* Compreender e aplicar parâmetros corretos de velocidade e rotação.
-* Criar abstração de código e leitura via JSON.
-* Testar tópicos adicionais como `OBSTACLES_AVOID`.
+A motivação para este pipeline vem da necessidade de alimentar a IA do robô com **conhecimento institucional confiável**: informações sobre os cursos, processo seletivo, estrutura acadêmica, bolsas, entre outros. Isso permitirá que o robô responda **perguntas com base nos próprios documentos do Inteli**, de forma contextualizada e segura.
 
 ***
 
-## Atividades Realizadas na semana 3
+## Estrutura Geral do Pipeline
 
-### Primeiros testes com WebRTC
+<Callout type="info">
+  Todas as etapas abaixo estão implementadas com foco em processar arquivos `.pdf` de forma precisa, limpa e segmentada para embeddings.
+</Callout>
 
-* Fizemos a implementação inicial do WebRTC com sucesso nas primeiras movimentações.
+### 1. Extração dos textos
 
-#### Exemplo de Requisição via WebRTC
+```python
+from unstructured.partition.pdf import partition_pdf
 
-```python title="Exemplo de requisição WebRTC para movimentação"
-await conn.datachannel.pub_sub.publish_request_new(
-    RTC_TOPIC["SPORT_MOD"],
-    {
-        "api_id": SPORT_CMD["Move"],
-        "parameter": {"x": 1, "y": 0, "z": 0}
+elements = partition_pdf(filename=pdf_path, strategy="fast", ocr_languages="por")
+```
+
+* Usa o módulo unstructured para extrair elementos estruturados (parágrafos, títulos, listas etc.).
+
+* Permite detectar metadados como número de página e tipo de elemento (Title, ListItem, etc).
+
+***
+
+### 2. Sanitização dos textos
+
+```python
+def clean_text(text):
+    text = re.sub(r'\s+', ' ', text)
+    text = text.replace('\ufb01', 'fi')
+    ...
+```
+
+* Remove espaços duplicados, caracteres invisíveis ou corrompidos (ex: \ufb01).
+
+* Elimina repetições de símbolos e rodapés com Pág. ou bullets irrelevantes.
+
+***
+
+### 3. Enriquecimento semântico
+
+```python
+def extract_enhanced_metadata(element):
+    return {
+        'element_id': ...,
+        'element_type': ...,
+        'page_number': ...,
+        'hierarchy_level': ...,
+        'section': ...,
     }
+```
+
+* Cada trecho extraído é mapeado com contexto de seção, subseção, tipo, número da página e nível hierárquico.
+
+* Isso ajuda a preservar a estrutura semântica do documento original.
+
+***
+
+### 4. Divisão em chunks com sobreposição
+
+```python
+RecursiveCharacterTextSplitter(
+  chunk_size=500,
+  chunk_overlap=100,
 )
 ```
 
-* Testes manuais dos eixos:
-  * X = 1 → movimentação de 1 metro
-  * Y = 1 → movimentação de 0,5 metro
-  * Z = 1 → rotação de 90°
+* Os textos são divididos em blocos de até 500 caracteres, com 100 de sobreposição.
 
-* Direções observadas durante os testes:
-  * X > 0: frente | X \< 0: trás
-  * Y, Z > 0: direita | Y, Z \< 0: esquerda
+* Mantém coesão semântica mesmo em respostas curtas.
 
-### Testes no térreo
+<Callout title="Importante">
+  {" "}
 
-* Testamos o robô no térreo para validarmos em trajetórias mais longas.
-* Problemas encontrados:
-  * Identificamos que as distâncias percorridas eram constantes, independentemente do valor de X e Y.
-  * O robô se movimenta em velocidades excessivas quando aumentamos os valores de X e Y.
-* Tentamos ajustar a velocidade via tópico `SpeedLevel`, mas não tivemos nenhum sucesso devido à falta de documentação.
-
-### Pesquisa e descoberta
-
-* Estudamos a arquitetura do sistema e identificamos os fluxos de comunicação.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Arquitetura Unitree Go2
-</p>
-
-<img alt="Arquitetura Unitree" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte:
-  [support.unitree](https://support.unitree.com/home/en/developer/Architecture%20Description)
-</p>
-
-<p style={{ textAlign: "center" }}>
-  Figura 2 - Arquitetura de hardware Unitree Go2
-</p>
-
-<img alt="Arquitetura Unitree" src={__img1} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte:
-  [support.unitree](https://support.unitree.com/home/en/developer/about_Go2)
-</p>
-
-* Descobrimos que o modo `Sport Mode` precisa estar desativado para o SDK operar.
-
-<p style={{ textAlign: "center" }}>
-  Figura 3 - SportMode
-</p>
-
-<img alt="SportMode" src={__img2} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte:
-  [support.unitree](https://support.unitree.com/home/en/developer/Quick_start)
-</p>
-
-* Descoberta de documentação técnica do SDK (com parâmetros e APIs idênticas ao WebRTC):
-  * [Motion Services Interface V2.0](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* Descobrimos que os parâmetros X, Y e Z esperam receber valores de velocidade em metros por segundo (m/s) e que todas as requisições enviadas para o robô duram apenas um segundo.
-* Sendo assim, precisamos enviar a mesma requisição durante mais tempo caso precisemos de movimentações mais longas.
-
-<Callout type="info">
-  Após uma conversa com o professor Nicola, constatamos que o WebRTC é uma engenharia reversa do SDK, portanto, é possível utilizar os mesmos parâmetros descritos na documentação oficial.
+  Essa segmentação garante que as perguntas do usuário encontrem respostas
+  dentro de um mesmo chunk.{" "}
 </Callout>
 
-### Aplicação e calibração
+***
 
-* Após as descobertas fizemos a implementação dos parâmetros descobertos.
-* A movimentação foi bem-sucedida e o robô se movimenta em múltiplas distâncias
-* Testamos com waypoints múltiplos e conseguimos validar a movimentação encadeada.
+### 5. Geração de embeddings
 
-### Abstração e leitura dinâmica
+```python
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+embeddings = model.encode(texts, ...)
+```
 
-* Resolvemos criar uma camada de abstração para comunicação com o robô, permitindo colocarmos a distância em metros ao invés de metros por segundo.
-* Também resolvemos implementar a leitura de waypoints via JSON.
-* Código concluído, testes pendentes.
+* Utiliza modelo pré-treinado da HuggingFace.
+
+* Cada chunk vira um vetor numérico que será armazenado no banco vetorial.
+
+* Embeddings são normalizados e possuem metadados do chunk.
 
 ***
 
-## Atividades Realizadas na semana 3
+### 6. Inserção no banco vetorial (ETAPA: Persistência)
 
-### Apoio ao time de Security
+```python
+chunks_with_embeddings.append({
+  'id': 'chunk_x',
+  'content': ...,
+  'embedding': [...],
+  'metadata': {...}
+})
+```
 
-* Colaboração direta com a equipe de Security no uso do LiDAR do robô.
-* Auxiliamos na coleta e análise dos dados brutos provenientes do sensor, garantindo que o time conseguisse interpretar corretamente os valores e padrões retornados.
-* Nosso foco foi apoiar a equipe na identificação de padrões espaciais (distâncias, ângulos e presença de obstáculos) para que pudessem desenvolver soluções de prevenção de colisões com pessoas ou objetos no ambiente.
-* Esse trabalho contribuiu para conectar os dados do sensor à camada de controle do robô, servindo de base para futuras implementações de detecção e desvio automático de obstáculos.
+Cada embedding é armazenado com:
 
-### Testes para evitar colisões
+* ID único
 
-* Utilizando da documentação tentamos enviar uma requisição para um tópico chamado `OBSTACLES_AVOID`
-* Testamos os seguintes tópicos:
-  * API ID 1001 → Set parameters (True / False) → Habilitamos ou desabilitamos a colisão
-  * API ID 1002 → Get current parameter → Verificamos o estado atual da funcionalidade (se está ativa ou não)
-* Resultado: o robô ainda colide, sem efeito prático.
+* Conteúdo do chunk
 
-***
+* Vetor (lista de floats)
 
-## Links Relevantes
+* Modelo utilizado
 
-* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* [Repositório utilizado pelo grupo](https://github.com/DaniloMartinsMerlo/go2_webrtc)
-
-***
-
-## Aprendizados
-
-* O **WebRTC** utiliza os mesmos parâmetros de controle do SDK oficial da Unitree, apenas variando o tópico em que devemos enviar as requisições.
-* A calibração prática foi essencial para definir a relação entre valores e deslocamento real.
-* Movimentações tornaram-se mais previsíveis e controladas após a aplicação correta dos parâmetros.
-* Documentações técnicas do SDK são referências fundamentais mesmo para implementações via WebRTC.
+* Dados estruturados (página, seção, tipo)
 
 ***
 
-## Dificuldades Encontradas
+## Diagrama do Pipeline
 
-* Ausência de documentação específica do WebRTC.
-* Tópico `OBSTACLES_AVOID` sem funcionamento aparente.
-* Calibração dependente de testes empíricos.
+Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Pipeline de arquivos
+</p>
+
+<img alt="Pipeline de Ingestão" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
 
 ***
 
-## Próximos Passos
+## Conclusão
 
-* Finalizar e testar a abstração JSON.
-* Explorar alternativas para o `OBSTACLES_AVOID`.
-* Integrar movimentação autônoma com múltiplos waypoints.
+A implementação deste pipeline possibilita o uso inteligente e contextualizado de documentos institucionais do Inteli por meio de IA generativa baseada em conhecimento vetorial. Essa estrutura é fundamental para o sucesso do robô de tours do projeto, pois garante que ele responderá dúvidas com conteúdo oficial, preciso e atualizado.
+
+É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
+
+<Callout title="Próximos Passos" type="info">
+  {" "}
+
+  Integração com o agente conversacional do robô e testes de consulta em
+  linguagem natural usando os embeddings gerados.{" "}
+</Callout>
+
+
+# Files Pipeline (/docs/sprint-2/pipeline-de-docs)
+
+<Cards>
+  <Card title="Files Pipeline" description="Documentação pipeline de documentos" href="/docs/content/docs/sprint-2/pipeline-de-docs/files-pipeline.mdx" />
+</Cards>
 
 
 # Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/prototipo-alta)
@@ -9709,6 +9600,173 @@ Via navbar:
 O protótipo de alta fidelidade documentado aqui representa a versão visual final do aplicativo do visitante. Ele estabelece como será a experiência completa, desde a chegada do usuário ao tour até sua interação com a LIA e a navegação pelas informações exibidas. Esta documentação serve como referência para designers, desenvolvedores e avaliadores durante a construção oficial do aplicativo.
 
 
+# Exploração e Integração (/docs/sprint-2/robo/exploracao-robo)
+
+
+
+
+
+
+
+# Sprint 2 – Exploração e Integração com WebRTC
+
+## Objetivos Principais
+
+* Estabelecer comunicação estável com o robô via WebRTC.
+* Validar movimentações nos eixos X, Y e Z.
+* Compreender e aplicar parâmetros corretos de velocidade e rotação.
+* Criar abstração de código e leitura via JSON.
+* Testar tópicos adicionais como `OBSTACLES_AVOID`.
+
+***
+
+## Atividades Realizadas na semana 3
+
+### Primeiros testes com WebRTC
+
+* Fizemos a implementação inicial do WebRTC com sucesso nas primeiras movimentações.
+
+#### Exemplo de Requisição via WebRTC
+
+```python title="Exemplo de requisição WebRTC para movimentação"
+await conn.datachannel.pub_sub.publish_request_new(
+    RTC_TOPIC["SPORT_MOD"],
+    {
+        "api_id": SPORT_CMD["Move"],
+        "parameter": {"x": 1, "y": 0, "z": 0}
+    }
+)
+```
+
+* Testes manuais dos eixos:
+  * X = 1 → movimentação de 1 metro
+  * Y = 1 → movimentação de 0,5 metro
+  * Z = 1 → rotação de 90°
+
+* Direções observadas durante os testes:
+  * X > 0: frente | X \< 0: trás
+  * Y, Z > 0: direita | Y, Z \< 0: esquerda
+
+### Testes no térreo
+
+* Testamos o robô no térreo para validarmos em trajetórias mais longas.
+* Problemas encontrados:
+  * Identificamos que as distâncias percorridas eram constantes, independentemente do valor de X e Y.
+  * O robô se movimenta em velocidades excessivas quando aumentamos os valores de X e Y.
+* Tentamos ajustar a velocidade via tópico `SpeedLevel`, mas não tivemos nenhum sucesso devido à falta de documentação.
+
+### Pesquisa e descoberta
+
+* Estudamos a arquitetura do sistema e identificamos os fluxos de comunicação.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Arquitetura Unitree Go2
+</p>
+
+<img alt="Arquitetura Unitree" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte:
+  [support.unitree](https://support.unitree.com/home/en/developer/Architecture%20Description)
+</p>
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Arquitetura de hardware Unitree Go2
+</p>
+
+<img alt="Arquitetura Unitree" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte:
+  [support.unitree](https://support.unitree.com/home/en/developer/about_Go2)
+</p>
+
+* Descobrimos que o modo `Sport Mode` precisa estar desativado para o SDK operar.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - SportMode
+</p>
+
+<img alt="SportMode" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte:
+  [support.unitree](https://support.unitree.com/home/en/developer/Quick_start)
+</p>
+
+* Descoberta de documentação técnica do SDK (com parâmetros e APIs idênticas ao WebRTC):
+  * [Motion Services Interface V2.0](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* Descobrimos que os parâmetros X, Y e Z esperam receber valores de velocidade em metros por segundo (m/s) e que todas as requisições enviadas para o robô duram apenas um segundo.
+* Sendo assim, precisamos enviar a mesma requisição durante mais tempo caso precisemos de movimentações mais longas.
+
+<Callout type="info">
+  Após uma conversa com o professor Nicola, constatamos que o WebRTC é uma engenharia reversa do SDK, portanto, é possível utilizar os mesmos parâmetros descritos na documentação oficial.
+</Callout>
+
+### Aplicação e calibração
+
+* Após as descobertas fizemos a implementação dos parâmetros descobertos.
+* A movimentação foi bem-sucedida e o robô se movimenta em múltiplas distâncias
+* Testamos com waypoints múltiplos e conseguimos validar a movimentação encadeada.
+
+### Abstração e leitura dinâmica
+
+* Resolvemos criar uma camada de abstração para comunicação com o robô, permitindo colocarmos a distância em metros ao invés de metros por segundo.
+* Também resolvemos implementar a leitura de waypoints via JSON.
+* Código concluído, testes pendentes.
+
+***
+
+## Atividades Realizadas na semana 3
+
+### Apoio ao time de Security
+
+* Colaboração direta com a equipe de Security no uso do LiDAR do robô.
+* Auxiliamos na coleta e análise dos dados brutos provenientes do sensor, garantindo que o time conseguisse interpretar corretamente os valores e padrões retornados.
+* Nosso foco foi apoiar a equipe na identificação de padrões espaciais (distâncias, ângulos e presença de obstáculos) para que pudessem desenvolver soluções de prevenção de colisões com pessoas ou objetos no ambiente.
+* Esse trabalho contribuiu para conectar os dados do sensor à camada de controle do robô, servindo de base para futuras implementações de detecção e desvio automático de obstáculos.
+
+### Testes para evitar colisões
+
+* Utilizando da documentação tentamos enviar uma requisição para um tópico chamado `OBSTACLES_AVOID`
+* Testamos os seguintes tópicos:
+  * API ID 1001 → Set parameters (True / False) → Habilitamos ou desabilitamos a colisão
+  * API ID 1002 → Get current parameter → Verificamos o estado atual da funcionalidade (se está ativa ou não)
+* Resultado: o robô ainda colide, sem efeito prático.
+
+***
+
+## Links Relevantes
+
+* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* [Repositório utilizado pelo grupo](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+***
+
+## Aprendizados
+
+* O **WebRTC** utiliza os mesmos parâmetros de controle do SDK oficial da Unitree, apenas variando o tópico em que devemos enviar as requisições.
+* A calibração prática foi essencial para definir a relação entre valores e deslocamento real.
+* Movimentações tornaram-se mais previsíveis e controladas após a aplicação correta dos parâmetros.
+* Documentações técnicas do SDK são referências fundamentais mesmo para implementações via WebRTC.
+
+***
+
+## Dificuldades Encontradas
+
+* Ausência de documentação específica do WebRTC.
+* Tópico `OBSTACLES_AVOID` sem funcionamento aparente.
+* Calibração dependente de testes empíricos.
+
+***
+
+## Próximos Passos
+
+* Finalizar e testar a abstração JSON.
+* Explorar alternativas para o `OBSTACLES_AVOID`.
+* Integrar movimentação autônoma com múltiplos waypoints.
+
+
 # Wireframes dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/wireframes)
 
 <Cards>
@@ -10233,173 +10291,6 @@ Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o
 </Steps>
 
 
-# Pipeline de Arquivos (/docs/sprint-2/pipeline-de-docs/files-pipeline)
-
-
-
-# Pipeline de Ingestão de Arquivos
-
-## Introdução
-
-O pipeline de ingestão de dados foi construído para processar, vetorializar e armazenar documentos institucionais do Inteli em um banco de dados vetorial.
-
-A motivação para este pipeline vem da necessidade de alimentar a IA do robô com **conhecimento institucional confiável**: informações sobre os cursos, processo seletivo, estrutura acadêmica, bolsas, entre outros. Isso permitirá que o robô responda **perguntas com base nos próprios documentos do Inteli**, de forma contextualizada e segura.
-
-***
-
-## Estrutura Geral do Pipeline
-
-<Callout type="info">
-  Todas as etapas abaixo estão implementadas com foco em processar arquivos `.pdf` de forma precisa, limpa e segmentada para embeddings.
-</Callout>
-
-### 1. Extração dos textos
-
-```python
-from unstructured.partition.pdf import partition_pdf
-
-elements = partition_pdf(filename=pdf_path, strategy="fast", ocr_languages="por")
-```
-
-* Usa o módulo unstructured para extrair elementos estruturados (parágrafos, títulos, listas etc.).
-
-* Permite detectar metadados como número de página e tipo de elemento (Title, ListItem, etc).
-
-***
-
-### 2. Sanitização dos textos
-
-```python
-def clean_text(text):
-    text = re.sub(r'\s+', ' ', text)
-    text = text.replace('\ufb01', 'fi')
-    ...
-```
-
-* Remove espaços duplicados, caracteres invisíveis ou corrompidos (ex: \ufb01).
-
-* Elimina repetições de símbolos e rodapés com Pág. ou bullets irrelevantes.
-
-***
-
-### 3. Enriquecimento semântico
-
-```python
-def extract_enhanced_metadata(element):
-    return {
-        'element_id': ...,
-        'element_type': ...,
-        'page_number': ...,
-        'hierarchy_level': ...,
-        'section': ...,
-    }
-```
-
-* Cada trecho extraído é mapeado com contexto de seção, subseção, tipo, número da página e nível hierárquico.
-
-* Isso ajuda a preservar a estrutura semântica do documento original.
-
-***
-
-### 4. Divisão em chunks com sobreposição
-
-```python
-RecursiveCharacterTextSplitter(
-  chunk_size=500,
-  chunk_overlap=100,
-)
-```
-
-* Os textos são divididos em blocos de até 500 caracteres, com 100 de sobreposição.
-
-* Mantém coesão semântica mesmo em respostas curtas.
-
-<Callout title="Importante">
-  {" "}
-
-  Essa segmentação garante que as perguntas do usuário encontrem respostas
-  dentro de um mesmo chunk.{" "}
-</Callout>
-
-***
-
-### 5. Geração de embeddings
-
-```python
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-embeddings = model.encode(texts, ...)
-```
-
-* Utiliza modelo pré-treinado da HuggingFace.
-
-* Cada chunk vira um vetor numérico que será armazenado no banco vetorial.
-
-* Embeddings são normalizados e possuem metadados do chunk.
-
-***
-
-### 6. Inserção no banco vetorial (ETAPA: Persistência)
-
-```python
-chunks_with_embeddings.append({
-  'id': 'chunk_x',
-  'content': ...,
-  'embedding': [...],
-  'metadata': {...}
-})
-```
-
-Cada embedding é armazenado com:
-
-* ID único
-
-* Conteúdo do chunk
-
-* Vetor (lista de floats)
-
-* Modelo utilizado
-
-* Dados estruturados (página, seção, tipo)
-
-***
-
-## Diagrama do Pipeline
-
-Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Pipeline de arquivos
-</p>
-
-<img alt="Pipeline de Ingestão" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## Conclusão
-
-A implementação deste pipeline possibilita o uso inteligente e contextualizado de documentos institucionais do Inteli por meio de IA generativa baseada em conhecimento vetorial. Essa estrutura é fundamental para o sucesso do robô de tours do projeto, pois garante que ele responderá dúvidas com conteúdo oficial, preciso e atualizado.
-
-É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
-
-<Callout title="Próximos Passos" type="info">
-  {" "}
-
-  Integração com o agente conversacional do robô e testes de consulta em
-  linguagem natural usando os embeddings gerados.{" "}
-</Callout>
-
-
-# Files Pipeline (/docs/sprint-2/pipeline-de-docs)
-
-<Cards>
-  <Card title="Files Pipeline" description="Documentação pipeline de documentos" href="/docs/content/docs/sprint-2/pipeline-de-docs/files-pipeline.mdx" />
-</Cards>
-
-
 # Banco de Dados 2.0 (/docs/sprint-3/bd-v2/bd-v2)
 
 # **Banco de dados - Versão 2.0**
@@ -10650,6 +10541,213 @@ A Versão 2 (V2) do banco, já disponível no Supabase, foi projetada para dar s
 * **Escalabilidade** para futuras features (placas LoRa, IA no robô, classificação automática de perguntas)
 
 O banco está pronto para desenvolvimento, integração e escalabilidade futura — servindo como a base sólida da aplicação tanto para o painel do gestor quanto para o app do visitante.
+
+
+# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
+
+
+
+## 1. Introdução
+
+  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
+
+  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
+
+### 2.1 Estrutura de Pastas
+
+A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
+
+```txt
+
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   └── (tabs)/
+│
+├── assets
+│   └── images
+│       └── icons/
+│
+├── components
+│   └── ui/
+│
+├── constants/
+│
+├── hooks/
+│
+├── scripts/
+│
+└── README.md
+
+```
+
+* **`/app`** - Gerenciamento das páginas
+
+* **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+* **`/components`** - Componentes reutilizáveis
+
+* **`/constants`** - Temas de cores e variáveis globais
+
+* **`/hooks`** - Hooks auxiliares como detecção de tema
+
+* **`/scripts`** - Scripts internos do projeto
+
+* **`README`** - Instruções para rodar o projeto
+
+*Pastas Android geradas automaticamente pelo Expo*
+
+  Para a realização deste projeto a estrutura de pastas utilizada permite:
+
+* Melhor organização entre rotas, componentes e estilos
+
+* Facilidade para extensões futuras
+
+* Modularização dos componentes usados nas telas
+
+* Padrão de Componentes Reutilizáveis
+
+### 2.2 Componentes
+
+  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
+
+* **CardTour** - Cartão de exibição de tours na lista da home
+
+* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
+
+* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
+
+* **Navbar e Header** - Estruturas permanentes no HUD
+
+***
+
+## 3. Fluxo de Navegação
+
+### Vídeo Frontend Staff - Youtube
+
+[Assista no YouTube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
+
+<Callout type="info">
+  **Fluxo Geral**
+
+  1. Login
+
+  2. Lista de Tours (HUD ativo)
+
+  3. Seleção de um tour
+
+  4. Edição do Tour
+
+  5. Pop-up Informações Gerais do Tour
+
+  6. Pop-up Código do Tour
+
+  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
+
+  8. Tela de Emergência
+
+  9. Menu acessível pelo HUD em qualquer etapa permitida
+
+  **O HUD inclui:**
+
+  * Barra inferior com navegação (Tours / Mapa / Menu)
+
+  * Botão de emergência destacado em telas críticas
+
+  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
+</Callout>
+
+***
+
+## 4. Como Rodar o Projeto e Dependências
+
+  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
+O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
+
+### 4.1. Requisitos
+
+<Callout type="info">
+  ***
+
+  Node.js (*Node 18 LTS ou Node 20 LTS*)
+
+  Baixar em: [https://nodejs.org/](https://nodejs.org/)
+
+  ***
+
+  Expo CLI (Será necessário intalar globalmente para que funcione)
+
+  `npm install -g expo-cli`
+
+  ***
+
+  Android Studio (para usar emulador Android)
+
+  É possível usar tanto a versão CLI quanto o APK:
+  [https://developer.android.com/studio](https://developer.android.com/studio)
+
+  ***
+
+  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+</Callout>
+
+<Callout type="warn">
+  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+</Callout>
+
+### 4.2. Instalando Dependências e Executando o Projeto
+
+Na raiz do projeto:
+
+```bash
+npm install
+```
+
+Isso instala todas as dependências declaradas em `package.json.`
+
+Ainda no terminal:
+
+```bash
+npx expo start
+
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
+
+Entre as opções você pode escolher:
+
+* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+* Abrir a aplicação no seu navegador web
+* Abrir a aplicação no android studio
+
+Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
+
+```bash
+npx expo run:android
+```
+
+## 5. Conclusão
+
+Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
+
+
+# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
+
+<Cards>
+  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
+</Cards>
 
 
 # Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG) (/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG)
@@ -10981,211 +11079,6 @@ Para mais detalhes sobre a arquitetura e o contexto do projeto, consulte:
 
 <Cards>
   <Card title="Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG)" description="Documentação do sistema RAG no agente" href="docs/content/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG.mdx" />
-</Cards>
-
-
-# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
-
-
-
-## 1. Introdução
-
-  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
-
-***
-
-## 2. Arquitetura do Projeto
-
-  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
-
-  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
-
-### 2.1 Estrutura de Pastas
-
-A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
-
-```txt
-
-.
-├── android/
-│
-├── app
-│   ├── _layout.tsx
-│   └── (tabs)/
-│
-├── assets
-│   └── images
-│       └── icons/
-│
-├── components
-│   └── ui/
-│
-├── constants/
-│
-├── hooks/
-│
-├── scripts/
-│
-└── README.md
-
-```
-
-* **`/app`** - Gerenciamento das páginas
-
-* **`/assets`** Ícones, imagens e o logotipo do Inteli
-
-* **`/components`** - Componentes reutilizáveis
-
-* **`/constants`** - Temas de cores e variáveis globais
-
-* **`/hooks`** - Hooks auxiliares como detecção de tema
-
-* **`/scripts`** - Scripts internos do projeto
-
-* **`README`** - Instruções para rodar o projeto
-
-*Pastas Android geradas automaticamente pelo Expo*
-
-  Para a realização deste projeto a estrutura de pastas utilizada permite:
-
-* Melhor organização entre rotas, componentes e estilos
-
-* Facilidade para extensões futuras
-
-* Modularização dos componentes usados nas telas
-
-* Padrão de Componentes Reutilizáveis
-
-### 2.2 Componentes
-
-  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
-
-* **CardTour** - Cartão de exibição de tours na lista da home
-
-* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
-
-* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
-
-* **Navbar e Header** - Estruturas permanentes no HUD
-
-***
-
-## 3. Fluxo de Navegação
-
-### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
-
-<Callout type="info">
-  **Fluxo Geral**
-
-  1. Login
-
-  2. Lista de Tours (HUD ativo)
-
-  3. Seleção de um tour
-
-  4. Edição do Tour
-
-  5. Pop-up Informações Gerais do Tour
-
-  6. Pop-up Código do Tour
-
-  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
-
-  8. Tela de Emergência
-
-  9. Menu acessível pelo HUD em qualquer etapa permitida
-
-  **O HUD inclui:**
-
-  * Barra inferior com navegação (Tours / Mapa / Menu)
-
-  * Botão de emergência destacado em telas críticas
-
-  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
-</Callout>
-
-***
-
-## 4. Como Rodar o Projeto e Dependências
-
-  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
-O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
-
-### 4.1. Requisitos
-
-<Callout type="info">
-  ***
-
-  Node.js (*Node 18 LTS ou Node 20 LTS*)
-
-  Baixar em: [https://nodejs.org/](https://nodejs.org/)
-
-  ***
-
-  Expo CLI (Será necessário intalar globalmente para que funcione)
-
-  `npm install -g expo-cli`
-
-  ***
-
-  Android Studio (para usar emulador Android)
-
-  É possível usar tanto a versão CLI quanto o APK:
-  [https://developer.android.com/studio](https://developer.android.com/studio)
-
-  ***
-
-  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
-</Callout>
-
-<Callout type="warn">
-  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
-</Callout>
-
-### 4.2. Instalando Dependências e Executando o Projeto
-
-Na raiz do projeto:
-
-```bash
-npm install
-```
-
-Isso instala todas as dependências declaradas em `package.json.`
-
-Ainda no terminal:
-
-```bash
-npx expo start
-
-```
-
-Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
-
-As informações que aparecerem no seu terminal devem ser semelhantes a esta:
-
-<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
-
-Entre as opções você pode escolher:
-
-* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
-* Abrir a aplicação no seu navegador web
-* Abrir a aplicação no android studio
-
-Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
-
-```bash
-npx expo run:android
-```
-
-## 5. Conclusão
-
-Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
-
-
-# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
-
-<Cards>
-  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
 </Cards>
 
 
@@ -13834,67 +13727,91 @@ O sistema utiliza uma arquitetura modular com múltiplos agentes especializados 
 ## **1. Introdução**
 
  Este documento descreve a arquitetura, os componentes e os fluxos do sistema de comunicação em tempo real do robô do Inteli.
-O objetivo do módulo de WebSockets é permitir que o robô:
+O sistema de WebSockets possui dois módulos principais:
 
-* receba perguntas dos visitantes (texto ou áudio),
-* envie respostas em texto e áudio,
-* sincronize múltiplos dispositivos (painel do operador, robô, turista),
-* faça transcrição de fala (STT) e síntese de voz (TTS).
+### **1.1 Módulo de Chat e Conversação**
 
- A comunicação ocorre em tempo real via WebSockets, centralizada por um servidor de broadcast implementado em Rust com Actix-Web.
+* Recebe perguntas dos visitantes (texto ou áudio)
+* Envia respostas em texto e áudio
+* Sincroniza múltiplos dispositivos (painel do operador, robô, turista)
+* Realiza transcrição de fala (STT) e síntese de voz (TTS)
+
+### **1.2 Módulo de Controle de Checkpoints**
+
+* Comunica eventos de navegação do robô (início/fim de checkpoints)
+* Sincroniza status do robô em tempo real com o backend e frontend
+* Atualiza automaticamente o banco de dados com timestamps reais
+* Gerencia comandos de controle (play, stop, status)
+
+ A comunicação ocorre em tempo real via WebSockets, centralizada pelo backend implementado em Rust com Actix-Web.
 
 ## **2. Visão Geral da Arquitetura**
 
- O sistema utiliza dois canais de WebSockets:
+ O sistema utiliza três canais de WebSockets:
 
-* **Text WebSocket** → para mensagens em texto
-* **Audio WebSocket** → para mensagens de áudio (entrada e saída)
+* **Text WebSocket** → para mensagens em texto (chat)
+* **Audio WebSocket** → para mensagens de áudio (entrada e saída do chat)
+* **Robot WebSocket** → para controle de checkpoints e sincronização de navegação
 
- Ambos são gerenciados por um **Broadcast Server** central, responsável pela sincronização entre clientes.
-
-### **Diagrama da Arquitetura**
+### **Diagrama da Arquitetura Completa**
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                         FRONTEND                                │
-│  ┌──────────────────┐              ┌──────────────────┐         │
-│  │  Text WebSocket  │              │ Audio WebSocket  │         │
-│  └────────┬─────────┘              └────────┬─────────┘         │
-└───────────┼──────────────────────────────────┼──────────────────┘
-            │                                   │
-            ▼                                   ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      BACKEND (Actix-Web)                        │
-│  ┌───────────────────────────────────────────────────────────┐  │
-│  │              Broadcast Server (Central Hub)               │  │
-│  │  - Conexões de texto e áudio                              │  │
-│  │  - Broadcast de mensagens                                 │  │
-│  │  - Conversão Texto→Áudio (TTS)                            │  │
-│  │  - Exclusão de eco por cliente                            │  │
-│  └─────┬────────────────────────────────────────────┬────────┘  │
-│        │                                             │          │
-│  ┌─────▼─────────────┐                    ┌────────▼────────┐   │
-│  │  Text WebSocket   │                    │ Audio WebSocket │   │
-│  │  Handler          │                    │ Handler         │   │
-│  └─────┬─────────────┘                    └────────┬────────┘   │
-└────────┼──────────────────────────────────────────┼─────────────┘
-         │                                           │
-         ▼                                           ▼
-┌──────────────────────────────────────────────────────────────────┐
-│                    SERVIÇOS EXTERNOS                             │
-│        /v1/modelo     /ml/stt (STT)       /ml/tts (TTS)          │
-└──────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────┐
+│                         FRONTEND (React/JS)                          │
+│  ┌──────────────────┐   ┌──────────────────┐   ┌─────────────────┐  │
+│  │  Text WebSocket  │   │ Audio WebSocket  │   │ Robot WebSocket │  │
+│  │  (Chat)          │   │  (Chat)          │   │ (Checkpoints)   │  │
+│  └────────┬─────────┘   └────────┬─────────┘   └────────┬────────┘  │
+└───────────┼──────────────────────┼──────────────────────┼───────────┘
+            │                      │                       │
+            ▼                      ▼                       ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                      BACKEND (Actix-Web + Rust)                      │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │              Broadcast Server (Central Hub - Chat)             │  │
+│  │  - Conexões de texto e áudio                                   │  │
+│  │  - Broadcast de mensagens                                      │  │
+│  │  - Conversão Texto→Áudio (TTS)                                 │  │
+│  │  - Exclusão de eco por cliente                                 │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+│                                                                       │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │         Robot Client + Frontend Server (Checkpoints)           │  │
+│  │  - Cliente WebSocket → Conecta ao servidor Python do robô      │  │
+│  │  - Servidor WebSocket → Aceita conexões do frontend            │  │
+│  │  - Relay inteligente de eventos e comandos                     │  │
+│  │  - Atualização automática do banco de dados (PostgreSQL)       │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+│        ▲                                             │                │
+│        │ WebSocket Client                            │ Broadcast      │
+│        │ (tokio-tungstenite)                         │ (actix-ws)     │
+└────────┼─────────────────────────────────────────────┼────────────────┘
+         │                                             │
+         ▼                                             ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                    ROBOT (Python + aiohttp)                          │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │              WebSocket Server (move_path.py)                   │  │
+│  │  - Recebe comandos do backend (play, stop, get_status)         │  │
+│  │  - Envia eventos de checkpoint em tempo real                   │  │
+│  │  - Controla movimento físico do robô via WebRTC               │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────────┘
+         ▲
+         │ WebRTC (movimento físico)
+         ▼
+    🤖 Robô Físico
 ```
 
 ## **3. Componentes Principais**
 
- A seguir, cada componente é explicado de forma clara e acessível.
+### **MÓDULO 1: CHAT E CONVERSAÇÃO**
 
 ## **3.1 Broadcast Server (`broadcast.rs`)**
 
 ### **O que é?**
 
- O *Broadcast Server* é o “cérebro” do sistema de comunicação.
+ O *Broadcast Server* é o "cérebro" do sistema de comunicação de chat.
 Ele funciona como um **ponto central** que recebe mensagens e distribui para todos os clientes conectados.
 
 ### **O que ele faz?**
@@ -13982,6 +13899,7 @@ pub struct BroadcastServer {
 ```
 Cliente envia áudio (base64)
 → AudioWebSocket decodifica áudio
+→ STT transcreve para texto
 → Modelo recebe texto
 → Modelo retorna resposta
 → TTS converte resposta em áudio
@@ -13999,7 +13917,7 @@ Cliente envia texto
 → Broadcast para todos os clientes
 ```
 
-## **4. Modelo Endpoint (`modelo.rs`)**
+## **3.4 Modelo Endpoint (`modelo.rs`)**
 
 ### **O que é?**
 
@@ -14020,7 +13938,224 @@ Cliente envia texto
 POST /v1/modelo
 ```
 
-## **5. Sincronização Entre Clientes**
+***
+
+### **MÓDULO 2: CONTROLE DE CHECKPOINTS**
+
+## **3.5 Robot Client (`robot_client.rs`)**
+
+### **O que é?**
+
+ Cliente WebSocket que conecta ao servidor Python do robô para receber eventos de navegação e enviar comandos de controle.
+
+### **O que ele faz?**
+
+* **Conecta ao robô** via WebSocket (tokio-tungstenite)
+* **Recebe eventos do robô** (checkpoint\_started, checkpoint\_completed, emergency\_stop)
+* **Envia comandos** (play, stop, get\_status)
+* **Atualiza o banco de dados** automaticamente com timestamps reais
+* **Retenta conexão** a cada 5 segundos se o robô estiver offline
+* **Broadcast para frontend** via canal broadcast
+
+### **Estrutura interna**
+
+```rust
+pub struct RobotClient {
+    robot_ip: String,
+    writer: Arc<Mutex<Option<WsWriter>>>,
+    frontend_tx: broadcast::Sender<FrontendEvent>,
+    db_pool: PgPool,
+}
+```
+
+### **Eventos recebidos do robô**
+
+| Evento                 | Quando ocorre                         | Ação no Backend                                     |
+| ---------------------- | ------------------------------------- | --------------------------------------------------- |
+| `connected`            | Conexão inicial estabelecida          | Envia status inicial para frontend                  |
+| `checkpoint_started`   | Robô inicia movimento para checkpoint | UPDATE banco: `status='running', inicio_real=NOW()` |
+| `checkpoint_completed` | Robô chega no checkpoint              | UPDATE banco: `status='finished', fim_real=NOW()`   |
+| `emergency_stop`       | Parada de emergência acionada         | UPDATE banco: `status='skipped'` (checkpoint atual) |
+| `robot_connected`      | Robô físico conecta via WebRTC        | Notifica frontend que robô está online              |
+
+### **Comandos enviados ao robô**
+
+```rust
+RobotCommand::play()        // Executar próximo checkpoint
+RobotCommand::stop()        // Parada de emergência
+RobotCommand::get_status()  // Consultar status atual
+```
+
+### **Exemplo de atualização no banco**
+
+```rust
+// Quando checkpoint inicia
+sqlx::query(
+    "UPDATE checkpoints
+     SET status = $1, inicio_real = $2
+     WHERE tipo = $3 AND ordem = $4"
+)
+.bind("running")
+.bind(inicio_dt)
+.bind(&tipo)
+.bind(ordem)
+.execute(db_pool)
+.await?;
+
+// Quando checkpoint completa
+sqlx::query(
+    "UPDATE checkpoints
+     SET status = $1, fim_real = $2
+     WHERE tipo = $3 AND ordem = $4"
+)
+.bind("finished")
+.bind(fim_dt)
+.bind(&tipo)
+.bind(ordem)
+.execute(db_pool)
+.await?;
+```
+
+## **3.6 Frontend Server (`frontend_server.rs`)**
+
+### **O que é?**
+
+ Servidor WebSocket que aceita conexões do frontend para enviar eventos de checkpoint em tempo real e receber comandos de controle.
+
+### **O que ele faz?**
+
+* **Aceita conexões WebSocket** do frontend (actix-ws)
+* **Relata eventos do robô** para o frontend em tempo real
+* **Recebe comandos do frontend** (play, stop, status)
+* **Encaminha comandos** para o RobotClient
+* **Usa tokio::select!** para gerenciar fluxo bidirecional
+
+### **Handler principal**
+
+```rust
+pub async fn ws_frontend_handler(
+    req: HttpRequest,
+    stream: web::Payload,
+    app_state: web::Data<AppState>,
+) -> Result<HttpResponse, Error>
+```
+
+### **Fluxo bidirecional**
+
+```rust
+tokio::select! {
+    // Recebe eventos do robô → Envia para frontend
+    Ok(event) = frontend_rx.recv() => {
+        session.text(json).await?;
+    }
+
+    // Recebe comandos do frontend → Envia para robô
+    Some(Ok(msg)) = msg_stream.next() => {
+        let cmd = serde_json::from_str::<FrontendCommand>(&text)?;
+        robot_client.send_command(cmd).await?;
+    }
+}
+```
+
+## **3.7 WebSocket Models (`websocket.rs`)**
+
+### **Estruturas de dados**
+
+#### **RobotEvent** (Robô → Backend)
+
+```rust
+pub enum RobotEvent {
+    Connected { status: RobotStatus },
+    CheckpointStarted { tipo: String, ordem: i32, status: String, inicio_real: String },
+    CheckpointCompleted { tipo: String, ordem: i32, status: String, inicio_real: String, fim_real: String },
+    EmergencyStop { tipo: Option<String>, ordem: Option<i32> },
+    RobotConnected { status: String },
+}
+```
+
+#### **FrontendEvent** (Backend → Frontend)
+
+```rust
+pub enum FrontendEvent {
+    RobotStatus { robot_connected: bool, is_running: bool, current_checkpoint: Option<String> },
+    CheckpointStarted { tipo: String, ordem: i32, status: String, inicio_real: DateTime<Utc> },
+    CheckpointCompleted { tipo: String, ordem: i32, status: String, inicio_real: DateTime<Utc>, fim_real: DateTime<Utc> },
+    EmergencyStop { tipo: Option<String>, ordem: Option<i32> },
+    Error { message: String },
+}
+```
+
+#### **FrontendCommand** (Frontend → Backend)
+
+```rust
+pub enum FrontendCommand {
+    Play,
+    Stop,
+    GetStatus,
+}
+```
+
+## **4. Fluxos de Comunicação**
+
+### **4.1 Fluxo de Checkpoint Completo**
+
+```
+1. Frontend envia comando
+   Frontend → Backend: { "command": "play" }
+
+2. Backend encaminha para robô
+   Backend (RobotClient) → Robot Server: { "action": "play" }
+
+3. Robô inicia movimento
+   Robot Server → Backend: { "event": "checkpoint_started", "tipo": "recepcao", "ordem": 1, ... }
+
+4. Backend atualiza banco de dados
+   UPDATE checkpoints SET status='running', inicio_real='2025-12-15T14:02:35Z' WHERE tipo='recepcao'
+
+5. Backend relata para frontend
+   Backend → Frontend: { "event": "checkpoint_started", "tipo": "recepcao", ... }
+
+6. Frontend atualiza UI
+   UI mostra: "🚀 Indo para Recepção..."
+   Perguntas bloqueadas até chegada
+
+7. Robô chega no destino
+   Robot Server → Backend: { "event": "checkpoint_completed", "tipo": "recepcao", "fim_real": "..." }
+
+8. Backend atualiza banco
+   UPDATE checkpoints SET status='finished', fim_real='2025-12-15T14:08:12Z' WHERE tipo='recepcao'
+
+9. Backend relata para frontend
+   Backend → Frontend: { "event": "checkpoint_completed", "tipo": "recepcao", ... }
+
+10. Frontend libera perguntas
+    UI mostra: "✅ Chegou na Recepção! Faça suas perguntas"
+    Perguntas do checkpoint 'recepcao' liberadas
+```
+
+### **4.2 Fluxo de Parada de Emergência**
+
+```
+1. Frontend envia stop
+   Frontend → Backend: { "command": "stop" }
+
+2. Backend encaminha
+   Backend → Robot: { "action": "stop" }
+
+3. Robô para imediatamente
+   Robot Server → Backend: { "event": "emergency_stop", "tipo": "auditorio", "ordem": 2 }
+
+4. Backend atualiza banco
+   UPDATE checkpoints SET status='skipped' WHERE tipo='auditorio' AND status='running'
+
+5. Backend notifica frontend
+   Backend → Frontend: { "event": "emergency_stop", "tipo": "auditorio" }
+
+6. Frontend mostra alerta
+   UI: "🛑 Tour interrompido! Checkpoint 'Auditório' foi pulado"
+```
+
+### **4.3 Sincronização Entre Clientes (Chat)**
 
  O sistema implementa um padrão publish-subscribe através do `BroadcastServer`:
 
@@ -14036,9 +14171,33 @@ POST /v1/modelo
    * O cliente que originou a mensagem não recebe seu próprio broadcast
    * Evita feedback loops e duplicação de mensagens
 
+## **5. Integração com Banco de Dados**
+
+### **Tabela: checkpoints**
+
+| Coluna            | Tipo        | Preenchimento                                         |
+| ----------------- | ----------- | ----------------------------------------------------- |
+| `id`              | SERIAL (PK) | Auto-gerado                                           |
+| `tour_id`         | INT (FK)    | Criação do tour                                       |
+| `tipo`            | TEXT        | Criação do tour (recepcao, auditorio, atelie, etc.)   |
+| `ordem`           | INT         | Criação do tour (1, 2, 3, 4, 5)                       |
+| `status`          | TEXT        | Inicial: `pending` → `running` → `finished`/`skipped` |
+| `inicio_previsto` | TIMESTAMPTZ | Criação do tour (horário estimado)                    |
+| `inicio_real`     | TIMESTAMPTZ | **Evento `checkpoint_started`** (timestamp real)      |
+| `fim_real`        | TIMESTAMPTZ | **Evento `checkpoint_completed`** (timestamp real)    |
+
+### **Estados do checkpoint**
+
+| Status     | Quando ocorre                          |
+| ---------- | -------------------------------------- |
+| `pending`  | Checkpoint criado, aguardando execução |
+| `running`  | Robô em movimento para o checkpoint    |
+| `finished` | Robô chegou e completou o checkpoint   |
+| `skipped`  | Emergency stop durante execução        |
+
 ## **6. Formatos de Mensagens**
 
-### **Broadcast de texto**
+### **6.1 Chat - Broadcast de texto**
 
 ```json
 {
@@ -14047,7 +14206,7 @@ POST /v1/modelo
 }
 ```
 
-### **Broadcast de áudio**
+### **6.2 Chat - Broadcast de áudio**
 
 ```json
 {
@@ -14056,17 +14215,156 @@ POST /v1/modelo
 }
 ```
 
-## **9. Conclusão**
+### **6.3 Checkpoints - Evento de início**
 
-O sistema de WebSockets deste projeto é o que permite que o robô converse com os visitantes de maneira natural, rápida e sincronizada.
-Ele integra vários serviços inteligentes (STT, TTS e modelo de IA) e distribui respostas para todos os dispositivos conectados em tempo real.
+```json
+{
+  "event": "checkpoint_started",
+  "tipo": "recepcao",
+  "ordem": 1,
+  "status": "running",
+  "inicio_real": "2025-12-15T14:02:35.123Z"
+}
+```
+
+### **6.4 Checkpoints - Evento de conclusão**
+
+```json
+{
+  "event": "checkpoint_completed",
+  "tipo": "recepcao",
+  "ordem": 1,
+  "status": "finished",
+  "inicio_real": "2025-12-15T14:02:35.123Z",
+  "fim_real": "2025-12-15T14:08:12.456Z"
+}
+```
+
+### **6.5 Checkpoints - Status do robô**
+
+```json
+{
+  "event": "robot_status",
+  "robot_connected": true,
+  "is_running": false,
+  "current_checkpoint": "recepcao"
+}
+```
+
+## **7. Configuração**
+
+### **7.1 Arquivo config.toml**
+
+```toml
+[settings.server]
+host = "0.0.0.0"
+port = 8081  # Backend Rust
+
+[settings.database]
+host = "aws-1-us-east-2.pooler.supabase.com"
+username = "postgres.xxxxx"
+password = "xxxxx"
+database = "postgres"
+port = 5432
+max_connections = 5
+
+[settings.robot]
+ip = "127.0.0.1"  # IP do servidor Python do robô (localhost para testes)
+```
+
+### **7.2 Portas utilizadas**
+
+| Serviço               | Porta | Protocolo |
+| --------------------- | ----- | --------- |
+| Backend Rust          | 8081  | HTTP/WS   |
+| Robot Python Server   | 8080  | HTTP/WS   |
+| PostgreSQL (Supabase) | 5432  | TCP       |
+
+## **8. Testando o Sistema**
+
+### **8.1 Teste de Checkpoints**
+
+```powershell
+# Terminal 1: Servidor Python do robô
+cd 2025-2B-T12-EC08-ROBO
+python move_path.py
+
+# Terminal 2: Backend Rust
+cd 2025-2B-T12-EC08-BACK
+cargo run -- --config config.toml
+
+# Terminal 3: Cliente de teste
+cd 2025-2B-T12-EC08-BACK
+python test_websocket.py interactive --url ws://localhost:8081/ws
+```
+
+**Comandos disponíveis:**
+
+* `status` - Consultar status do robô
+* `play` - Executar próximo checkpoint
+* `stop` - Parada de emergência
+* `quit` - Sair
+
+### **8.2 Observando logs**
+
+**Backend logs esperados:**
+
+```
+✅ Conectado ao robô!
+📡 Iniciando listener de eventos do robô
+🤖 Status inicial do robô: robot_connected=false
+▶️ Checkpoint INICIADO: recepcao (ordem: 1)
+💾 Checkpoint atualizado no banco: recepcao -> running
+✅ Checkpoint CONCLUÍDO: recepcao (status: finished)
+💾 Checkpoint finalizado no banco: recepcao -> finished
+```
+
+## **9. Tratamento de Erros**
+
+### **9.1 Robô offline**
+
+* **Comportamento:** Backend retenta conexão a cada 5 segundos
+* **Frontend:** Recebe `robot_connected: false` no status
+* **Comandos:** São enfileirados mas não executados até robô conectar
+
+### **9.2 Perda de conexão durante execução**
+
+* **WebSocket desconecta:** Backend retenta automaticamente
+* **Checkpoint em andamento:** Status `running` permanece no banco até reconexão
+* **Frontend:** Mostra indicador de "Conexão perdida"
+
+### **9.3 Emergency stop**
+
+* **Checkpoint atual:** Marcado como `skipped`
+* **Checkpoints futuros:** Permanecem `pending`
+* **Robô:** Para movimento físico imediatamente
+
+## **10. Conclusão**
+
+O sistema de WebSockets deste projeto é o que permite:
+
+### **Módulo de Chat:**
+
+* Conversação natural com visitantes via texto e áudio
+* Sincronização em tempo real entre múltiplos dispositivos
+* Integração inteligente com STT, TTS e modelo de IA
+
+### **Módulo de Checkpoints:**
+
+* Controle preciso da navegação do robô
+* Atualização automática do banco com timestamps reais
+* Sincronização perfeita entre robô físico, backend e frontend
+* Gerenciamento de estados e paradas de emergência
 
 A arquitetura foi construída para ser:
 
-* simples de entender,
-* escalável,
-* extensível,
-* e fácil de manter.
+* **Simples de entender** - Componentes bem separados e documentados
+* **Escalável** - Usa broadcast channels e WebSockets eficientes
+* **Resiliente** - Retry automático e tratamento de erros
+* **Extensível** - Fácil adicionar novos eventos e comandos
+* **Testável** - Cliente de teste incluso para validação
+
+O sistema está pronto para uso em produção, com o robô físico ou em modo de simulação para testes.
 
 
 # Fundamentos, Arquitetura e Especificações (/docs/sprint-4/botao-de-stop/fundamentos-arquitetura)
@@ -15262,146 +15560,3288 @@ As melhorias implementadas:
 * deixou o sistema mais rápido e escalável.
 
 
-# Template de Pasta (/docs/sprint-5/template-pasta)
+# Atualizações no Banco – Gestão de Visitantes e Acompanhantes (/docs/sprint-5/backend/banco-novo)
 
-<Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
-</Cards>
+# Atualizações no Banco de Dados
+
+#### Gestão de Visitantes e Acompanhantes
+
+## 1. Introdução
+
+ Durante a evolução do aplicativo de controle de acesso do projeto do **cachorro-robô do Inteli**, foi identificada a necessidade de oferecer ao **gestor do Inteli** uma visão mais completa e precisa sobre as pessoas que circulam nas dependências da instituição.
+
+ No fluxo real de visitas, um **visitante principal** pode comparecer acompanhado de outras pessoas (familiares, colegas, convidados ou equipe), e essas informações precisam estar disponíveis para:
+
+* Controle de acesso e segurança
+* Registro histórico de visitas
+* Auditoria e rastreabilidade
+* Tomada de decisão pelo gestor
+
+ A estrutura anterior do banco de dados não permitia representar esse cenário de forma adequada, pois todos os indivíduos precisariam ser cadastrados como visitantes independentes. Para resolver essa limitação, foi realizada uma **reorganização do modelo de dados no Supabase**, acompanhada de **ajustes no back-end**, possibilitando o vínculo explícito entre um visitante principal e seus acompanhantes.
+
+## 2. Alterações no Modelo de Dados (Supabase)
+
+### 2.1 Criação da Tabela `acompanhante`
+
+ Foi criada a nova tabela **`acompanhante`**, responsável por armazenar as informações das pessoas que acompanham um visitante principal.
+
+**Estrutura lógica da tabela:**
+
+* `id`: identificador único do acompanhante (chave primária)
+* `nome`: nome do acompanhante (opcional)
+* `cpf`: CPF do acompanhante (opcional)
+* `visitante_id`: identificador do visitante principal ao qual o acompanhante está vinculado
+
+ Esse relacionamento estabelece uma **relação de um-para-muitos**, onde:
+
+* Um visitante pode ter zero, um ou vários acompanhantes
+* Um acompanhante pertence sempre a um único visitante
+
+ Essa modelagem reflete fielmente o cenário real de visitas no Inteli e evita duplicação indevida de visitantes principais.
+
+### 2.2 Expansão da Tabela `visitantes`
+
+ A tabela **`visitantes`** foi estendida para armazenar informações adicionais necessárias ao aplicativo e à gestão institucional.
+
+**Novos campos adicionados:**
+
+* `cidade`
+* `estado`
+* `cpf`
+* `perfil`
+
+ O campo `perfil` permite classificar o visitante conforme seu contexto, sendo representado no back-end por um enum e armazenado no banco como texto (`student` ou `executive`).
+
+ Essas informações ampliam a capacidade de identificação, segmentação e análise dos visitantes pelo gestor do Inteli.
+
+## 3. Alterações no Back-end
+
+### 3.1 Novo Model `Acompanhante`
+
+ Foi criado o model `Acompanhante` no back-end, permitindo:
+
+* Mapeamento direto da tabela `acompanhante`
+* Integração com o SQLx para queries tipadas
+* Serialização e desserialização via `serde`
+* Documentação automática via OpenAPI (Utoipa)
+
+ Esse model garante consistência entre o banco de dados e a API.
+
+### 3.2 Atualização do Model `Visitante`
+
+ O model `Visitante` foi atualizado para refletir os novos campos do banco e passou a incluir:
+
+* Dados geográficos (`cidade`, `estado`)
+* Documento (`cpf`)
+* Classificação (`perfil`)
+
+ O enum `Perfil` foi implementado com conversões explícitas entre:
+
+* Representação interna no Rust
+* Representação textual no banco de dados
+
+ Isso assegura tipagem forte no back-end sem comprometer a flexibilidade do armazenamento no Supabase.
+
+### 3.3 Criação das Rotas de Acompanhante
+
+ Foram implementadas rotas REST completas para a entidade `acompanhante`, permitindo:
+
+* Listagem de acompanhantes
+* Consulta individual
+* Criação de novos registros
+* Atualização
+* Remoção
+
+ Essas rotas possibilitam que o aplicativo registre e gerencie acompanhantes de forma independente, sempre mantendo o vínculo com o visitante principal.
+
+### 3.4 Ajustes nas Rotas de Visitante
+
+ As rotas de criação e atualização de visitantes foram adaptadas para:
+
+* Inserir os novos campos no banco
+* Atualizar corretamente todas as informações do visitante
+* Persistir o campo `perfil` de forma padronizada
+
+ Com isso, o cadastro do visitante principal passa a ser mais completo e alinhado às necessidades do sistema.
+
+## 4. Impacto Funcional no Aplicativo
+
+ Com as alterações realizadas, o aplicativo do gestor do Inteli passa a oferecer:
+
+* Visualização clara de **visitantes principais e seus acompanhantes**
+* Melhor controle de acesso às dependências
+* Maior confiabilidade nos registros de visita
+* Base de dados mais rica para relatórios e auditorias
+* Estrutura escalável para futuros requisitos (ex.: limites de acompanhantes, regras por perfil, estatísticas)
+
+## 5. Conclusão
+
+ As mudanças implementadas no banco de dados e no back-end representam um avanço significativo na aderência do sistema à realidade operacional do Inteli. A introdução da entidade **`acompanhante`**, aliada à expansão do cadastro de **visitantes**, permite que o gestor tenha acesso a informações completas, organizadas e confiáveis sobre todos os indivíduos presentes no ambiente institucional.
+
+ Essa evolução torna o sistema mais robusto, seguro e preparado para crescimento, garantindo que o aplicativo do projeto do cachorro-robô atenda não apenas às necessidades técnicas, mas também às exigências práticas de gestão e controle do Inteli.
 
 
-# Título do Documento (/docs/sprint-5/template-pasta/template)
+# Centralização das Rotas do Robô (/docs/sprint-5/backend/centralizacao-rotas-robo)
 
+# Centralização das Rotas do Robô
 
+Rotas HTTP centralizadas no backend que fazem proxy para as rotas do robô físico.
 
+## Rotas Disponíveis
 
+### GET /v1/robo/status
 
-# Cabeçalho Principal
+Obtém o status atual do robô.
 
-## Callouts/Admonitions
+**Resposta:**
 
-<Callout type="info">
-  Esta é uma nota importante para destacar algo relevante no documento.
-</Callout>
-
-<Callout type="warn">
-  Esta é uma advertência para chamar a atenção para um possível problema.
-</Callout>
-
-<Callout>
-  Hello World
-</Callout>
-
-<Callout title="Title">
-  Hello World
-</Callout>
-
-<Callout title="Title" type="error">
-  Hello World
-</Callout>
-
-## Bloco de Código
-
-```python
-# Código de exemplo em Python
-def exemplo():
-    print("Olá, Mundo!")
-```
-
-```rust title="Exemplo em Rust com título"
-// Código de exemplo em Rust
-fn exemplo() {
-    println!("Olá, Mundo!");
+```json
+{
+  "robot_connected": true,
+  "is_running": false,
+  "current_checkpoint": "entrada"
 }
 ```
 
-## Flowcharts MermaidJS
+**Como testar:**
+
+```bash
+curl -X GET http://0.0.0.0:8081/v1/robo/status
+```
+
+***
+
+### POST /v1/robo/start\_next
+
+Inicia o próximo passo do robô.
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Movimentação para o próximo ponto iniciada"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/start_next
+```
+
+***
+
+### POST /v1/robo/cancel
+
+Cancela a execução atual do robô.
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Cancelado"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/cancel
+```
+
+***
+
+### POST /v1/robo/reset
+
+Reseta o contador do robô.
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Resetado"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/reset
+```
+
+***
+
+### POST /v1/robo/add\_checkpoint
+
+Adiciona um checkpoint ao robô.
+
+**Body (JSON):**
+
+```json
+{
+  "name": "checkpoint_1",
+  "x": 10.5,
+  "y": 20.3,
+  "z": 5.0
+}
+```
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Adicionado"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/add_checkpoint \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "checkpoint_1",
+    "x": 10.5,
+    "y": 20.3,
+    "z": 5.0
+  }'
+```
+
+## Nota
+
+Atualmente, as rotas estão **mockadas** e retornam respostas simuladas. Quando conectar com o robô real, descomente as chamadas HTTP nos métodos do `RobotClient` em `src/utils/robot_client.rs`.
+
+
+# Documentação da API (/docs/sprint-5/backend/endpoints)
+
+## Recursos Principais
+
+### 1. **Visitantes** (`/v1/visitante`)
+
+Gerenciamento de visitantes que participam dos tours.
+
+#### Modelo de Dados
+
+* `nome` (string, opcional): Nome do visitante
+* `cpf` (string, opcional): CPF do visitante
+* `email` (string, opcional): Email de contato
+* `telefone` (string, opcional): Telefone de contato
+* `cidade` (string, opcional): Cidade de origem
+* `estado` (string, opcional): Estado de origem
+* `perfil` (enum, obrigatório): Tipo de perfil
+  * `student`: Estudante
+  * `executive`: Executivo
+
+#### Endpoints
+
+**GET /v1/visitante** - Retorna todos os visitantes cadastrados
+
+**POST /v1/visitante** - Cria um novo visitante
+
+**GET /v1/visitante/\{id}** - Busca um visitante específico
+
+**PUT /v1/visitante/\{id}** - Atualiza dados de um visitante
+
+**DELETE /v1/visitante/\{id}** - Remove um visitante
+
+### 2. **Acompanhantes** (`/v1/acompanhante`)
+
+Gerenciamento de acompanhantes vinculados aos visitantes.
+
+#### Modelo de Dados
+
+* `nome` (string, opcional): Nome do acompanhante
+* `cpf` (string, opcional): CPF do acompanhante
+* `visitante_id` (integer, opcional): ID do visitante principal
+
+#### Endpoints
+
+**GET /v1/acompanhante** - Lista todos os acompanhantes
+
+**POST /v1/acompanhante** - Cria novo acompanhante
+
+**GET /v1/acompanhante/\{id}** - Busca acompanhante específico
+
+**PUT /v1/acompanhante/\{id}** - Atualiza acompanhante
+
+**DELETE /v1/acompanhante/\{id}** - Remove acompanhante
+
+### 3. **Robôs** (`/v1/robo`)
+
+Gerenciamento dos robôs que conduzem os tours.
+
+#### Modelo de Dados
+
+* `nome` (string, opcional): Nome do robô
+* `modelo` (string, opcional): Modelo do robô
+* `numero_serie` (string, opcional): Número de série
+* `ativo` (boolean, opcional): Status de ativação
+
+#### Endpoints
+
+**GET /v1/robo** - Lista todos os robôs
+
+**POST /v1/robo** - Cadastra novo robô
+
+**GET /v1/robo/\{id}** - Busca robô específico
+
+**PUT /v1/robo/\{id}** - Atualiza dados do robô
+
+**DELETE /v1/robo/\{id}** - Remove robô
+
+### 4. **Tours** (`/v1/tour`)
+
+Gerenciamento dos tours agendados e em andamento.
+
+#### Modelo de Dados
+
+* `codigo` (string, obrigatório): Código único do tour
+* `titulo` (string, opcional): Título do tour
+* `data_local` (date, obrigatório): Data do tour
+* `hora_inicio_prevista` (string, opcional): Hora de início prevista
+* `hora_fim_prevista` (string, opcional): Hora de término prevista
+* `inicio_real` (datetime, opcional): Timestamp real de início
+* `fim_real` (datetime, opcional): Timestamp real de término
+* `status` (enum, obrigatório): Status atual
+  * `scheduled`: Agendado
+  * `in_progress`: Em andamento
+  * `completed`: Concluído
+  * `cancelled`: Cancelado
+* `robo_id` (integer, obrigatório): ID do robô designado
+* `responsavel_id` (integer, opcional): ID do responsável
+
+#### Endpoints
+
+**GET /v1/tour** - Lista todos os tours
+
+**POST /v1/tour** - Cria novo tour
+
+**GET /v1/tour/\{id}** - Busca tour específico
+
+**PUT /v1/tour/\{id}** - Atualiza tour
+
+**DELETE /v1/tour/\{id}** - Remove tour
+
+### 5. **Tour-Visitante** (`/v1/tour-visitante`)
+
+Relacionamento many-to-many entre tours e visitantes.
+
+#### Modelo de Dados
+
+* `tour_id` (integer, obrigatório): ID do tour
+* `visitante_id` (integer, obrigatório): ID do visitante
+
+#### Endpoints
+
+**GET /v1/tour-visitante** - Lista todas as associações
+
+**POST /v1/tour-visitante** - Adiciona visitante ao tour
+
+**GET /v1/tour-visitante/\{id}** - Busca associação específica
+
+**GET /v1/tour-visitante/tour/\{tour\_id}** - Lista visitantes de um tour
+
+**GET /v1/tour-visitante/visitante/\{visitante\_id}** - Lista tours de um visitante
+
+**DELETE /v1/tour-visitante/\{id}** - Remove associação
+
+### 6. **Checkpoints** (`/v1/checkpoint`)
+
+Pontos de parada durante o tour.
+
+#### Modelo de Dados
+
+* `tour_id` (integer, obrigatório): ID do tour
+* `tipo` (enum, obrigatório): Tipo do checkpoint
+  * `recepcao`: Recepção
+  * `auditorio`: Auditório
+  * `atelie`: Ateliê
+  * `casinhas`: Casinhas
+  * `dog_house`: Dog House
+* `ordem` (integer, obrigatório): Ordem de visita
+* `status` (enum, obrigatório): Status atual
+  * `pending`: Pendente
+  * `running`: Em andamento
+  * `finished`: Finalizado
+  * `skipped`: Pulado
+* `inicio_previsto` (datetime, opcional): Hora prevista de início
+* `inicio_real` (datetime, opcional): Hora real de início
+* `fim_real` (datetime, opcional): Hora real de término
+
+#### Endpoints
+
+**GET /v1/checkpoint** - Lista todos os checkpoints
+
+**POST /v1/checkpoint** - Cria novo checkpoint
+
+**GET /v1/checkpoint/\{id}** - Busca checkpoint específico
+
+**GET /v1/checkpoint/tour/\{tour\_id}** - Lista checkpoints de um tour
+
+**PUT /v1/checkpoint/\{id}** - Atualiza checkpoint
+
+**DELETE /v1/checkpoint/\{id}** - Remove checkpoint
+
+### 7. **Perguntas** (`/v1/perguntas`)
+
+Perguntas feitas durante os checkpoints.
+
+#### Modelo de Dados
+
+* `checkpoint_id` (integer, obrigatório): ID do checkpoint
+* `tour_id` (integer, opcional): ID do tour
+* `texto` (string, obrigatório): Texto da pergunta
+* `question_topic` (string, opcional): Tópico da pergunta
+* `estado` (enum, obrigatório): Estado da pergunta
+  * `queued`: Na fila
+  * `answerable`: Pode ser respondida
+  * `answered`: Respondida
+  * `discarded`: Descartada
+* `liberado_em` (datetime, opcional): Quando foi liberada
+* `respondido_em` (datetime, opcional): Quando foi respondida
+
+#### Endpoints
+
+**GET /v1/perguntas** - Lista todas as perguntas
+
+**POST /v1/perguntas** - Cria nova pergunta
+
+**GET /v1/perguntas/\{id}** - Busca pergunta específica
+
+**GET /v1/perguntas/tour/\{tour\_id}** - Lista perguntas de um tour
+
+**PUT /v1/perguntas/\{id}** - Atualiza pergunta
+
+**DELETE /v1/perguntas/\{id}** - Remove pergunta
+
+### 8. **Respostas** (`/v1/respostas`)
+
+Respostas às perguntas feitas.
+
+#### Modelo de Dados
+
+* `pergunta_id` (integer, obrigatório): ID da pergunta
+* `texto` (string, obrigatório): Texto da resposta
+* `respondido_por_tipo` (string, obrigatório): Tipo de respondente
+* `respondido_por_usuario` (integer, opcional): ID do usuário que respondeu
+
+#### Endpoints
+
+**GET /v1/respostas** - Lista todas as respostas
+
+**POST /v1/respostas** - Cria nova resposta
+
+**GET /v1/respostas/\{id}** - Busca resposta específica
+
+**GET /v1/respostas/pergunta/\{pergunta\_id}** - Lista respostas de uma pergunta
+
+**PUT /v1/respostas/\{id}** - Atualiza resposta
+
+**DELETE /v1/respostas/\{id}** - Remove resposta
+
+### 9. **Modelo de IA** (`/v1/modelo`)
+
+Processamento de perguntas via IA.
+
+#### Endpoints
+
+**POST /v1/modelo**
+
+* Processa uma pergunta e gera resposta automática
+* Body: objeto `Pergunta`
+* Resposta 200: `SingleItemResponse_Resposta`
+
+### 10. **Rastreio do Robô** (`/v1/rastreio-robo`)
+
+Rastreamento em tempo real da posição do robô.
+
+#### Modelo de Dados
+
+* `tour_id` (integer, opcional): ID do tour
+* `checkpoint_id` (integer, opcional): Checkpoint atual
+* `waypoint` (string, opcional): Ponto de passagem
+* `progresso_pct` (double, opcional): Percentual de progresso
+
+#### Endpoints
+
+**GET /v1/rastreio-robo** - Lista todos os registros de rastreio
+
+**POST /v1/rastreio-robo** - Cria novo registro de rastreio
+
+**GET /v1/rastreio-robo/\{id}** - Busca registro específico
+
+**PUT /v1/rastreio-robo/\{id}** - Atualiza rastreio
+
+**DELETE /v1/rastreio-robo/\{id}** - Remove registro
+
+### 11. **Alertas** (`/v1/alertas`)
+
+Sistema de alertas e notificações.
+
+#### Modelo de Dados
+
+* `tour_id` (integer, opcional): Tour relacionado
+* `nivel` (enum, obrigatório): Nível de severidade
+  * `baixo`: Baixo
+  * `medio`: Médio
+  * `alto`: Alto
+* `mensagem` (string, opcional): Mensagem do alerta
+* `origem` (string, opcional): Origem do alerta
+* `resolvido_em` (datetime, opcional): Quando foi resolvido
+
+#### Endpoints
+
+**GET /v1/alertas** - Lista todos os alertas
+
+**POST /v1/alertas** - Cria novo alerta
+
+**GET /v1/alertas/\{id}** - Busca alerta específico
+
+**PUT /v1/alertas/\{id}** - Atualiza alerta
+
+**DELETE /v1/alertas/\{id}** - Remove alerta
+
+### 12. **Notificações** (`/v1/notificacoes`)
+
+Notificações para usuários do sistema.
+
+#### Modelo de Dados
+
+* `usuario_id` (integer, opcional): ID do usuário
+* `titulo` (string, opcional): Título da notificação
+* `corpo` (string, opcional): Corpo da mensagem
+* `lido` (boolean, obrigatório): Status de leitura
+* `payload_json` (object, opcional): Dados adicionais em JSON
+
+#### Endpoints
+
+**GET /v1/notificacoes** - Lista todas as notificações
+
+**POST /v1/notificacoes** - Cria nova notificação
+
+**GET /v1/notificacoes/\{id}** - Busca notificação específica
+
+**PUT /v1/notificacoes/\{id}** - Atualiza notificação (ex: marcar como lida)
+
+**DELETE /v1/notificacoes/\{id}** - Remove notificação
+
+### 13. **Log de Status do Tour** (`/v1/tour-status-log`)
+
+Histórico de mudanças de status dos tours.
+
+#### Modelo de Dados
+
+* `tour_id` (integer, obrigatório): ID do tour
+* `status` (string, obrigatório): Status registrado
+* `atualizado_em` (datetime, opcional): Timestamp da mudança
+* `observacoes` (string, opcional): Observações sobre a mudança
+
+#### Endpoints
+
+**GET /v1/tour-status-log** - Lista todos os logs
+
+**POST /v1/tour-status-log** - Cria novo log de status
+
+**GET /v1/tour-status-log/\{id}** - Busca log específico
+
+**GET /v1/tour-status-log/tour/\{tour\_id}** - Lista logs de um tour
+
+**PUT /v1/tour-status-log/\{id}** - Atualiza log
+
+**DELETE /v1/tour-status-log/\{id}** - Remove log
+
+## Respostas Padrão
+
+### Sucesso
+
+```json
+{
+  "message": "Mensagem descritiva",
+  "data": {
+    /* objeto ou array de dados */
+  }
+}
+```
+
+### Erro 404
+
+```json
+{
+  "message": "Recurso não encontrado"
+}
+```
+
+### Erro 500
+
+```json
+{
+  "message": "Erro interno do servidor"
+}
+```
+
+## Códigos de Status HTTP
+
+* **200 OK**: Operação bem-sucedida
+* **201 Created**: Recurso criado com sucesso
+* **404 Not Found**: Recurso não encontrado
+* **500 Internal Server Error**: Erro inesperado no servidor
+
+## Fluxo Típico de um Tour
+
+1. **Criar Visitante** → `POST /v1/visitante`
+2. **Criar Tour** → `POST /v1/tour`
+3. **Associar Visitante ao Tour** → `POST /v1/tour-visitante`
+4. **Criar Checkpoints** → `POST /v1/checkpoint`
+5. **Iniciar Tour** → `PUT /v1/tour/&#123;id&#125;` (atualizar status)
+6. **Rastrear Robô** → `POST /v1/rastreio-robo`
+7. **Processar Perguntas** → `POST /v1/perguntas` → `POST /v1/modelo`
+8. **Finalizar Tour** → `PUT /v1/tour/&#123;id&#125;` (atualizar status)
+
+## Notas de Implementação
+
+* Todos os IDs são integers de 32 bits
+* Datas seguem formato ISO 8601
+* Campos marcados como `null` são opcionais
+* Enums devem usar exatamente os valores especificados
+* A API usa JSON para request/response bodies
+
+
+# Banco de Dados Final (/docs/sprint-5/backend)
+
+<Cards>
+  <Card title="Backend - Atualização do Banco" description="Criação de nova tabela Acompanhantes e mudanças na tabela Visitantes" href="/docs/sprint-5/backend/banco-novo" />
+
+  <Card title="Backend - Documentação da API" description="Documentação de todos os endpoints que foram desenvolvidos ao longo do módulo." href="/docs/sprint-5/backend/endpoints" />
+
+  <Card title="Backend - Centralização de Rotas do Robô" description="Documentação sobre a centralização das rotas do robô no backend" href="/docs/sprint-5/backend/centralizacao-rotas-robo" />
+
+  <Card title="Backend - Documentação WebSocket Tour" description="Documentação sobre o WebSocket desenvolvido para o Tour" href="/docs/sprint-5/backend/ws_tour" />
+</Cards>
+
+
+# Documentação do Endpoint WebSocket /ws/tour/check (/docs/sprint-5/backend/ws_tour)
+
+# Documentação do Endpoint WebSocket: `/ws/tour/check`
+
+## Visão Geral
+
+### Objetivo do Endpoint
+
+Este endpoint fornece verificações em tempo real sobre tours ativos através de comunicação WebSocket. Os clientes podem enviar requisições contendo data e horário, e o servidor responde informando se existe um tour ativo naquele momento, incluindo suas perguntas e respostas já registradas.
+
+### Protocolo de Comunicação
+
+* **Tipo**: WebSocket
+* **Formato de Dados**: JSON
+* **Direção**: Bidirecional (cliente ↔ servidor)
+
+***
+
+## Estrutura das Mensagens
+
+### Requisição do Cliente
+
+Os clientes devem enviar uma mensagem JSON contendo os seguintes campos:
+
+```json
+{
+  "data_local": "2024-12-18",
+  "horario_verificacao": "14:30:00"
+}
+```
+
+**Campos da Requisição:**
+
+| Campo                 | Tipo   | Formato    | Obrigatório | Descrição                         |
+| --------------------- | ------ | ---------- | ----------- | --------------------------------- |
+| `data_local`          | String | YYYY-MM-DD | Sim         | Data para verificação do tour     |
+| `horario_verificacao` | String | HH:MM:SS   | Sim         | Horário específico da verificação |
+
+***
+
+## Respostas do Servidor
+
+### Tour Ativo
+
+Quando existe um tour ativo no horário especificado, o servidor retorna:
+
+```json
+{
+  "status": "active",
+  "tour_id": 123,
+  "codigo": "XXX001",
+  "perguntas": [
+    {
+      "id_pergunta": 45,
+      "texto_pergunta": "Qual os cursos do Inteli?",
+      "checkpoint": 3,
+      "texto_resposta": "Engenharia de computação, engenharia de software, ciência da computação e sistemas da informação"
+    },
+    {
+      "id_pergunta": 46,
+      "texto_pergunta": "Como funciona o processo seletivo",
+      "checkpoint": 3,
+      "texto_resposta": "O processo dividido nos eixos prova, perfil e dinâmica em grupo"
+    }
+  ]
+}
+```
+
+**Campos da Resposta (Tour Ativo):**
+
+| Campo                        | Tipo    | Descrição                               |
+| ---------------------------- | ------- | --------------------------------------- |
+| `status`                     | String  | Sempre "active" para tours em andamento |
+| `tour_id`                    | Integer | Identificador único do tour             |
+| `codigo`                     | String  | Código alfanumérico do tour             |
+| `perguntas`                  | Array   | Lista de perguntas e respostas do tour  |
+| `perguntas[].id_pergunta`    | Integer | Identificador único da pergunta         |
+| `perguntas[].texto_pergunta` | String  | Conteúdo da pergunta                    |
+| `perguntas[].checkpoint`     | Integer | Número do checkpoint associado          |
+| `perguntas[].texto_resposta` | String  | Resposta mais recente para a pergunta   |
+
+### Tour Inativo
+
+Quando não existe tour ativo no horário especificado:
+
+```json
+{
+  "status": "inactive"
+}
+```
+
+**Campos da Resposta (Tour Inativo):**
+
+| Campo    | Tipo   | Descrição                                              |
+| -------- | ------ | ------------------------------------------------------ |
+| `status` | String | Sempre "inactive" quando nenhum tour está em andamento |
+
+***
+
+## Conclusão
+
+O endpoint `/ws/tour/check` oferece uma solução eficiente e em tempo real para verificação de tours ativos. Através da comunicação WebSocket e formato JSON padronizado, o sistema permite que aplicações cliente monitorem o status de tours de forma responsiva e confiável.
+
+
+# Fundamentos e Extensões (/docs/sprint-5/botao-de-stop-pt2/fundamentos-arquitetura)
+
+# Kill Switch: Fundamentos e Extensões
+
+<Callout type="warn">
+  **AVISO**: O acionamento deste botão de emergência resulta em uma **parada brusca** (Dump Mode) que pode causar danos mecânicos ao robô. Esta é uma medida de **último recurso**, mas **obrigatória** para garantir a segurança física dos humanos presentes durante o tour. A segurança humana tem prioridade absoluta sobre a preservação do equipamento.
+</Callout>
+
+## 1. Objetivo do Sistema
+
+## 1. Objetivo do Sistema
+
+O Kill Switch é um mecanismo crítico de segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente.
+
+**Sprint 4** implementou o **Botão Físico Local** conectado via USB-C.
+**Sprint 5** estende o sistema com redundância sem fio:
+
+* **Botão Físico Wireless**: Hardware independente (Metaltex + ESP32C3) que opera via WiFi.
+* **Botão do Aplicativo**: Interface de software para acionamento remoto.
+* **Sistema de Emotes**: Interação e feedback visual do robô.
+
+## 2. Extensões da Sprint 4
+
+O sistema agora opera em três canais que convergem para o mesmo resultado de segurança:
+
+1. **Botão Físico Local (USB)**: Conexão direta via Serial.
+2. **Botão Físico Wireless (WiFi)**: Mesmo hardware da Sprint 1, mas enviando comandos via HTTP POST.
+3. **Botão do Aplicativo**: Interface digital via rede WiFi.
+
+### 2.1 Protocolo HTTP/WiFi
+
+Foi adicionado um segundo canal de comunicação via HTTP/WiFi, permitindo acionamento remoto do Kill Switch através de aplicativo ou interface web.
+
+**Características:**
+
+* Comunicação via rede WiFi Unitree
+* Endpoints REST simples
+* Máquina de estados para evitar duplicatas
+* Rate limiting para proteção
+
+### 2.2 Dual-Channel Redundância
+
+Ambos os canais (Serial + HTTP) convergem para o mesmo resultado:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              Kill Switch - Dual Channel                 │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌──────────────┐              ┌──────────────┐       │
+│  │ Serial Input │              │ HTTP Server  │       │
+│  │ /dev/ttyAM0  │              │ :3000        │       │
+│  └──────┬───────┘              └──────┬───────┘       │
+│         │                             │               │
+│         └─────────────┬───────────────┘               │
+│                       │                               │
+│                ┌──────▼──────┐                        │
+│                │  Callbacks  │                        │
+│                │  (Flip-Flop)│                        │
+│                └──────┬──────┘                        │
+│                       │                               │
+│         ┌─────────────▼──────────────┐               │
+│         │  MPSC Channel (RosCommand) │               │
+│         └─────────────┬──────────────┘               │
+│                       │                               │
+│         ┌─────────────▼──────────────┐               │
+│         │  ROS 2 /api/sport/request  │               │
+│         │  - Dump Mode               │               │
+│         │  - Recover from Fall       │               │
+│         └────────────────────────────┘               │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Vantagens:**
+
+* **Redundância**: Se um canal falhar, o outro continua funcionando
+* **Flexibilidade**: Operador escolhe o canal mais apropriado
+* **Confiabilidade**: Ambos garantem a mesma resposta
+
+### 2.3 Sistema de Emotes
+
+Foi criado um sistema de emotes que permite ao robô expressar movimentos e emoções através de HTTP.
+
+**Emotes Disponíveis:**
+
+| Emote       | ID   | Descrição       |
+| :---------- | :--- | :-------------- |
+| **Hello**   | 1016 | Movimento de oi |
+| **Stretch** | 1017 | Se espreguiça   |
+| **Content** | 1020 | Expressão feliz |
+| **Wallow**  | 1021 | Rola no chão    |
+| **Dance1**  | 1022 | Dança 1         |
+| **Dance2**  | 1023 | Dança 2         |
+| **Pose**    | 1028 | Pose            |
+| **Scrape**  | 1029 | Esfrega a bunda |
+
+**Características:**
+
+* 8 movimentos diferentes
+* Rate limiting de 20 segundos entre emotes
+* Integração com ROS 2
+* Endpoints HTTP simples
+
+## 3. Integração
+
+A Sprint 5 **estende** a Sprint 4, mantendo toda a funcionalidade anterior:
+
+| Aspecto          | Sprint 4       | Sprint 5   |
+| :--------------- | :------------- | :--------- |
+| **Canal Serial** | ✅ Implementado | ✅ Mantido  |
+| **Botão Físico** | ✅ Implementado | ✅ Mantido  |
+| **ROS 2**        | ✅ Implementado | ✅ Mantido  |
+| **Canal HTTP**   | ❌ Não          | ✅ **NOVO** |
+| **Emotes**       | ❌ Não          | ✅ **NOVO** |
+| **Dual-Channel** | ❌ Não          | ✅ **NOVO** |
+
+
+# Protocolo HTTP/WiFi (/docs/sprint-5/botao-de-stop-pt2/hardware-protocolos)
+
+# Kill Switch - Protocolo Wireless
+
+## 1. Botão Físico Wireless
+
+O Botão Físico Wireless utiliza o microcontrolador ESP32C3 para monitorar o botão Metaltex e enviar comandos via WiFi.
+
+### 1.1 Funcionamento do Hardware
+
+* **Hardware**: Metaltex CP1-E + ESP32C3 Super Mini.
+* **Conectividade**: WiFi 2.4GHz (Rede Unitree).
+* **Lógica**: Ao detectar o pressionamento (GPIO 0 -> LOW), o ESP32C3 dispara uma requisição HTTP POST para o robô.
+
+## 2. Visão Geral do Protocolo HTTP
+
+As mudanças atuais adicionam um segundo canal de comunicação via HTTP/WiFi, complementando o canal Serial da sprint passada.
+
+**Características:**
+
+* Protocolo: HTTP/1.1
+* Servidor: Axum (Rust async web framework)
+* Porta: 3000
+* Rede: WiFi Unitree interna
+* Autenticação: Nenhuma (rede interna)
+
+## 3. Endpoints do Kill Switch
+
+### 3.1 POST /emergency/press
+
+Inicia o Dump Mode continuamente.
+
+**Requisição:**
+
+```http
+POST /emergency/press HTTP/1.1
+Host: robot.local:3000
+Content-Type: application/json
+
+{}
+```
+
+**Resposta (200 OK):**
+
+```json
+{
+  "status": "pressed",
+  "message": "Kill Switch ativado",
+  "timestamp": "2025-12-18T10:30:45Z"
+}
+```
+
+**Comportamento:**
+
+1. Muda estado para Pressed
+2. Dispara callback
+3. ROS 2 publica comando DAMP
+4. Robô ativa Dump Mode
+5. Continua enviando DAMP enquanto pressionado
+
+### 3.2 POST /emergency/release
+
+Para o Dump Mode e inicia Recover.
+
+**Requisição:**
+
+```http
+POST /emergency/release HTTP/1.1
+Host: robot.local:3000
+Content-Type: application/json
+
+{}
+```
+
+**Resposta (200 OK):**
+
+```json
+{
+  "status": "released",
+  "message": "Kill Switch liberado",
+  "timestamp": "2025-12-18T10:30:46Z"
+}
+```
+
+**Comportamento:**
+
+1. Muda estado para Released
+2. Para envio de DAMP
+3. Dispara callback
+4. ROS 2 publica comando RECOVER
+5. Robô retorna ao estado normal
+
+### 3.3 GET /emergency/status
+
+Consulta o status atual do Kill Switch.
+
+**Requisição:**
+
+```http
+GET /emergency/status HTTP/1.1
+Host: robot.local:3000
+```
+
+**Resposta (200 OK):**
+
+```json
+{
+  "status": "released",
+  "last_pressed": "2025-12-18T10:30:45Z",
+  "uptime_seconds": 3600
+}
+```
+
+## 4. Endpoints de Emotes
+
+### 4.1 POST "emote\_name"
+
+Aciona um emote específico.
+
+**Emotes Disponíveis:**
+
+* `/emote/hello`
+* `/emote/stretch`
+* `/emote/content`
+* `/emote/wallow`
+* `/emote/dance1`
+* `/emote/dance2`
+* `/emote/pose`
+* `/emote/scrape`
+
+**Requisição:**
+
+```http
+POST /emote/hello HTTP/1.1
+Host: robot.local:3001
+Content-Type: application/json
+
+{}
+```
+
+**Resposta (200 OK):**
+
+```json
+{
+  "emote": "hello",
+  "id": 1016,
+  "status": "executing",
+  "duration_ms": 2000
+}
+```
+
+**Resposta (429 Too Many Requests):**
+
+```json
+{
+  "error": "Rate limit exceeded",
+  "retry_after_seconds": 15,
+  "message": "Aguarde 20 segundos entre emotes"
+}
+```
+
+**Comportamento:**
+
+1. Verifica rate limit (20s)
+2. Se OK, publica comando ROS 2
+3. Robô executa emote
+4. Retorna status
+
+## 5. Máquina de Estados HTTP
+
+O serviço HTTP implementa máquina de estados para evitar duplicatas:
+
+```
+┌─────────────┐
+│  RELEASED   │ ◄─────────────────────┐
+└──────┬──────┘                       │
+       │                              │
+       │ POST /emergency/press        │
+       │                              │
+       ▼                              │
+┌─────────────┐                       │
+│  PRESSING   │                       │
+└──────┬──────┘                       │
+       │                              │
+       │ POST /emergency/release      │
+       │                              │
+       └──────────────────────────────┘
+```
+
+**Transições:**
+
+* RELEASED → PRESSING: POST /emergency/press
+* PRESSING → RELEASED: POST /emergency/release
+* Requisições duplicadas são ignoradas
+
+## 6. Rate Limiting para Emotes
+
+O sistema implementa rate limiting para proteger contra abuso:
+
+**Regra:**
+
+* Máximo 1 emote a cada 20 segundos
+* Contador por sessão/cliente
+* Retorna 429 se limite excedido
+
+**Exemplo:**
+
+```
+T+0s:   POST /emote/hello     → 200 OK
+T+5s:   POST /emote/stretch   → 429 Too Many Requests
+T+20s:  POST /emote/stretch   → 200 OK
+```
+
+## 7. Fluxo de Transmissão HTTP
+
+### Kill Switch via HTTP
+
+1. Cliente envia POST /emergency/press
+2. Servidor HTTP recebe requisição
+3. Estado muda para Pressed
+4. Callback dispara
+5. ROS 2 publica comando de dump
+6. Motor controller recebe comando
+7. Dump Mode ativado
+
+### Emote via HTTP
+
+1. Cliente envia POST /emote/hello
+2. Servidor verifica rate limit
+3. Se OK, callback dispara
+4. ROS 2 publica comando de emote
+5. Robô executa movimento
+6. Retorna 200 OK
+
+## 8. Integração Dual-Channel
+
+Ambos os canais (Serial + HTTP) funcionam simultaneamente:
+
+**Serial:**
+
+* Botão físico pressionado
+* ESP32C3 envia '1' via serial
+* Rust recebe e processa
+
+**HTTP:**
+
+* Cliente envia POST /emergency/press
+* Servidor HTTP recebe
+* Callback processa
+
+**Resultado:**
+
+* Ambos disparam o mesmo ROS command
+* Ambos ativam Dump Mode
+* Ambos têm igual prioridade
+
+
+# Kill Switch Atualizações (/docs/sprint-5/botao-de-stop-pt2)
+
+# Kill Switch - Atualização
+
+## Visão Geral
+
+Na sprint 4 foi feita a implementação de um Kill Switch no robô, e agora atualizando a antiga documentação, trazemos:
+
+* **Protocolo HTTP/WiFi** para acionamento remoto
+* **Dual-channel redundância** (Serial + HTTP)
+* **Sistema de emotes** com 8 movimentos diferentes
+* **Rate limiting** para proteção contra abuso
+* **Integração completa** com ROS 2
+
+
+# Segurança e Conformidade (/docs/sprint-5/botao-de-stop-pt2/seguranca-conformidade)
+
+# Kill Switch - Segurança e Conformidade
+
+## 1. Novas Ameaças (HTTP/WiFi)
+
+A adição do protocolo HTTP/WiFi introduz novas ameaças que precisam ser mitigadas:
+
+### Ameaças Identificadas
+
+| Ameaça                     | Categoria              | Impacto              | Probabilidade | Mitigação              |
+| :------------------------- | :--------------------- | :------------------- | :------------ | :--------------------- |
+| **Spoofing de Sinal HTTP** | Spoofing               | Acionamento falso    | Média         | Rede interna, sem auth |
+| **Replay Attack HTTP**     | Tampering              | Acionamento repetido | Média         | Máquina de estados     |
+| **Perda de Conexão WiFi**  | DoS                    | Falha de comunicação | Média         | Fallback para Serial   |
+| **Injection em HTTP**      | Injection              | Comando malicioso    | Baixa         | Validação de estado    |
+| **Eavesdropping HTTP**     | Information Disclosure | Exposição de dados   | Média         | Rede interna           |
+
+### Matriz de Risco
+
+| Ameaça                    | Severidade | Detectabilidade | Score | Prioridade |
+| :------------------------ | :--------- | :-------------- | :---- | :--------- |
+| **Perda de Conexão WiFi** | ALTA       | Fácil           | 7/10  | ALTA       |
+| **Spoofing HTTP**         | ALTA       | Média           | 6/10  | ALTA       |
+| **Replay Attack HTTP**    | MÉDIA      | Fácil           | 4/10  | MÉDIA      |
+
+## 2. Controles de Segurança
+
+### Controles Implementados
+
+| Controle                    | Tipo       | Implementação           | Status |
+| :-------------------------- | :--------- | :---------------------- | :----- |
+| **Máquina de Estados HTTP** | Preventivo | Validação de transições | ✅      |
+| **Rate Limiting Emotes**    | Preventivo | 20s entre requisições   | ✅      |
+| **Rede Interna**            | Preventivo | WiFi Unitree isolada    | ✅      |
+| **Detecção de Anomalias**   | Detectivo  | Monitoramento de taxa   | ✅      |
+| **Logging Estruturado**     | Detectivo  | Eventos com trace\_id   | ✅      |
+
+## 3. Monitoramento
+
+### Novos Eventos
+
+| Evento                            | Severidade | Descrição                        | Ação            |
+| :-------------------------------- | :--------- | :------------------------------- | :-------------- |
+| **KILL\_SWITCH\_ACTIVATED\_HTTP** | CRITICAL   | Kill Switch acionado via HTTP    | Alerta imediato |
+| **KILL\_SWITCH\_RELEASED\_HTTP**  | HIGH       | Kill Switch liberado via HTTP    | Log             |
+| **EMOTE\_TRIGGERED**              | MEDIUM     | Emote acionado                   | Log             |
+| **RATE\_LIMIT\_EXCEEDED**         | LOW        | Limite de taxa de emote excedido | Log             |
+| **HTTP\_SERVER\_ERROR**           | HIGH       | Erro no servidor HTTP            | Investigação    |
+| **WIFI\_DISCONNECTED**            | CRITICAL   | Perda de conexão WiFi            | Alerta          |
+
+### Esquema de Logs
+
+```json
+{
+  "timestamp": "2025-12-18T10:30:45.123Z",
+  "trace_id": "550e8400-e29b-41d4-a716-446655440000",
+  "event.category": "kill-switch",
+  "event.source": "http",
+  "event.type": "activation",
+  "severity": "CRITICAL",
+  "message": "Emergency stop button activated via HTTP",
+  "http.method": "POST",
+  "http.path": "/emergency/press",
+  "http.status": 200,
+  "client.ip": "192.168.1.100",
+  "operator_id": "op-001"
+}
+```
+
+## 4. Conformidade
+
+### Alinhamento com NIST CSF
+
+O desinvolvimento dessa sprint se mantém alinhado com NIST CSF:
+
+| Função       | Atividade           | Implementação                   |
+| :----------- | :------------------ | :------------------------------ |
+| **Identify** | Asset Inventory     | Serviços HTTP registrados       |
+| **Protect**  | Access Control      | Rede WiFi interna               |
+| **Detect**   | Anomaly Detection   | SIEM monitora eventos HTTP      |
+| **Respond**  | Incident Response   | Playbooks KS-002 e KS-003       |
+| **Recover**  | Recovery Procedures | Failover automático para Serial |
+
+### Conformidade com Padrões
+
+| Padrão           | Seção                          | Conformidade  |
+| :--------------- | :----------------------------- | :------------ |
+| **ISO 13849-1**  | Safety-related control systems | Mantém PLd    |
+| **IEC 61508**    | Functional safety              | Mantém SIL 2  |
+| **OWASP Top 10** | Web Application Security       | Completo      |
+| **CIS Controls** | Critical Security Controls     | Completo (v8) |
+
+## 5. Testes
+
+### Testes de Segurança
+
+* Validação de máquina de estados HTTP
+* Teste de rate limiting para emotes
+* Teste de failover WiFi → Serial
+* Validação de replay attack
+* Teste de injection em endpoints
+
+### Testes de Integração
+
+* Dual-channel simultâneo (Serial + HTTP)
+* Sincronização de estado entre canais
+* Prioridade de canais
+* Recuperação de falhas
+
+
+# Software HTTP e Emotes (/docs/sprint-5/botao-de-stop-pt2/software-operacao)
+
+# Kill Switch - Software HTTP e Emotes
+
+## 1. Firmware ESP32C3 (Wireless)
+
+O firmware utiliza a biblioteca `WiFi.h` e `HTTPClient.h` para enviar os comandos de emergência sem fios.
+
+````cpp
+// Exemplo de lógica Wireless
+if (buttonState == LOW) {
+    HTTPClient http;
+    http.begin("http://robot.local:3000/emergency/press" );
+    http.POST("{}" );
+    http.end( );
+}
+
+## 2. Serviço HTTP Kill Switch
+
+### Arquitetura
+
+O serviço HTTP é implementado em Rust usando Axum e funciona paralelamente ao serviço Serial:
+
+```rust
+#[derive(Debug, Clone, Copy)]
+enum RosCommand {
+    StartDamp,      // Inicia envio contínuo de DAMP
+    StopAndRecover, // Para DAMP e envia RECOVER
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Carrega configuração
+    let config = load_config("config/config.yaml")?;
+
+    // Cria cliente ROS 2
+    let ros_client = Arc::new(Mutex::new(EmergencyStopClient::new(
+        &config.ros_namespace,
+        "/api/sport/request",
+    )?));
+
+    // Inicializa servidor HTTP
+    let web_client = WebClient::new("0.0.0.0:3000");
+
+    // Canal para comandos ROS (thread-safe)
+    let (tx, rx) = mpsc::channel::<RosCommand>();
+
+    // Thread que processa comandos ROS
+    let ros_for_commands = Arc::clone(&ros_client);
+    std::thread::spawn(move || {
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        let mut damp_active = false;
+
+        loop {
+            match rx.recv_timeout(std::time::Duration::from_millis(10)) {
+                Ok(RosCommand::StartDamp) => {
+                    info!("*** HTTP: Start continuous DAMP ***");
+                    damp_active = true;
+                }
+                Ok(RosCommand::StopAndRecover) => {
+                    info!("*** HTTP: Stop DAMP and send RECOVER ***");
+                    damp_active = false;
+
+                    rt.block_on(async {
+                        let guard = ros_for_commands.lock().await;
+                        let _ = guard.trigger_recovery().await;
+                    });
+                }
+                Err(mpsc::RecvTimeoutError::Timeout) => {
+                    if damp_active {
+                        rt.block_on(async {
+                            let guard = ros_for_commands.lock().await;
+                            let _ = guard.trigger_emergency_stop(true).await;
+                        });
+                    }
+                }
+                Err(_) => break,
+            }
+        }
+    });
+
+    // Callback HTTP: detecta transição Released→Pressed ou Pressed→Released
+    let tx_web = tx.clone();
+    let web_callback = move |prev_state: ButtonState, new_state: ButtonState| {
+        use web::web_client::ButtonState;
+        match (prev_state, new_state) {
+            (ButtonState::Released, ButtonState::Pressed) => {
+                info!("*** HTTP BUTTON PRESSED ***");
+                let _ = tx_web.send(RosCommand::StartDamp);
+            }
+            (ButtonState::Pressed, ButtonState::Released) => {
+                info!("*** HTTP BUTTON RELEASED ***");
+                let _ = tx_web.send(RosCommand::StopAndRecover);
+            }
+            _ => {}
+        }
+    };
+
+    // Inicia servidor HTTP
+    web_client.start_server(web_callback).await;
+
+    Ok(())
+}
+````
+
+## 3. Serviço HTTP Emotes
+
+### Arquitetura
+
+O serviço de emotes é um servidor HTTP separado na porta 3001:
+
+```rust
+#[derive(Debug, Clone, Copy)]
+enum RosCommand {
+    Hello,    // ID 1016
+    Stretch,  // ID 1017
+    Content,  // ID 1020
+    Wallow,   // ID 1021
+    Dance1,   // ID 1022
+    Dance2,   // ID 1023
+    Pose,     // ID 1028
+    Scrape,   // ID 1029
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Carrega configuração
+    let config_content = std::fs::read_to_string("config/config.yaml")?;
+    let config: Config = serde_yaml::from_str(&config_content)?;
+
+    // Cria cliente ROS 2
+    let ros_client = Arc::new(Mutex::new(RobotClient::new(
+        &config.ros_namespace,
+        "/api/sport/request",
+    )?));
+
+    // Inicializa servidor HTTP
+    let web_client = WebClient::new("0.0.0.0:3001");
+
+    // Canal para comandos ROS
+    let (tx, rx) = mpsc::channel::<RosCommand>();
+
+    // Thread que processa comandos de emote
+    let ros_for_commands = Arc::clone(&ros_client);
+    std::thread::spawn(move || {
+        let rt = tokio::runtime::Runtime::new().unwrap();
+
+        loop {
+            match rx.recv() {
+                Ok(RosCommand::Hello) => {
+                    rt.block_on(async {
+                        let guard = ros_for_commands.lock().await;
+                        let _ = guard.trigger_emote(1016, "Hello").await;
+                    });
+                }
+                Ok(RosCommand::Stretch) => {
+                    rt.block_on(async {
+                        let guard = ros_for_commands.lock().await;
+                        let _ = guard.trigger_emote(1017, "Stretch").await;
+                    });
+                }
+                // ... outros emotes ...
+                Err(_) => break,
+            }
+        }
+    });
+
+    // Callback que dispara emotes via HTTP
+    let tx_emote = tx.clone();
+    let web_emote_callback = move |emote: EmoteCommand| {
+        match emote {
+            EmoteCommand::Hello => {
+                let _ = tx_emote.send(RosCommand::Hello);
+            }
+            EmoteCommand::Stretch => {
+                let _ = tx_emote.send(RosCommand::Stretch);
+            }
+            // ... outros emotes ...
+        }
+    };
+
+    // Inicia servidor HTTP de emotes
+    web_client.start_emote_server(web_emote_callback).await;
+
+    Ok(())
+}
+```
+
+## 4. Fluxos Operacionais
+
+### Fluxo 1: Kill Switch via HTTP
+
+```
+┌─────────┐
+│  App    │
+└────┬────┘
+     │ POST /emergency/press
+     ▼
+┌──────────────┐
+│ HTTP Server  │
+│ :3000        │
+└────┬─────────┘
+     │ Callback
+     ▼
+┌──────────────┐
+│ Rust Service │
+└────┬─────────┘
+     │ RosCommand::StartDamp
+     ▼
+┌──────────────┐
+│ ROS 2 Topic  │
+│ /api/sport/  │
+│ request      │
+└────┬─────────┘
+     │
+     ▼
+┌──────────────┐
+│ Robot        │
+│ DUMP MODE    │
+└──────────────┘
+```
+
+### Fluxo 2: Emote via HTTP
+
+```
+┌─────────┐
+│  App    │
+└────┬────┘
+     │ POST /emote/hello
+     ▼
+┌──────────────┐
+│ HTTP Server  │
+│ :3001        │
+│ Rate Limit?  │
+└────┬─────────┘
+     │ OK
+     ▼
+┌──────────────┐
+│ Rust Service │
+└────┬─────────┘
+     │ RosCommand::Hello
+     ▼
+┌──────────────┐
+│ ROS 2 Topic  │
+│ /api/sport/  │
+│ request      │
+└────┬─────────┘
+     │
+     ▼
+┌──────────────┐
+│ Robot        │
+│ Executa      │
+│ Emote        │
+└──────────────┘
+```
+
+## 5. Playbooks
+
+### Playbook KS-002: Acionamento via HTTP
+
+**Objetivo**: Ativar Kill Switch usando aplicativo remoto
+
+**Pré-requisitos**:
+
+* Serviço HTTP em execução (porta 3000)
+* WiFi Unitree conectado
+* Aplicativo cliente disponível
+
+**Passos**:
+
+1. Operador abre aplicativo
+2. Operador clica em "KILL SWITCH"
+3. Aplicativo envia POST /emergency/press
+4. HTTP server recebe requisição
+5. Estado muda para Pressed
+6. Callback dispara ROS command
+7. ROS publica comando DAMP
+8. Robot ativa Dump Mode
+9. Operador clica em "RELEASE"
+10. Aplicativo envia POST /emergency/release
+11. Estado muda para Released
+12. Callback dispara ROS command
+13. ROS publica comando RECOVER
+14. Robot retorna ao estado normal
+
+### Playbook KS-003: Acionamento de Emote
+
+**Objetivo**: Executar emote no robô via HTTP
+
+**Pré-requisitos**:
+
+* Serviço Emotes em execução (porta 3001)
+* WiFi Unitree conectado
+* Aplicativo cliente disponível
+
+**Passos**:
+
+1. Operador abre aplicativo de emotes
+2. Operador seleciona "Hello"
+3. Aplicativo envia POST /emote/hello
+4. HTTP server verifica rate limit (20s)
+5. Se OK, callback dispara ROS command
+6. ROS publica comando de emote (ID 1016)
+7. Robot executa movimento de oi
+8. Aplicativo retorna 200 OK
+9. Rate limiter bloqueia próximos 20s
+10. Após 20s, novo emote pode ser acionado
+
+## 6. Integração Dual-Channel
+
+O dual-channel onde Serial e HTTP funcionam simultaneamente:
+
+| Aspecto            | Serial             | HTTP                 |
+| :----------------- | :----------------- | :------------------- |
+| **Acionamento**    | Botão físico       | Aplicativo remoto    |
+| **Confiabilidade** | Muito alta         | Alta (rede interna)  |
+| **Latência**       | Rápida             | Rápida               |
+| **Redundância**    | Fallback para HTTP | Fallback para Serial |
+| **Resultado**      | Dump Mode          | Dump Mode            |
+
+
+# Dashboard Staff (/docs/sprint-5/frontend/frontend-dashStaff)
+
+## 1. Introdução
+
+  O **Dashboard** foi desenvolvido para fornecer uma interface web intuitiva e eficiente destinada aos membros do staff do Inteli, permitindo a visualização, análise e acompanhamento dos dados coletados durante os tours guiados pelo robô-cachorro **LIA**.
+
+  Por meio deste dashboard, os usuários podem acessar métricas relacionadas ao desempenho dos tours, fluxo de visitantes, pontos de interesse, alertas operacionais e feedbacks coletados ao longo das experiências. Essas informações auxiliam diretamente na tomada de decisão e na melhoria contínua da experiência oferecida aos visitantes.
+
+  Durante a **Sprint 4**, o foco principal esteve na finalização das telas principais do dashboard e na definição da estrutura visual e navegacional. A integração completa com o backend foi planejada como próximo passo para as sprints subsequentes.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  Diferentemente dos aplicativos móveis do ecossistema, o Dashboard é uma **aplicação web**, desenvolvida utilizando **React** em conjunto com o **Vite** como ferramenta de build e servidor de desenvolvimento.
+
+  Essa escolha arquitetural foi motivada por:
+
+* Inicialização rápida do ambiente de desenvolvimento;
+* Excelente performance em aplicações SPA;
+* Facilidade de integração com bibliotecas de visualização de dados;
+* Organização modular baseada em componentes reutilizáveis.
+
+***
+
+## 2.1 Estrutura de Pastas
+
+A estrutura principal do projeto segue uma organização modular, separando responsabilidades por domínio funcional:
+
+```txt
+inteli-dashboard
+├── public
+│
+├── src
+│   ├── assets
+│   │
+│   ├── components
+│   │   ├── dashboard
+│   │   ├── documents-management
+│   │   └── ui
+│   │
+│   ├── hooks
+│   │
+│   ├── lib
+│   │
+│   └── pages
+│
+│
+└── package.json
+```
+
+Descrição das principais pastas e arquivos:
+
+* **`/public`** - Arquivos públicos e estáticos.
+
+* **`/src/assets`** - Recursos visuais e estáticos.
+
+* **`/src/components`** - Componentes reutilizáveis do sistema.
+
+* **`/src/pages`** - Páginas principais do dashboard.
+
+* **`/src/hooks`** - Hooks personalizados.
+
+* **`/src/lib`** - Funções utilitárias e abstrações.
+
+ Essa estrutura favorece escalabilidade, clareza de responsabilidades e manutenção do código a longo prazo.
+
+### 2.2 Componentes
+
+  O dashboard utiliza componentes específicos para visualização de dados e organização da interface. Abaixo estão os principais componentes atualmente implementados.
+
+Componentes do Dashboard
+
+Localizados em components/dashboard/:
+
+* **AlertsLineChart** - Gráfico de linha para visualização de alertas ao longo do tempo.
+
+* **CheckpointsBarChart** - Gráfico de barras representando checkpoints do tour.
+
+* **TopicsBarChart** - Gráfico de barras com temas abordados durante os tours.
+
+* **ToursLineChart** - Gráfico de evolução e quantidade de tours.
+
+* **VisitorsProfileChart** - Visualização do perfil dos visitantes.
+
+* **DashboardHeader** - Cabeçalho específico da área de dashboard.
+
+* **FilterBar** - Barra de filtros para segmentação dos dados exibidos.
+
+Componentes de Gerenciamento de Documentos
+
+Localizados em components/documents-management/:
+
+* **DocumentsHeader** - Cabeçalho da seção de gerenciamento de documentos.
+
+  Esses componentes foram projetados para serem reutilizáveis, facilitando a expansão do dashboard com novas métricas e visualizações.
+
+***
+
+## 3. Fluxo de Navegação
+
+<Callout type="info">
+  **Fluxo Geral da Dashboard**
+
+  1. Acesso inicial ao sistema
+
+  2. Visualização do Dashboard principal
+
+  3. Análise de métricas e gráficos
+
+  4. Aplicação de filtros para segmentação dos dados
+
+  5. Navegação entre seções (Dashboard, Documentos, Usuários, etc.)
+
+  6. Visualização detalhada conforme o contexto selecionado
+
+  7. Elementos Persistentes da Interface
+
+  8. Cabeçalho global com identidade visual
+
+  9. Navegação lateral ou superior entre seções
+
+  10. Componentes de filtro acessíveis nas telas analíticas
+</Callout>
+
+***
+
+## 4. Como Rodar o Projeto e Dependências
+
+  Esta seção descreve os requisitos e o passo a passo para executar o Dashboard em ambiente de desenvolvimento local.
+
+### 4.1 Pré-requisitos
+
+* Git instalado
+
+* Node.js (inclui npm) instalado
+
+### 4.2 Passo a Passo
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/davidijesus/2025-2B-T12-EC08-DashStaff
+```
+
+Acesse a pasta do dashboard:
+
+```bash
+cd 2025-2B-T12-EC08-DashStaff/inteli-dashboard
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Inicie o servidor de desenvolvimento com Vite:
+
+```bash
+npm run dev
+```
+
+Acesse no navegador:
+
+```
+http://localhost:8080/
+```
+
+(ou a porta indicada no terminal do Vite)
+
+***
+
+## 5. Conclusão e Pŕoximos passos
+
+  O Dashboard do Staff apresenta uma base sólida para análise e visualização dos dados gerados durante os tours guiados pelo robô LIA. A aplicação web foi estruturada com foco em modularidade, clareza visual e escalabilidade.
+
+  Devido ao escopo do projeto, a integração do dashboard do staff ficará como passos futuros para um novo projeto, ou para futuros desenvolvimentos da equipe do Inteli, no qual deverão integrar a API com este frontend.
+
+
+# Frontend - App Staff (/docs/sprint-5/frontend/frontend-staff)
+
+
+
+## 1. Introdução
+
+  O **App Staff** é um aplicativo desenvolvido para apoiar os colaboradores do Inteli na operação e gerenciamento dos tours guiados realizados com o auxílio do cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours, disponibilize códigos de acesso aos visitantes e interrompa o processo em situações de emergência.
+
+  Durante a **Sprint 5**, não houve alterações estruturais significativas em relação à Sprint 4. O foco desta etapa foi o refinamento da documentação, consolidação das funcionalidades já integradas ao backend, pequenos ajustes de usabilidade e estabilização do fluxo de navegação, garantindo maior confiabilidade e clareza para manutenção futura do frontend.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  O frontend do App Staff foi desenvolvido utilizando **React Native**, com o **Expo** como ambiente de desenvolvimento, execução e empacotamento. A navegação entre telas é gerenciada pelo **Expo Router**, seguindo um padrão baseado em rotas de arquivos.
+
+  A escolha dessa stack se manteve ao longo do projeto por apresentar:
+
+* Curva de aprendizado reduzida para a equipe;
+* Facilidade de execução em múltiplas plataformas;
+* Bom suporte a componentes reutilizáveis;
+* Integração simplificada com APIs e serviços externos.
+
+### 2.1 Estrutura de Pastas
+
+A estrutura atual do projeto permanece a mesma das sprints anteriores, seguindo o padrão sugerido pelo Expo Router:
+
+```txt
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   └── (tabs)/
+│
+├── assets
+│   └── images
+│       └── icons/
+│
+├── components
+│   └── ui/
+│
+├── constants/
+│
+├── hooks/
+│
+├── scripts/
+│
+└── README.md
+```
+
+**Descrição das pastas principais:**
+
+* **`/app`** - Gerenciamento das páginas
+
+* **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+* **`/components`** - Componentes reutilizáveis
+
+* **`/constants`** - Temas de cores e variáveis globais
+
+* **`/hooks`** - Hooks auxiliares como detecção de tema
+
+* **`/scripts`** - Scripts internos do projeto
+
+* **`README`** - Instruções para rodar o projeto
+
+*Pastas Android geradas automaticamente pelo Expo*
+
+  Para a realização deste projeto a estrutura de pastas utilizada permite:
+
+* Melhor organização entre rotas, componentes e estilos
+
+* Facilidade para extensões futuras
+
+* Modularização dos componentes usados nas telas
+
+* Padrão de Componentes Reutilizáveis
+
+### 2.2 Componentes
+
+  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
+
+* **CardTour** - Cartão de exibição de tours na lista da home
+
+* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
+
+* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
+
+* **Navbar e Header** - Estruturas permanentes no HUD
+
+Na Sprint 5, esses componentes foram mantidos, com ajustes pontuais de comportamento e estilização para melhorar a experiência do usuário e a previsibilidade das interações.
+
+***
+
+## 3. Fluxo de Navegação
+
+<Callout type="info">
+  **Fluxo Geral**
+
+  1. Login
+
+  2. Lista de Tours (HUD ativo)
+
+  3. Seleção de um tour
+
+  4. Edição do Tour
+
+  5. Pop-up Informações Gerais do Tour
+
+  6. Pop-up Código do Tour
+
+  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
+
+  8. Tela de Emergência
+
+  9. Menu acessível pelo HUD em qualquer etapa permitida
+
+  **O HUD inclui:**
+
+  * Barra inferior com navegação (Tours / Mapa / Menu)
+
+  * Botão de emergência destacado em telas críticas
+
+  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
+</Callout>
+
+## 4. Como Rodar o Projeto e Dependências
+
+ Esta seção descreve os requisitos e o processo para configurar e executar o App Staff em ambiente de desenvolvimento utilizando Expo + Expo Router.
+
+### 4.1 Requisitos
+
+<Callout type="info">
+  ***
+
+  Node.js (*Node 18 LTS ou Node 20 LTS*)
+
+  Baixar em: [https://nodejs.org/](https://nodejs.org/)
+
+  ***
+
+  Expo CLI (Será necessário intalar globalmente para que funcione)
+
+  `npm install -g expo-cli`
+
+  ***
+
+  Android Studio (para usar emulador Android)
+
+  É possível usar tanto a versão CLI quanto o APK:
+  [https://developer.android.com/studio](https://developer.android.com/studio)
+
+  ***
+
+  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+</Callout>
+
+<Callout type="warn">
+  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+</Callout>
+
+### 4.2 Instalando Dependências e Executando o Projeto
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/anabeggiato/2025-2B-T12-EC08-AppStaff
+```
+
+Entre na pasta do aplicativo:
+
+```bash
+cd 2025-2B-T12-EC08-AppStaff/app
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Inicie o projeto:
+
+```bash
+npx expo start
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
+
+Entre as opções você pode escolher:
+
+* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+* Abrir a aplicação no seu navegador web
+* Abrir a aplicação no android studio
+
+Para rodar diretamente em um dispositivo Android:
+
+```bash
+npx expo run:android
+```
+
+5. Conclusão
+
+  A documentação da Sprint 5 consolida o estado atual do frontend do App Staff, reforçando a arquitetura, o fluxo de navegação e o processo de execução do projeto. Mesmo sem mudanças estruturais relevantes em relação à Sprint 4, esta etapa foi essencial para refinamento, estabilização e organização do material técnico.
+
+  O frontend encontra-se alinhado ao protótipo de alta fidelidade, com componentes reutilizáveis bem definidos, fluxo consistente e integração funcional com o backend, servindo como base sólida para evoluções futuras.
+
+
+# Frontend - App Visitante (/docs/sprint-5/frontend/frontend-visitante)
+
+
+
+## 1. Introdução
+
+  O **App Visitante** foi desenvolvido para apoiar a experiência de pais, filhos e demais convidados que participam do tour guiado pelo robô-cachorro **LIA** durante visitas ao campus da faculdade Inteli. O aplicativo tem como objetivo proporcionar uma jornada educativa, segura e interativa, permitindo que os visitantes acompanhem o tour em tempo real, visualizem o mapa do percurso, interajam com o robô por meio de perguntas, acessem conteúdos informativos e respondam avaliações ao final da experiência.
+
+  Assim como nas sprints anteriores, esta etapa manteve a estrutura geral do frontend, focando principalmente na consolidação das funcionalidades já integradas ao backend, ajustes de usabilidade e estabilidade do fluxo de navegação, sem alterações arquiteturais relevantes.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  O frontend do App Visitante foi desenvolvido utilizando **React Native**, com o **Expo** como ambiente de desenvolvimento, execução e empacotamento. A navegação entre telas é gerenciada por meio do **Expo Router**, adotando o padrão de rotas baseadas em arquivos.
+
+  A escolha dessa arquitetura se justifica por:
+
+* Facilidade de desenvolvimento multiplataforma;
+* Curva de aprendizado reduzida para a equipe;
+* Boa integração com APIs externas;
+* Possibilidade de reutilização de componentes entre aplicações do ecossistema.
+
+***
+
+## 2.1 Estrutura de Pastas
+
+A estrutura do projeto segue o padrão sugerido pelo Expo Router:
+
+```txt
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   ├── index.tsx
+│   └── (tabs)/
+│       ├── _layout.tsx
+│       ├── home.tsx
+│       ├── mapa.tsx
+│       └── menu.tsx
+│
+├── assets
+│
+├── components
+│
+├── constants/
+│
+├── hooks/
+│
+└── README.md
+```
+
+Descrição das pastas principais:
+
+* **`/app`** - Gerenciamento das páginas
+
+* **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+* **`/components`** - Componentes reutilizáveis
+
+* **`/constants`** - Temas de cores e variáveis globais
+
+* **`/api`** - Conexão com o Backend
+
+* **`/hooks`** - Hooks auxiliares como detecção de tema
+
+* **`/scripts`** - Scripts internos do projeto
+
+* **`README`** - Instruções para rodar o projeto
+
+Pastas como android/ são geradas automaticamente pelo Expo.
+
+Essa organização facilita a manutenção do código, a escalabilidade do projeto e a reutilização de componentes em outras aplicações.
+
+### 2.2 Componentes
+
+  Os componentes do App Visitante são responsáveis por estruturar a interface e a interação do usuário com o sistema. Foram desconsiderados os componentes presentes apenas no initial commit, sendo listados apenas aqueles relevantes para o funcionamento atual da aplicação.
+
+**Principais componentes utilizados:**
+
+**MessageBubble** - Exibição das mensagens no chat com o robô.
+
+**VoiceButton** - Botão para interação por voz com o robô.
+
+**ChatArea** - Área principal de conversa entre visitante e LIA.
+
+**CardTutorial** - Cartões informativos e tutoriais exibidos ao usuário.
+
+**Confirmation** - Tela e componente de confirmação de ações.
+
+**Code** - Exibição de códigos de acesso ou identificação do tour.
+
+**Loading** - Indicador visual de carregamento.
+
+**Navbar** - Barra de navegação inferior (HUD).
+
+**ExternalLink** - Links externos dentro do app.
+
+**HapticTab** - Feedback tátil em interações específicas.
+
+  Esses componentes garantem padronização visual, melhor experiência do usuário e maior clareza no fluxo de interação.
+
+***
+
+## 3. Fluxo de Navegação
+
+<Callout type="info">
+  **Fluxo Geral da Aplicação**
+
+  1. Tela inicial / Index
+
+  2. Onboarding
+
+  3. Tela Home
+
+  4. Introdução ao Chat (ChatIntro)
+
+  5. Chat com o robô LIA
+
+  6. Tela de Mapa do Tour
+
+  7. Tela de FAQ
+
+  8. Tela Botão de Emergência
+
+  9. Tela de Confirmação
+
+  10. Avaliação da experiência (NPS)
+
+  * O Menu é acessível a partir do HUD
+
+  **O HUD inclui:**
+
+  1. Barra inferior de navegação (Home / Mapa / Menu)
+
+  2. Feedback visual e tátil em interações
+
+  3. Navegação persistente entre telas principais
+</Callout>
+
+***
+
+## 4. Telas da Aplicação
+
+As principais telas que compõem o App Visitante são:
+
+* `index.tsx` - Entrada da aplicação
+
+* `onboarding.tsx` - Apresentação inicial ao usuário
+
+* `home.tsx` - Tela principal do visitante
+
+* `chatIntro.tsx` - Introdução à interação com o robô
+
+* `mapa.tsx` - Visualização do mapa do tour
+
+* `faq.tsx` - Perguntas frequentes
+
+* `confirmacao.tsx` - Confirmação de ações
+
+* `emergencia.tsx` - Tela de emergência
+
+* ` menu.tsx` - Menu de navegação
+
+* `nps.tsx` - Avaliação da experiência do usuário
+
+***
+
+## 5. Como rodar a aplicação e dependências
+
+ Esta seção descreve os requisitos e o processo para configurar e executar o App Staff em ambiente de desenvolvimento utilizando Expo + Expo Router.
+
+### 5.1 Requisitos
+
+<Callout type="info">
+  ***
+
+  Node.js (*Node 18 LTS ou Node 20 LTS*)
+
+  Baixar em: [https://nodejs.org/](https://nodejs.org/)
+
+  ***
+
+  Expo CLI (Será necessário intalar globalmente para que funcione)
+
+  `npm install -g expo-cli`
+
+  ***
+
+  Android Studio (para usar emulador Android)
+
+  É possível usar tanto a versão CLI quanto o APK:
+  [https://developer.android.com/studio](https://developer.android.com/studio)
+
+  ***
+
+  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+</Callout>
+
+<Callout type="warn">
+  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+</Callout>
+
+### 5.2 Instalando Dependências e Executando o Projeto
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/Fernandoliveira05/AppTourVisitante/
+```
+
+Entre na pasta do aplicativo:
+
+```bash
+cd AppTourVisitante/app
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Inicie o projeto:
+
+```bash
+npx expo start
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
+
+Entre as opções você pode escolher:
+
+* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+* Abrir a aplicação no seu navegador web
+* Abrir a aplicação no android studio
+
+Para rodar diretamente em um dispositivo Android:
+
+```bash
+npx expo run:android
+```
+
+***
+
+## 6. Conclusão
+
+  O App Visitante apresenta uma estrutura sólida e consistente, alinhada às demais aplicações do ecossistema do projeto. A reutilização de padrões arquiteturais e de navegação garante facilidade de manutenção, além de proporcionar uma experiência fluida e intuitiva para os visitantes do Inteli.
+
+  A aplicação encontra-se integrada ao backend, com fluxo de navegação estável, componentes bem definidos e pronta para futuras evoluções e melhorias.
+
+
+# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-5/frontend)
+
+<Cards>
+  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-5/frontend/frontend-staff" />
+
+  <Card title="Frontend - App Visitante" description="Frontend do aplicativo onde o visitante irá interagir com o tour." href="/docs/sprint-5/frontend/frontend-visitante" />
+
+  <Card title="Frontend - Dashboard Staff" description="Dashboard do Staff para retirar insights dos tours realizados." href="/docs/sprint-5/frontend/frontend-dashboardStaff" />
+</Cards>
+
+
+# Manual de Operações do Robô (/docs/sprint-5/manual-de-operacao)
+
+<Cards>
+  <Card href="/docs/sprint-5/manual-de-operacao/manual" title="Guide Line">
+    Documento com o guia de operação do robô e informações relevantes.
+  </Card>
+</Cards>
+
+
+# Manual de Operações (/docs/sprint-5/manual-de-operacao/manual)
+
+# Guia de Operação e Segurança - Robô Unitree Go2
+
+**Projeto:** Tour Autônomo - Inteli Instituto de Tecnologia e Liderança
+**Versão:** Sprint 5
+
+***
+
+## Introdução
+
+Este documento estabelece as **diretrizes operacionais, de segurança e de contingência** para o uso do robô **Unitree Go2** no projeto de **tour autônomo** no campus do Inteli.
+
+Por se tratar de um sistema robótico em ambiente público, todas as orientações aqui descritas devem ser **rigorosamente seguidas**, servindo como referência oficial para operação, acompanhamento e resposta a incidentes.
+
+***
+
+## Condições Obrigatórias Antes da Operação
+
+Antes de qualquer inicialização ou teste, é obrigatório garantir que:
+
+* O robô esteja posicionado em sua **posição padrão recomendada**, com as patas alinhadas e postura estável, conforme orientação do fabricante.
+* O **robô e o sistema de controle** estejam conectados ao **Wi-Fi específico do projeto (InteliRobo)**, previamente configurado.
+* O ambiente esteja livre de obstáculos imediatos e com **zona de segurança mínima de 1 metro** ao redor do robô.
+* Um responsável esteja designado exclusivamente para o **acompanhamento do tour** e para o **controle do botão remoto de emergência** em casos de necessidade.
+
+A não conformidade com qualquer um desses pontos **impede o início do tour**.
+
+***
+
+## Diretrizes Gerais de Operação
+
+* A sequência de inicialização deve ser sempre respeitada: **controle → robô**.
+* Durante o tour, o robô deve se deslocar em **velocidade reduzida e constante**, priorizando estabilidade e previsibilidade dos movimentos.
+* Toda vez que iniciar o robô ele deve estar no mesmo local de ínicio do tuor para realizar o mapeamento.
+* Comandos repetidos, simultâneos ou fora do fluxo esperado devem ser evitados, pois podem gerar comportamentos não determinísticos.
+* Testes devem ser realizados previamente em ambientes controlados, antes de qualquer operação com visitantes.
+
+***
+
+## Sistema de Botões de Emergência
+
+O projeto conta com **dois botões físicos de emergência**, ambos capazes de interromper imediatamente as ações do robô.
+
+### Funcionamento Geral
+
+* **Ao pressionar qualquer um dos botões**, o robô é **derrubado (queda controlada)** e **todas as suas ações são interrompidas**.
+* Os botões devem ser utilizados **somente em situações de alta necessidade e ausência de controle**.
+* O mesmo botão também pode ser utilizado para **retomar o controle** do robô, desde que ele esteja em uma condição segura para tal.
+
+### Tipos de Botão
+
+**Botão remoto (via sistema):**
+
+* Funciona via **HTTP**.
+* Deve permanecer exclusivamente com o **responsável pelo acompanhamento do tour**.
+* É indicado para situações em que ainda há visibilidade do robô, mas o comportamento se torna inadequado ou inseguro para utilizar o botão acoplado.
+
+**Botão acoplado ao robô:**
+
+* Atua diretamente no robô, sem dependência de rede.
+* Destinado a **situações de perda total de controle**, falha crítica ou risco iminente, caso ainda haja acesso físico ao robô.
+
+> **Atenção:**\
+> O uso indevido ou frequente dos botões pode comprometer a integridade mecânica do robô e a experiência do projeto.
+
+***
+
+## Procedimentos de Segurança
+
+### Parada de Emergência
+
+* **L2 + B:** parada forçada imediata via controle.
+* Botões físicos: derrubam o robô e interrompem completamente suas ações.
+
+Após qualquer parada de emergência:
+
+1. Avaliar visualmente possíveis danos.
+2. Verificar diagnósticos no aplicativo/sistema.
+3. Registrar o ocorrido antes de qualquer nova tentativa de operação.
+
+### O que NÃO deve ser feito
+
+* Não levantar o robô enquanto estiver em modo operacional ou de parada forçada.
+* Não reiniciar o tour sem recolocar o robô na **posição padrão**.
+* Não operar o robô sem conexão ao Wi-Fi específico do projeto.
+* Não permitir aproximação de visitantes durante testes técnicos.
+* Não utilizar os botões de emergência como forma de controle comum.
+
+***
+
+## Procedimentos Operacionais
+
+| ID   | Área      | Procedimento / Situação                                             | Resultado Esperado                   |
+| ---- | --------- | ------------------------------------------------------------------- | ------------------------------------ |
+| OP01 | Operação  | Ligar o controle antes do robô.                                     | Pareamento realizado sem falhas.     |
+| OP02 | Operação  | Ligar o controle (pressionar, soltar, pressionar, soltar, segurar). | Controle ativo e reconhecido.        |
+| OP03 | Operação  | Ligar o robô (pressionar, soltar, segurar).                         | Robô inicia e responde aos comandos. |
+| OP04 | Operação  | Em perda parcial de controle, pressionar L2 + A.                    | Robô trava movimentos e estabiliza.  |
+| OP05 | Segurança | Em risco iminente, pressionar L2 + B.                               | Parada forçada imediata.             |
+| OP06 | Segurança | Para sair da parada forçada, enviar Start.                          | Retorno ao modo operacional.         |
+| OP07 | Segurança | Não levantar o robô em parada forçada.                              | Prevenção de danos e acidentes.      |
+| OP08 | Técnica   | Conectar hub USB-C à Jetson.                                        | Acesso ao terminal garantido.        |
+| OP09 | Técnica   | Reiniciar em caso de falha crítica.                                 | Sistema restabelecido.               |
+| OP10 | Técnica   | Conectar adaptador Wi-Fi e liberar SSH.                             | Acesso remoto funcional.             |
+| OP11 | Operação  | Desligar o robô corretamente.                                       | Desligamento seguro.                 |
+| OP12 | Operação  | Desligar o controle após o robô.                                    | Comunicação encerrada.               |
+| OP13 | Segurança | Garantir desligamento do robô antes do controle.                    | Evita estados inconsistentes.        |
+
+***
+
+## Observações Finais
+
+Este manual é um documento sujeito a revisões conforme o avanço do projeto, novos testes e validações de segurança.
+
+O cumprimento rigoroso destas diretrizes é essencial para garantir a segurança dos visitantes e da equipe, a integridade do robô , bem como a continuidade e confiabilidade do tour autônomo.
+
+
+# Implementação de Scripts e Voz (TTS) (/docs/sprint-5/modelo/implementacao-script-tts)
+
+# **Documentação Técnica: Implementação de Scripts e Voz (TTS) para o Robô de Tour Autônomo do Inteli**
+
+## **1. Introdução e Contexto do Projeto**
+
+Este documento detalha a implementação do sistema de scripts e voz para o Robô Lia, guia de tours do Inteli. O foco desta documentação está na arquitetura de desenvolvimento dos scripts, na metodologia de construção e na integração de áudios gerados por Text-to-Speech (TTS) com recursos expressivos.
+
+## **2. Arquitetura e Desenvolvimento de Scripts**
+
+O desenvolvimento dos scripts do robô foi iniciado na primeira semana do projeto, com o objetivo de cobrir o escopo macro de apresentação do espaço físico, metodologia de ensino, diferenciais dos cursos e processo de seleção.\
+A base para a estruturação do fluxo de conversação e da lógica de interação foi a arquitetura de mapa (map architecture), fornecida pelo parceiro. Esta arquitetura foi crucial para:\
+•Definir o fluxo de diálogo e as ramificações de conversação necessárias para um tour estruturado.\
+•Garantir a consistência e a rastreabilidade do desenvolvimento dos scripts em um projeto de IA Generativa.
+
+## **3. Implementação de Áudio com Text-to-Speech (TTS) Avançado**
+
+A voz do robô foi implementada utilizando uma solução de Text-to-Speech (TTS) que oferece recursos avançados de expressividade, essenciais para a experiência de encantamento do usuário.
+
+### **3.1. Preparação e Segmentação do Conteúdo**
+
+O conteúdo dos scripts foi quebrado em partes menores. Esta segmentação foi realizada para otimizar a geração de áudio, permitindo um controle mais granular sobre a reprodução e a aplicação de diferentes estilos de voz em trechos específicos, o que é vital para a naturalidade da interação.
+
+### **3.2. Geração de Áudio Expressivo**
+
+Foi utilizada uma ferramenta de TTS capaz de gerar áudios com nuances de entonação e estilo, que se integram à experiência de IA Generativa do robô. As capacidades expressivas utilizadas incluem:\
+•Sussurro: Geração de áudios com a característica de sussurro para momentos específicos do tour.\
+•Mudança de Emoção: Capacidade de alterar a emoção da voz (e.g., alegria, seriedade) conforme o contexto do script, enriquecendo a experiência interativa.
+
+### **3.3. Módulos de Áudio Pré-Gerados**
+
+A estratégia de segmentação do conteúdo resultou na pré-geração de módulos de áudio em formato MP3, armazenados no repositório do projeto (embedding-models/output\_audio/). Estes arquivos representam os trechos de fala que o robô utiliza durante o tour, sendo acionados via requisição (conforme detalhado na Seção 5).\
+A lista de módulos de áudio pré-gerados inclui, mas não se limita a:
+
+| ID | Nome do Arquivo              | Conteúdo Implícito                              |
+| :- | :--------------------------- | :---------------------------------------------- |
+| 01 | 01\_boas\_vindas.mp3         | Saudação inicial ao visitante.                  |
+| 02 | 02\_mit\_brasileiro.mp3      | Referência ao "MIT Brasileiro" (Inteli).        |
+| 03 | 03\_intro\_historia.mp3      | Introdução à história do Inteli.                |
+| 04 | 04\_historia\_importante.mp3 | Detalhe importante da história.                 |
+| 05 | 04\_intro\_historia.mp3      | (Possível variação ou repetição da introdução). |
+| 06 | 05\_piada\_auau.mp3          | Elemento de interação lúdica (piada).           |
+| 07 | 06\_correcao\_seria.mp3      | Correção ou comentário sério.                   |
+| 08 | 07\_resposta\_empresario.mp3 | Resposta relacionada ao mundo empresarial.      |
+| 09 | 08\_resolucao.mp3            | Conclusão ou resolução de um tópico.            |
+| 10 | 09\_missao.mp3               | Apresentação da missão do Inteli.               |
+| 11 | 10\_lista\_beneficios.mp3    | Enumeração de benefícios.                       |
+| 12 | 11\_doadores.mp3             | Menção aos doadores/patrocinadores.             |
+| 13 | 12\_interacao\_bolsas.mp3    | Interação sobre o programa de bolsas.           |
+| 14 | 13\_transicao.mp3            | Frase de transição entre tópicos.               |
+| 15 | 14\_intro\_cursos.mp3        | Introdução aos cursos.                          |
+| 16 | 15\_intro\_cursos.mp3        | (Possível variação da introdução aos cursos).   |
+
+## **4. Evolução da Arquitetura de Backend (Sprint 4)**
+
+A Sprint 4 focou na refatoração da arquitetura do backend para otimizar a performance, mas principalmente, na a escalabilidade dos serviços de voz e linguagem, especificamente Speech-to-Text (STT) e Text-to-Speech (TTS).
+
+### **4.1. Problema Identificado (Gargalo de Latência)**
+
+Na arquitetura anterior, o principal gargalo era o carregamento repetido dos modelos de STT e TTS a cada requisição. Esse processo lento resultava em:\
+•Altos tempos de resposta.\
+•Lentidão perceptível e ineficiência no fluxo de inferência.
+
+### **4.2. Melhorias Implementadas (Refatoração)**
+
+A refatoração da arquitetura resolveu o problema de latência através das seguintes melhorias:
+
+#### **Carregamento Único dos Modelos**
+
+Os modelos de STT e TTS são agora carregados apenas uma vez na inicialização do servidor (main.py).\
+Python\
+stt = STTService() stt.setup\_model() tts = TTSService() tts.setup\_model() chat = ChatService()\
+Com isso, as chamadas subsequentes executam apenas a inferência, reduzindo significativamente o delay e preparando o backend para uso contínuo e escalável.
+
+#### **Reorganização em Classes (POO)**
+
+Os serviços foram reorganizados em classes específicas (STTService, TTSService, ChatService), seguindo o paradigma de Programação Orientada a Objetos (POO). Cada classe encapsula o setup do modelo, os métodos de inferência e utilitários específicos (como o text breaker do TTS), promovendo uma estrutura modular e de fácil manutenção.
+
+#### **Uso Correto de Protocolos**
+
+A comunicação com os serviços foi padronizada para utilizar o protocolo mais adequado à sua natureza:
+
+| Serviço              | Protocolo | Natureza da Comunicação       | Motivação                                                                                                 |
+| :------------------- | :-------- | :---------------------------- | :-------------------------------------------------------------------------------------------------------- |
+| TTS (Text-to-Speech) | WebSocket | Contínua (Streaming)          | Envio de chunks de áudio conforme gerados, permitindo resposta contínua e mais rápida.                    |
+| STT (Speech-to-Text) | WebSocket | Contínua (Streaming)          | Recebimento e transcrição progressiva de segmentos de áudio, habilitando transcrição em tempo quase real. |
+| Chat (LLM)           | HTTP      | Pontual (Requisição/Resposta) | A comunicação com a LLM não exige streaming, sendo uma operação simples de requisição e resposta.         |
+
+## **5. Integração e Controle do Robô de Serviço Autônomo (Pós-Refatoração)**
+
+Os áudios gerados pelo TTS são integrados ao sistema do Robô de Serviço Autônomo. O controle da reprodução dos áudios é realizado através de requisições específicas (comandos de API ou comandos internos do sistema) que permitem a sincronização precisa da fala com as ações do robô.
+
+| Funcionalidade | Mecanismo de Controle    | Propósito no Tour                                                 |
+| :------------- | :----------------------- | :---------------------------------------------------------------- |
+| Iniciar Áudio  | Requisição (API/Comando) | Começar a fala do robô em pontos específicos do tour.             |
+| Parar Áudio    | Requisição (API/Comando) | Interromper a fala em caso de interrupção ou mudança de contexto. |
+
+\====================================================================
+
+# **Documentação Técnica: Ecossistema de Voz e Scripts (Lia - Robô Inteli)**
+
+## **1. Introdução e Visão Geral**
+
+Este documento detalha a implementação do sistema de voz e roteirização do **Robô Lia**, um guia autônomo projetado para realizar tours interativos no campus do Inteli1111. O sistema utiliza Inteligência Artificial Generativa para transformar textos dinâmicos em fala expressiva, permitindo que o robô apresente a infraestrutura, a metodologia PBL (Project Based Learning) e a cultura da instituição de forma humanizada2.
+
+## **2. Arquitetura de Scripts e Fluxo de Conversação**
+
+O desenvolvimento dos scripts baseia-se em uma **Arquitetura de Mapa (Map Architecture)**, que correlaciona a localização física do robô com gatilhos de fala específicos.
+
+* **Segmentação Modular:** O roteiro é dividido em blocos temáticos (Boas-vindas, História, Bolsas, Cursos, Clubes e Metodologia) para facilitar a manutenção e a navegação não-linear.
+* **Camada de Expressividade:** Diferente de um TTS comum, os scripts incorporam metadados de emoção e ritmo (ex: \[excited], \[whispering], \[short pause]) para simular uma cadência de fala natural.
+
+***
+
+## **3. Implementação do Serviço TTS (Text-to-Speech)**
+
+A solução de voz utiliza a API do **Google Cloud Text-to-Speech** com configurações de última geração.
+
+### **3.1. Configuração do Motor de Voz**
+
+O sistema utiliza o modelo de alta fidelidade para a língua portuguesa:
+
+* **Voz:** Leda
+* **Modelo:** gemini-2.5-pro-tts
+* **Formato de Saída:** MP3 (AudioEncoding.MP3)
+
+### **3.2. Engenharia de Áudio e Controle de Prosódia**
+
+Para garantir o "encantamento" mencionado nos objetivos do projeto3, o código implementa controles dinâmicos de velocidade e entonação:
+
+* **Speaking Rate (Velocidade):** O serviço permite ajustar a taxa de fala globalmente ou por segmento. No Bloco de Bolsas, por exemplo, utiliza-se 1.25x para listas longas, enquanto na "Piada do Auau", utiliza-se 1.1x para dar ênfase cômica.
+* **Normalização de Caminhos:** O sistema organiza automaticamente os arquivos gerados em um diretório padrão (output\_audio), garantindo que o robô acesse sempre a versão mais recente dos scripts.
+* **Sistema de Cache:** Para otimizar custos e performance, o serviço verifica se o arquivo já existe antes de realizar uma nova chamada à API do Google.
+
+***
+
+## **4. Estrutura do Roteiro e Módulos de Áudio**
+
+Abaixo, a tabela detalhada dos módulos de áudio que compõem a experiência do tour, baseada na implementação final da Sprint 4:
+
+| ID        | Tópico       | Emoção Dominante           | Descrição do Conteúdo                                                 |
+| :-------- | :----------- | :------------------------- | :-------------------------------------------------------------------- |
+| **01-02** | Boas-Vindas  | Excited / Warm             | Saudação inicial e menção ao "MIT Brasileiro".                        |
+| **03-08** | História     | Storytelling / Joking      | Fundação em 2019, diálogo entre Roberto Sallouti e investidores.      |
+| **09-13** | Bolsas       | Passionate / Grateful      | Detalhes sobre auxílio-moradia, alimentação e notebook.               |
+| **14-18** | Cursos       | Professional / High Energy | Descrição dos 5 cursos (CC, ES, SI, ADM Tech e EC).                   |
+| **19-23** | Clubes       | Energetic / Fast-paced     | Menção à Tantera, Inteli Júnior e coletivos de diversidade.           |
+| **24-35** | PBL e Rotina | Educational / Proud        | Explicação sobre a ausência de matérias tradicionais e o momento DEV. |
+
+***
+
+## **5. Refatoração e Performance do Backend**
+
+Para eliminar o gargalo de latência identificado (carregamento repetido de modelos), a arquitetura foi migrada para um modelo de **Serviço Persistente**.
+
+### **5.1. Padronização via POO (Programação Orientada a Objetos)**
+
+A classe TTSService encapsula toda a lógica de negócio:
+
+* **setup\_output\_directory()**: Gerencia o sistema de arquivos.
+* **synthesize\_speech()**: Centraliza a lógica de inferência, tratando exceções e logs de sucesso/erro.
+
+### **5.2. Protocolos de Comunicação**
+
+| Serviço        | Protocolo     | Justificativa Técnica                                                                                                                         |
+| :------------- | :------------ | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+| **STT / TTS**  | **WebSocket** | Permite o streaming de áudio em tempo real (chunks), essencial para que o robô comece a falar antes mesmo do arquivo completo ser processado. |
+| **Chat (LLM)** | **HTTP**      | Utilizado para consultas pontuais à base de conhecimento (FAQ do processo seletivo)4.                                                         |
+
+***
+
+## **6. Integração com o Hardware (Robô Autônomo)**
+
+O robô interage com estes módulos através de uma interface de controle que suporta:
+
+1. **Gatilhos de Proximidade:** Quando o robô atinge uma coordenada no mapa, o backend dispara o ID do áudio correspondente via requisição.
+2. **Interrupção Dinâmica:** Capacidade de parar a reprodução imediatamente caso o sensor de segurança detecte um obstáculo ou o usuário faça uma pergunta direta (STT).
+
+
+# Documentação Modelo (/docs/sprint-5/modelo)
+
+<Cards>
+  <Card title="Arquitetura do RAG e Pipeline de Conhecimento" description="RAG Inteligente para os Serviços de Conhecimento" href="/docs/sprint-5/modelo/rag-final" />
+
+  <Card title="Implementação do Script TTS" description="Documentação da Implementação do Script de Text-to-Speech" href="/docs/sprint-5/modelo/implementacao-script-tts" />
+</Cards>
+
+
+# Arquitetura do RAG e Pipeline de Conhecimento (/docs/sprint-5/modelo/rag-final)
+
+# Sprint 4 – RAG Inteligente para os Serviços de Conhecimento
+
+## Objetivo da Sprint
+
+Consolidar todo o fluxo de Recuperação Augmentada de Geração (RAG) em uma arquitetura única, rastreável e escalável. Reduzimos custo de ingestão e consulta com reuso de embeddings, cache e filtros semânticos automáticos, garantindo previsibilidade das fontes e da forma como os chunks são criados e versionados.
+
+<Callout type="info">
+  A arquitetura foi pensada para reuso máximo: uma única ingestão serve múltiplas consultas, evitando retrabalho de embeddings e mantendo rastreabilidade ponta a ponta.
+</Callout>
+
+***
+
+## Problema Identificado na Sprint Anterior
+
+* Ingestão manual e sem padronização exigia reprocessar tudo a cada atualização.
+* Consultas ao Qdrant não aplicavam filtros de ano/projeto, misturando contextos e reduzindo precisão.
+* Falta de documentação de chunking, formatos aceitos e estrutura do banco vetorial dificultava evolução e troubleshooting.
+
+***
+
+## Melhorias Implementadas
+
+### Cobertura de formatos e curadoria documental
+
+* `extract_file_elements` autodetecta JSON estruturado, PDFs, DOCX, TXT e Markdown, usando a melhor estratégia por formato (backend/microservices/file\_pipeline.py).
+* Lista explícita de extensões suportadas evita ingestão acidental (backend/microservices/file\_pipeline.py).
+* A pasta `documents/` concentra a base oficial ingerida nesta sprint:
+  * Edital-Processo-Seletivo-Inteli\_-Graduacao-2026\_AJUSTADO\_V2.pdf
+  * FAQ-Processo-Seletivo-Inteli-Graduacao-2026.pdf
+  * Livro\_Inteli\_PDF\_distribuicao.pdf
+  * script.md
+
+### Pipeline de ingestão end-to-end
+
+* `embedding_pipeline` encadeia extração → limpeza → chunking → embeddings → ingestão no Qdrant (backend/microservices/file\_pipeline.py).
+* `embedding_pipeline_paths` reprocessa lotes e recria a coleção uma única vez, evitando downtime (backend/microservices/file\_pipeline.py).
+
+### Limpeza e enriquecimento semântico
+
+* `preprocess_elements` remove sumários, cabeçalhos/rodapés repetidos e bullets irregulares, enriquecendo metadados com seção e hierarquia (backend/microservices/file\_pipeline.py).
+* O contexto corrente é mantido por linha, carregando `context_section`, `context_header`, categoria inferida e sinalização de tabelas.
+
+### Chunking por seção e sobreposição controlada
+
+* `create_smart_chunks` agrupa por (fonte, seção, cabeçalho), preserva ordem, limita por tokens e aplica overlap proporcional (backend/microservices/file\_pipeline.py).
+* Cada chunk recebe prefixos de contexto, prévia textual, `chunk_tokens`, `overlap_tokens`, índice local, páginas cobertas e IDs determinísticos (`safe_name_safe_section_idx_chunk`).
+
+### Embeddings híbridos e ingestão Qdrant
+
+* `generate_hybrid_embeddings` combina vetor denso (sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) e vetor esparso BM25 via fastembed (backend/microservices/file\_pipeline.py).
+* `ingest_hybrid_embeddings` cria/atualiza a coleção híbrida no Qdrant com vetor denso 384-dim e vetor esparso por ponto, armazenando payload completo do chunk (backend/microservices/file\_pipeline.py).
+* IDs persistentes usam UUID v5 baseado no `chunk_id`, garantindo idempotência na reexecução.
+
+#### Como os embeddings híbridos são gerados
+
+* Denso: o texto do chunk passa por `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` com normalização de vetor para `cosine` similarity.
+* Esparso: o mesmo texto é tokenizado e indexado com BM25 via fastembed, produzindo pesos lexicais que valorizam termos exatos, siglas e números.
+* Combinação: cada ponto no Qdrant recebe os dois vetores; na busca, o motor soma as pontuações densa + esparsa, equilibrando recall semântico e precisão lexical.
+* Idempotência e rastreio: o `chunk_id` determinístico vira UUID v5, assegurando que reprocessamentos atualizem o mesmo ponto sem duplicar.
+
+<Callout title="Por dentro do híbrido" type="info">
+  O denso cobre sinônimos e paráfrases; o esparso ancora siglas, códigos e
+  datas. Juntos, evitam tanto falso negativo semântico quanto falso positivo
+  lexical.
+</Callout>
+
+### Configuração centralizada e banco vetorial
+
+* `RAGConfig` reúne URL, API Key, coleção, modelo de embedding e hiperparâmetros (TOP\_K, adjacência, score mínimo) lidos do `.env` (backend/agent\_flow/config.py).
+* Coleção padrão de produção: `inteli-documents-embeddings`; compatibilidade mantida com `inteli_hybrid_final` para ingestão.
+
+### Pipeline de inferência RAG
+
+* `rag_inference_pipeline` converte pergunta em embedding, consulta Qdrant com filtros opcionais, expande nós adjacentes e formata o payload textual (backend/agent\_flow/tools/knowledge\_tools.py).
+* `_extract_metadata_filters_from_query` detecta Projeto X / Módulo X (mesmo projeto) e Xº ano, aplicando filtros antes da busca (backend/agent\_flow/tools/knowledge\_tools.py).
+* `retrieve_inteli_knowledge` expõe a pipeline ao agente, guardando estatísticas no `ToolContext` e retornando chunks prontos para uso (backend/agent\_flow/tools/knowledge\_tools.py).
+
+### Caching e métricas
+
+* Resultados RAG cacheados por 5 min (até 200 entradas) e embeddings de consulta por 1 h (backend/agent\_flow/utils/cache.py).
+* Métricas Prometheus rastreiam volume de queries, chunks retornados, acertos/erros de cache e uso de LLM (backend/agent\_flow/utils/metrics.py).
+
+### Pós-processamento antes do LLM
+
+* O `ContextAgent` aplica `rank_context_chunks`, `filter_context_by_relevance`, `deduplicate_context` e `manage_context_window` para manter contexto compacto e anotado (backend/agent\_flow/tools/context\_tools.py).
+* Ranking híbrido, cortes por score e janelas de tokens respeitam `ContextConfig` (backend/agent\_flow/config.py).
+
+***
+
+## Funcionamento da Pipeline
+
+1. **Coleta e validação** – `collect_input_files` lista arquivos aceitos em um diretório ou processa um arquivo isolado (backend/microservices/file\_pipeline.py).
+2. **Extração** – Cada formato passa por um extrator dedicado (PyPDFLoader/PyPDF2 para PDFs, parsing direto para TXT/MD/DOCX, leitura de JSON estruturado), já com metadados básicos (backend/microservices/file\_pipeline.py).
+3. **Limpeza e contexto** – Normalização de texto, remoção de sumários e repetições, enriquecimento de metadados com seção, hierarquia e categoria inferida (backend/microservices/file\_pipeline.py).
+4. **Chunking** – Agrupamento por seção, prefixos semânticos e divisão respeitando `chunk_size` e `chunk_overlap`, com overlaps pelas últimas linhas do chunk anterior (backend/microservices/file\_pipeline.py).
+5. **Embeddings híbridos** – Vetor denso (COSINE) + vetor esparso (BM25) para buscas semânticas e lexicais (backend/microservices/file\_pipeline.py).
+6. **Ingestão Qdrant** – Pontos gravados em lotes de 64 com vetores, conteúdo e payload completo (backend/microservices/file\_pipeline.py).
+7. **Consulta** – `retrieve_inteli_knowledge` gera embedding da query, aplica filtros, expande adjacências e retorna chunks enriquecidos (backend/agent\_flow/tools/knowledge\_tools.py).
+8. **Formatação e cache** – `build_graph_rag_payload` organiza resultados em blocos textuais com cabeçalhos e IDs; resultado é cacheado (backend/agent\_flow/tools/knowledge\_tools.py).
+9. **Pós-processamento para LLM** – `ContextAgent` reranqueia, deduplica, resume e formata em listas numeradas, narrativa ou bullet points (backend/agent\_flow/tools/context\_tools.py).
 
 <Mermaid
   chart="flowchart TD
-U[Usuário] --> P[Proxy Reverso]
-
-P --> FE[React.js Frontend]
-P --> C[ASP.NET Core]
-P --> FA[FastAPI]
-P --> F[Flask]
-
-B[Broker MQTT] -->|MQTT| C
-
-C -->|Query e HTTP| PG[(PostgreSQL)]
-C -->|HTTP| BUCKET[(MinIO DataLake)]
-
-FA -->|Função Direta| ML[Módulo de Retreinamento]
-FA -->|Função Direta| IF[Gerador de Inferências]
-FA -->|HTTP| BUCKET
-
-F -->|Query e HTTP| PG
-F -->|HTTP| BUCKET
+A[Documentos em documents/] --> B[collect_input_files]
+B --> C[extract_file_elements]
+C --> D[preprocess_elements]
+D --> E[create_smart_chunks]
+E --> F[generate_hybrid_embeddings]
+F --> G[ingest_hybrid_embeddings -> Qdrant]
+H[Query do usuário] --> I[rag_inference_pipeline]
+I --> J[retrieve_inteli_knowledge]
+J --> K[ContextAgent pós-processa]
+K --> L[Resposta para LLM/Frontend]
 "
 />
 
-## Imagens e Links
+***
 
-<img alt="Imagem" src={__img0} placeholder="blur" />
+## Processo de Chunking em Detalhes
 
-<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+* **Agrupamento por contexto**: cada seção/cabeçalho vira grupo lógico, preservando páginas originais (backend/microservices/file\_pipeline.py).
+* **Ajuste dinâmico de tamanho**: se linhas forem curtas, o `chunk_size` local cai até 600 tokens para evitar blocos vazios (backend/microservices/file\_pipeline.py).
+* **Overlap semântico**: linhas finais são reaproveitadas até o limite de tokens, mantendo continuidade (backend/microservices/file\_pipeline.py).
+* **Metadados ricos**: cada chunk traz preview, páginas, `chunk_tokens`, `total_section_chunks` e hash para deduplicação (backend/microservices/file\_pipeline.py).
 
-[Link](https://www.example.com)
+***
 
-[Link Relativo](../template)
+## Banco de Dados Vetorial
 
-## Estrutura de pastas
+* **Tecnologia**: Qdrant (cloud/self-hosted) com collections híbridas (vetor denso + esparso) configuradas pela pipeline (backend/microservices/file\_pipeline.py).
+* **Payload**: inclui `chunk_id`, texto completo, metadados, categoria e hierarquia para suportar filtros e heurísticas de busca (backend/microservices/file\_pipeline.py).
+* **Configuração**: parâmetros de conexão e hiperparâmetros do RAG via `AppConfig` e `.env` (backend/agent\_flow/config.py).
 
-<Files>
-  <Folder name="sprint-1" defaultOpen>
-    <Folder name="entendimento-do-negocio" defaultOpen>
-      <File name="analise-financeira.mdx" />
+:::warning
+Mantenha as credenciais do Qdrant e os limites de `TOP_K`/`score_minimo` sincronizados entre ambientes. Valores diferentes podem alterar relevância e métricas.
+:::
 
-      <File name="canvas-proposta-de-valor.mdx" />
+***
 
-      <File name="index.mdx" />
+## Monitoramento e Governança
 
-      <File name="matriz-de-risco.mdx" />
+* **Caches**: TTL de 5 min para resultados RAG e 1 h para embeddings garante frescor e economia (backend/agent\_flow/utils/cache.py).
+* **Telemetria**: Prometheus contabiliza chamadas RAG, chunks retornados, hits/misses de cache e estatísticas de agentes (backend/agent\_flow/utils/metrics.py).
+* **Ferramentas do ContextAgent**: ranking, filtragem por score mínimo, deduplicação e janela de contexto asseguram qualidade antes do LLM (backend/agent\_flow/tools/context\_tools.py).
 
-      <File name="matriz-oceano-azul.mdx" />
+***
 
-      <File name="meta.json" />
-    </Folder>
+## Conclusão
 
-    <Folder name="entendimento-do-projeto" defaultOpen>
-      <File name="index.mdx" />
+A sprint consolidou um pipeline RAG completo: ingestão padronizada para todos os formatos relevantes, chunking semântico com metadados ricos, embeddings híbridos persistidos no Qdrant e um fluxo de inferência que aplica filtros automáticos, caching e pós-processamento estruturado. A base de conhecimento torna-se rastreável, eficiente e pronta para evoluções (novos documentos, filtros ou modelos) sem retrabalho.
 
-      <File name="meta.json" />
+### Por que embeddings híbridos?
 
-      <File name="proposta-de-arquitetura.mdx" />
+Combinar vetor denso com BM25 entrega o melhor dos dois mundos: o embedding denso captura relações semânticas mesmo com vocabulário diferente, enquanto o vetor esparso preserva precisão lexical para termos exatos, siglas e números (ex.: “Projeto 7”, “2026”). O Qdrant soma as pontuações, aumentando recall em perguntas abertas sem perder aderência a filtros específicos e mantendo robustez em textos heterogêneos.
 
-      <File name="requisitos-funcionais.mdx" />
 
-      <File name="requisitos-nao-funcionais.mdx" />
-    </Folder>
+# Exploração e Integração (/docs/sprint-5/robo/exploracao-robo)
 
-    <Folder name="entendimento-do-usuario" defaultOpen>
-      <Folder name="personas" defaultOpen>
-        <File name="index.mdx" />
+# Sprint 5 - Definições Finais de Arquitetura e Integração
 
-        <File name="persona-1.mdx" />
-      </Folder>
+## 1. Resumo
 
-      <File name="index.mdx" />
+Nesta reta final do projeto, os esforços foram concentrados na **consolidação da arquitetura de navegação e o sistema de comunicação**. O foco principal foi garantir que os subsistemas críticos (navegação autônoma, interação por voz e infraestrutura de rede) operassem de forma estável e integrada no ambiente real.
 
-      <File name="mapa-de-jornada-do-usuario.mdx" />
+Os principais marcos atingidos foram:
 
-      <File name="meta.json" />
+* Validação da lógica de navegação via **Nav2 + SLAM** com coordenadas relativas.
+* Implementação completa do pipeline de conversão e reprodução de **áudio via WebRTC**.
+* Estabilização da conectividade na rede corporativa através de **solução customizada com Zenoh**.
 
-      <File name="user-stories.mdx" />
-    </Folder>
+***
 
-    <File name="analise-de-impacto-etico.mdx" />
+## 2. Navegação e Posicionamento
 
-    <File name="index.mdx" />
+Refinamos o entendimento e a lógica de como o robô interpreta o ambiente e executa trajetórias. Confirmou-se que a movimentação **não depende da interface visual (Rviz)** em tempo de execução, mas sim de coordenadas processadas pelo backend.
 
-    <File name="meta.json" />
-  </Folder>
-</Files>
+### Estratégia de Checkpoints
+
+A equipe definiu **endpoints** (comandos diretos) associados a **checkpoints** (posições físicas no mapa). A operação baseia-se na tese de **Posicionamento Relativo**.
+
+* Detalhe importante: para que o posicionamento funcione corretamente, o robô deve ser inicializado na **"Posição Inicial" (Home)**. A partir deste ponto zero, ele calcula a localização de cada sala baseando-se nas coordenadas gravadas no mapa do **SLAM**.
+
+***
+
+## 3. Sistema de Áudio (WebRTC e Conversão)
+
+Foi finalizada a implementação do módulo de voz. Para garantir que o robô consiga "falar" em tempo real com baixa latência, desenvolvemos um fluxo de dados para tratamento de mídia.
+
+### Pipeline de Processamento
+
+1. **Recebimento via WebSocket:** O sistema recebe o áudio em formato de texto codificado (**Base64**).
+2. **Decodificação:** Transformação do código Base64 em arquivo de áudio compactado (**MP3**).
+3. **Conversão para WAV:** Conversão do MP3 para **WAV** para processamento compatível.
+4. **Reprodução via WebRTC:** Transmissão interna do arquivo WAV para os alto-falantes do robô.
+
+***
+
+## 4. Infraestrutura de Rede
+
+Durante as sprints, houve um avanço significativo na arquitetura de conectividade, superando os desafios de integração com a infraestrutura do campus.
+
+### O Desafio
+
+A equipe precisava garantir que os dados do sistema (ROS 2) trafegassem corretamente dentro da rede **Inteli.Iot**. O protocolo padrão (DDS) enfrentava bloqueios de descoberta e instabilidade devido às restrições de tráfego (multicast) típicas de redes corporativas complexas.
+
+### A Solução
+
+A equipe solucionou os impeditivos de rede através da implementação do **zenoh-bridge-ros2dds**, orquestrado pelo repositório customizado **[zenoh-plugin-ros2dds-nix](https://github.com/GustavoWidman/zenoh-plugin-ros2dds-nix)**.
+
+Essa abordagem permitiu que o robô operasse **100% conectado à rede institucional "Inteli.Iot"**. O bridge encapsula o tráfego ROS 2 e o transporta de forma eficiente pela rede, garantindo comunicação estável, segura e sem a necessidade de roteadores dedicados.
+
+***
+
+## 5. Glossário de Conceitos Técnicos
+
+### Comunicação e Rede
+
+* **zenoh-plugin-ros2dds-nix:** Repositório e artefato Nix desenvolvido/utilizado pela equipe para implementar o `zenoh-bridge-ros2dds`. Ele atua como uma ponte que conecta o protocolo DDS do ROS 2 à rede, permitindo o tráfego de dados em ambientes corporativos complexos (como a rede do Inteli) sem falhas de descoberta.
+* **Inteli.Iot:** Rede Wi-Fi corporativa da instituição. Graças à implementação do Zenoh, o robô agora opera plenamente nesta rede, integrando-se ao ecossistema conectado do campus.
+* **WebSocket:** Canal de comunicação bidirecional que permite o envio contínuo de dados (como streams de áudio) sem recarregar a conexão.
+* **WebRTC (Web Real-Time Communication):** Tecnologia que permite a transmissão de áudio e vídeo instantânea, essencial para a voz do robô.
+
+### Robótica e Navegação
+
+* **SLAM (Simultaneous Localization and Mapping):** Técnica computacional que permite ao robô construir um mapa do ambiente ao mesmo tempo em que estima sua própria localização.
+* **Nav2 (Navigation 2):** Framework de navegação do ecossistema ROS 2, responsável pelo planejamento de rotas e desvio de obstáculos dinâmicos.
+* **Rviz (ROS Visualization):** Ferramenta gráfica de visualização 3D utilizada para diagnósticos (ver o que o robô vê), embora a navegação final independa dela.
+* **ROS 2:** Middleware que conecta todos os componentes do robô (lidar, motores, áudio), permitindo a troca de mensagens.
+
+***
+
+## 6. Considerações Finais
+
+As Sprints 5 foram decisivas para transformar componentes isolados em uma **arquitetura sistêmica funcional**. A validação bem-sucedida da operação na rede **Inteli.Iot** (viabilizada pelo `zenoh-plugin-ros2dds-nix`) removeu os principais bloqueios de escalabilidade do projeto.
+
+Com a infraestrutura de rede resolvida e a navegação relativa validada, o sistema está pronto para atuar no ambiente real.
+
+
+# Definições Finais de Arquitetura e Integração do Robo (/docs/sprint-5/robo)
+
+<Cards>
+  <Card title="Exploração do robo" description="Integrações finais do robo na sprint 5." href="/docs/sprint-5/robo/exploracao-robo" />
+</Cards>
+
+
+# Análise de Vulnerabilidades (/docs/sprint-5/security)
+
+<Cards>
+  <Card title="Security - Relatório de Vulnerabilidades" description="Relatório com vulnerabilidades do backend e modelos" href="/docs/sprint-5/security/vulnerabilidades" />
+</Cards>
+
+
+# Relatório de Testes de Penetração - Controles Efetivos (/docs/sprint-5/security/vulnerabilidades)
+
+## Sistema 1: Backend REST API (Rust - Actix-Web)
+
+### Teste 1: SQL Injection - BLOQUEADO
+
+**Objetivo**: Extrair dados não autorizados ou manipular queries SQL
+
+**Vetores Testados**:
+
+```bash
+# Teste 1.1: SQL Injection clássico em path parameter
+curl "http://localhost:8080/v1/visitante/1%20OR%201=1"
+# Resultado: 400 Bad Request - ID não parseado como inteiro
+
+# Teste 1.2: SQL Injection no body JSON
+curl -X POST "http://localhost:8080/v1/visitante" \
+  -H "Content-Type: application/json" \
+  -d '{"nome":"test'"'"'; DROP TABLE visitantes;--","email":"test@test.com","perfil":"student"}'
+# Resultado: 201 Created - String inserida literalmente como nome, SQL não executado
+```
+
+**Resultado**: ATAQUE FALHOU
+
+**Controle Efetivo Identificado**:
+
+```rust
+// SQLx usa prepared statements parametrizados
+sqlx::query_as!(Visitante, "SELECT * FROM visitantes WHERE id = $1", *id)
+```
+
+**Por que funciona**:
+
+* O parâmetro `$1` é tratado como **valor**, nunca como código SQL
+* SQLx usa prepared statements em todas as queries
+* Mesmo strings maliciosas são inseridas como texto literal
+
+**Classificação**: Controle EFETIVO
+
+***
+
+### Teste 2: Type Confusion - BLOQUEADO
+
+**Objetivo**: Causar comportamento inesperado através de tipos inválidos
+
+**Vetores Testados**:
+
+```bash
+# Teste 2.1: ID como string
+curl "http://localhost:8080/v1/visitante/abc"
+# Resultado: 400 Bad Request
+
+# Teste 2.2: ID com overflow
+curl "http://localhost:8080/v1/visitante/99999999999999999999"
+# Resultado: 400 Bad Request
+```
+
+**Resultado**: ATAQUE FALHOU
+
+**Controle Efetivo Identificado**:
+
+```rust
+async fn get_one(id: web::Path<i32>, data: Data) -> Response {
+```
+
+**Por que funciona**:
+
+* Actix-web faz parsing do path parameter para `i32` **antes** de chamar o handler
+* Se o parsing falha, retorna 400 automaticamente
+
+**Classificação**: Controle EFETIVO
+
+***
+
+### Teste 3: Mass Assignment de ID - BLOQUEADO
+
+**Objetivo**: Definir ID manualmente para sobrescrever registros
+
+**Vetores Testados**:
+
+```bash
+curl -X POST "http://localhost:8080/v1/visitante" \
+  -H "Content-Type: application/json" \
+  -d '{"id":999,"nome":"Attacker","email":"evil@test.com","perfil":"student"}'
+# Resultado: 201 Created - Mas com ID gerado pelo banco, não 999
+```
+
+**Resultado**: ATAQUE FALHOU
+
+**Controle Efetivo Identificado**:
+
+```rust
+#[serde(skip_deserializing)]
+pub id: Option<i32>,
+```
+
+**Por que funciona**:
+
+* O atributo `skip_deserializing` faz o Serde **ignorar** o campo `id` no JSON de entrada
+* O ID é sempre gerado pelo banco (SERIAL)
+
+**Classificação**: Controle EFETIVO
+
+***
+
+### Teste 4: Enum Injection - BLOQUEADO
+
+**Objetivo**: Inserir valores inválidos em campos enum
+
+**Vetores Testados**:
+
+```bash
+curl -X POST "http://localhost:8080/v1/visitante" \
+  -H "Content-Type: application/json" \
+  -d '{"nome":"Test","email":"test@test.com","perfil":"admin"}'
+# Resultado: 400 Bad Request - "admin" não é valor válido do enum
+```
+
+**Resultado**: ATAQUE FALHOU
+
+**Controle Efetivo Identificado**:
+
+```rust
+#[derive(Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Perfil {
+    Student,
+    Executive,
+}
+```
+
+**Por que funciona**:
+
+* Serde só aceita exatamente `"student"` ou `"executive"`
+* Qualquer outro valor causa erro de deserialização
+
+**Classificação**: Controle EFETIVO
+
+***
+
+### Teste 5: WebSocket Zombie Connections - MITIGADO
+
+**Objetivo**: Esgotar recursos com conexões inativas
+
+**Vetores Testados**:
+
+```python
+import asyncio
+import websockets
+
+async def test_zombie():
+    # Conectar e não fazer nada
+    ws = await websockets.connect("ws://localhost:8080/v1/audio")
+    await asyncio.sleep(15)  # Esperar além do timeout
+    # Verificar se conexão ainda existe
+    try:
+        await ws.ping()
+        print("Conexão ainda ativa")  # Não deve chegar aqui
+    except:
+        print("Conexão fechada pelo servidor")  # Esperado
+
+asyncio.run(test_zombie())
+# Resultado: "Conexão fechada pelo servidor" após ~10 segundos
+```
+
+**Resultado**: ATAQUE MITIGADO
+
+**Controle Efetivo Identificado**:
+
+```rust
+fn hb(&self, ctx: &mut ws::WebsocketContext<Self>) {
+    ctx.run_interval(Duration::from_secs(5), |act, ctx| {
+        if Instant::now().duration_since(act.heartbeat) > Duration::from_secs(10) {
+            ctx.stop();
+            return;
+        }
+        ctx.ping(b"");
+    });
+}
+```
+
+**Por que funciona**:
+
+* Servidor envia ping a cada 5 segundos
+* Se cliente não responde em 10 segundos, conexão é fechada
+* Recursos são liberados automaticamente
+
+**Classificação**: Controle EFETIVO
+
+***
+
+### Teste 6: URL Normalization / Route Canonicalization - BLOQUEADO
+
+**Vetores Testados**:
+
+```bash
+curl "http://localhost:8080/v1/visitante/"
+curl "http://localhost:8080/v1/visitante"
+# Resultado: Ambos retornam o mesmo resultado
+```
+
+**Controle Efetivo**: `NormalizePath::new(TrailingSlash::Trim)`
+
+**Classificação**: Controle EFETIVO
+
+***
+
+## Sistema 2: Embeddings e IA (Python - FastAPI)
+
+### CORREÇÃO IMPORTANTE - Teste 7: Rate Limiting
+
+**Análise do Código Real**:
+
+```python
+# main.py - linha 47
+response_llm = chat.give_response(prompt.message)
+# NÃO PASSA user_id!
+
+# chat_service_v3.py - linhas 80-82
+if user_id is None:
+    user_id = "anonymous"  # Todos são "anonymous"!
+```
+
+**Problema Identificado**: O endpoint `/chat` em `main.py` **não passa `user_id`** para `give_response()`. Isso significa que **todas as requisições usam `user_id="anonymous"`**.
+
+**Teste Real**:
+
+```python
+import requests
+import concurrent.futures
+
+def make_request():
+    return requests.post(
+        "http://localhost:8000/chat",
+        json={"message": "teste"}
+    )
+
+# 10 requisições sequenciais
+results = []
+for i in range(10):
+    r = make_request()
+    results.append(r.json())
+    print(f"Request {i+1}: {r.json().get('response', '')[:50]}...")
+
+# Resultado REAL: Após ~5 requisições, TODAS começam a receber
+# "Você está enviando mensagens muito rápido. Aguarde 60 segundos"
+# porque TODOS compartilham o mesmo user_id "anonymous"
+```
+
+**Resultado**: RATE LIMITING FUNCIONA, mas de forma **global** (todos os usuários compartilham o limite)
+
+**Classificação**: Controle PARCIALMENTE EFETIVO
+
+* Previne flood de um único cliente
+* Não diferencia entre usuários diferentes
+* Um usuário pode esgotar o limite de todos
+
+***
+
+### Teste 8: Validação de Input - PARCIALMENTE EFETIVO
+
+**Análise do Código Real**:
+
+```python
+# validation.py - ValidationError não tem user_message
+class ValidationError(Exception):
+    """Raised when input validation fails."""
+    pass  # Sem atributo user_message!
+
+# chat_service_v3.py - linha 166
+return e.user_message  # ValidationError não tem user_message!
+```
+
+**Problema Identificado**: Há uma inconsistência - `ValidationError` em `validation.py` **não tem** `user_message`, mas o código em `chat_service_v3.py` tenta acessar `e.user_message`.
+
+**Teste Real - Input muito grande**:
+
+```python
+import requests
+
+huge = "A" * 15000
+r = requests.post("http://localhost:8000/chat", json={"message": huge})
+print(r.json())
+# Resultado provável: AttributeError ou resposta inesperada
+# porque ValidationError não tem user_message
+```
+
+**Teste Real - Null Byte**:
+
+```python
+r = requests.post(
+    "http://localhost:8000/chat",
+    json={"message": "teste\x00malicioso"}
+)
+# Resultado provável: Erro interno ou AttributeError
+```
+
+**Classificação**: Controle COM BUG
+
+* A validação **detecta** o problema
+* Mas o tratamento de erro pode falhar
+
+***
+
+### Teste 9: Detecção de PII - FUNCIONA
+
+**Análise do Código Real**:
+
+```python
+# chat_service_v3.py - linhas 105-111
+if has_pii(validated_prompt):
+    logger.warning(
+        "pii_detected_in_input",
+        user_id=user_id,
+    )
+    # Note: We don't block here - safety_agent will handle PII properly
+```
+
+**Comportamento Real**: PII é **detectado e logado**, mas **não bloqueado** no chat\_service. A responsabilidade é do safety\_agent.
+
+**Teste Real**:
+
+```bash
+curl -X POST "http://localhost:8000/chat" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Meu CPF é 123.456.789-09"}'
+# Resultado: Warning no log, mas mensagem é processada
+# O safety_agent pode ou não bloquear dependendo da implementação
+```
+
+**Classificação**: Controle de DETECÇÃO (não bloqueio)
+
+***
+
+### Teste 10: Validação de Null Bytes - FUNCIONA (com ressalva)
+
+**Código**:
+
+```python
+if "\x00" in text:
+    raise ValidationError("Input contains null bytes")
+```
+
+**Teste Real**:
+
+```python
+# O null byte é detectado
+# MAS: ValidationError não tem user_message
+# Então o tratamento no chat_service_v3 pode falhar
+```
+
+**Classificação**: Detecção EFETIVA, tratamento COM BUG
+
+***
+
+### Teste 11: HTTP Header Injection (CRLF) - FUNCIONA (com ressalva)
+
+**Código**:
+
+```python
+suspicious_patterns = [
+    "\r\n\r\n",  # HTTP header injection attempts
+]
+```
+
+**Nota**: Só detecta `\r\n\r\n` (CRLF duplo), não `\r\n` simples.
+
+**Teste Real**:
+
+```python
+# BLOQUEADO:
+requests.post(..., json={"message": "teste\r\n\r\nmalicioso"})
+
+# NÃO BLOQUEADO:
+requests.post(..., json={"message": "teste\r\nmalicioso"})
+```
+
+**Classificação**: Controle PARCIAL
+
+***
+
+## Matriz de Testes Corrigida
+
+### Sistema Backend Rust
+
+| # | Teste              | Resultado | Status Real           |
+| - | ------------------ | --------- | --------------------- |
+| 1 | SQL Injection      | BLOQUEADO | Funciona corretamente |
+| 2 | Type Confusion     | BLOQUEADO | Funciona corretamente |
+| 3 | Mass Assignment ID | BLOQUEADO | Funciona corretamente |
+| 4 | Enum Injection     | BLOQUEADO | Funciona corretamente |
+| 5 | Zombie Connections | MITIGADO  | Funciona corretamente |
+| 6 | Path Traversal     | BLOQUEADO | Funciona corretamente |
+
+### Sistema Python/IA
+
+| #  | Teste          | Resultado | Status Real                                          |
+| -- | -------------- | --------- | ---------------------------------------------------- |
+| 7  | Rate Limiting  | PARCIAL   | Funciona, mas global (todos = "anonymous")           |
+| 8  | Input Size     | COM BUG   | Detecta, mas ValidationError sem user\_message       |
+| 9  | PII Detection  | DETECTA   | Loga warning, não bloqueia (delega ao safety\_agent) |
+| 10 | Null Byte      | COM BUG   | Detecta, mas tratamento pode falhar                  |
+| 11 | CRLF Injection | PARCIAL   | Só detecta \r\n\r\n, não \r\n simples                |
+
+***
+
+## Bugs Identificados Durante os Testes
+
+### Bug 1: ValidationError sem user\_message
+
+**Arquivo**: `backend/agent_flow/utils/validation.py`
+**Problema**: `ValidationError` não herda de `AgentFlowError` e não tem `user_message`
+**Impacto**: `chat_service_v3.py` linha 166 pode causar `AttributeError`
+**Correção**:
+
+```python
+from backend.agent_flow.utils.errors import InputValidationError
+
+# Usar InputValidationError em vez de ValidationError
+raise InputValidationError("Input too long")
+```
+
+### Bug 2: Rate Limit sem identificação de usuário
+
+**Arquivo**: `backend/main.py`
+**Problema**: `give_response(prompt.message)` não passa `user_id`
+**Impacto**: Todos os usuários compartilham o mesmo limite
+**Correção**:
+
+```python
+@app.post("/chat")
+async def chat_w_bot(prompt: Prompt, request: Request):
+    # Extrair identificador do usuário (IP, header, etc)
+    user_id = request.client.host or "anonymous"
+    response_llm = chat.give_response(prompt.message, user_id=user_id)
+```
+
+### Bug 3: CRLF detection incompleta
+
+**Arquivo**: `backend/agent_flow/utils/validation.py`
+**Problema**: Só detecta `\r\n\r\n`, não `\r\n` simples
+**Correção**:
+
+```python
+suspicious_patterns = [
+    "\r\n\r\n",
+    "\r\n",  # Adicionar CRLF simples também
+]
+```
+
+***
+
+## Conclusão Revisada
+
+**Backend em Rust**: Os controles identificados são **genuinamente efetivos**. O SQLx, tipagem forte e atributos Serde funcionam exatamente como documentado.
+
+**Embeddings em Python**: Os controles existem e a **lógica de detecção funciona**, mas há bugs de integração:
+
+1. Rate limiting não diferencia usuários
+2. ValidationError incompatível com o tratamento de erros
+3. Detecção de CRLF incompleta
+
+**Recomendação**: Corrigir os bugs identificados antes de considerar os controles como efetivos.
 
 
 # Mapas de Jornada do Usuário (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario)
