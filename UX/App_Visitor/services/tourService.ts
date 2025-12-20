@@ -19,7 +19,7 @@ export interface TourDTO {
   inicio_real: string | null;
   responsavel_id: number | null;
   robo_id: number;
-  status: 'scheduled' | 'inprogress' | 'completed' | 'cancelled';
+  status: 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
   titulo: string | null;
 }
 

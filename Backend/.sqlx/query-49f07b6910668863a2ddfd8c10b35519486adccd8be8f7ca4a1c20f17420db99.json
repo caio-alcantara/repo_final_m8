@@ -1,0 +1,56 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE rastreios_robo SET\n            tour_id = $1,\n            checkpoint_id = $2,\n            waypoint = $3,\n            progresso_pct = $4\n        WHERE id = $5\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "checkpoint_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "waypoint",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "progresso_pct",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 5,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Int4",
+        "Text",
+        "Float8",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "49f07b6910668863a2ddfd8c10b35519486adccd8be8f7ca4a1c20f17420db99"
+}

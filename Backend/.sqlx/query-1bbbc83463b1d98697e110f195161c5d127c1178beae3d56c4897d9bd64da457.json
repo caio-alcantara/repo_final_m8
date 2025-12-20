@@ -1,0 +1,71 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE checkpoints SET\n            tour_id = $1,\n            tipo = $2,\n            ordem = $3,\n            status = $4,\n            inicio_previsto = $5,\n            inicio_real = $6,\n            fim_real = $7\n        WHERE id = $8\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "tipo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "ordem",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "status",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "inicio_previsto",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 6,
+        "name": "inicio_real",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "fim_real",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Text",
+        "Int4",
+        "Text",
+        "Timestamptz",
+        "Timestamptz",
+        "Timestamptz",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "1bbbc83463b1d98697e110f195161c5d127c1178beae3d56c4897d9bd64da457"
+}

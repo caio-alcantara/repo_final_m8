@@ -83,19 +83,32 @@ async fn create(data: Data, body: web::Json<Visitante>) -> Response {
             nome,
             email,
             telefone,
-            criado_em
+            criado_em,
+            cidade,
+            estado,
+            cpf,
+            perfil
+
         )
         VALUES (
             $1,
             $2,
             $3,
-            $4
+            $4,
+            $5,
+            $6,
+            $7,
+            $8
         )
         RETURNING *",
         body.nome,
         body.email,
         body.telefone,
         body.criado_em,
+        body.cidade,
+        body.estado,
+        body.cpf,
+        body.perfil.to_string(),
     )
     .fetch_one(data.database.as_ref())
     .await
@@ -121,12 +134,20 @@ async fn update(id: web::Path<i32>, data: Data, body: web::Json<Visitante>) -> R
         "UPDATE visitantes SET
             nome = $1,
             email = $2,
-            telefone = $3
-         WHERE id = $4
-         RETURNING *",
+            telefone = $3,
+            cidade = $4,
+            estado = $5,
+            cpf = $6,
+            perfil = $7
+        WHERE id = $8
+        RETURNING *",
         body.nome,
         body.email,
         body.telefone,
+        body.cidade,
+        body.estado,
+        body.cpf,
+        body.perfil.to_string(),
         *id
     )
     .fetch_one(data.database.as_ref())

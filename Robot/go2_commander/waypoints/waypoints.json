@@ -1,0 +1,29 @@
+{
+  "checkpoint1": {
+    "position_x": 5.09179,
+    "position_y": 1.88036,
+    "position_z": 0.0,
+    "orientation_x": 0.0,
+    "orientation_y": 0.0,
+    "orientation_z": 0.357919,
+    "orientation_w": 0.933753
+  },
+  "checkpoint2": {
+    "position_x": 1.23323,
+    "position_y": 0.0719889,
+    "position_z": 0.0,
+    "orientation_x": 0.0,
+    "orientation_y": 0.0,
+    "orientation_z": 0.221122,
+    "orientation_w": 0.975246
+  },
+  "checkpoint3": {
+    "position_x": 1.71649,
+    "position_y": -5.34769,
+    "position_z": 0.0,
+    "orientation_x": 0.0,
+    "orientation_y": 0.0,
+    "orientation_z": 0.0887187,
+    "orientation_w": 0.996057
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT * FROM tour_visitantes WHERE visitante_id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "visitante_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "adicionado_por",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "adicionado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false
+    ]
+  },
+  "hash": "9808dc2590fe30e12cd0f732ed06c3016bd66c4944c336e81ffa0c607e17621b"
+}

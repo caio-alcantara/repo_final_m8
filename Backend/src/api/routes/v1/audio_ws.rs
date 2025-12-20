@@ -9,11 +9,12 @@ use utoipa_actix_web::service_config::ServiceConfig;
 use base64::{Engine as _, engine::general_purpose};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+use actix::Message;
 
 // Importa o módulo de broadcast
 use crate::api::routes::v1::broadcast::{
     BroadcastMessage, BroadcastAudio, Broadcast, ConnectAudio, Disconnect,
-    get_broadcast_server, MessageType as BroadcastMessageType
+    get_broadcast_server, MessageType as BroadcastMessageType, RequestTTS
 };
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -54,8 +55,9 @@ struct ModelRequest {
 
 #[derive(Deserialize)]
 struct ModelResponse {
+    texto: String,
     #[serde(flatten)]
-    data: serde_json::Value,
+    other: serde_json::Value,
 }
 
 struct AudioWebSocket {
@@ -131,20 +133,36 @@ impl AudioWebSocket {
         
         let response_text = response.text().await?;
         println!("Received from modelo: {}", response_text);
-        Ok(response_text)
+        
+        // Extrai apenas o campo "texto" da resposta
+        match serde_json::from_str::<ModelResponse>(&response_text) {
+            Ok(model_resp) => Ok(model_resp.texto),
+            Err(_) => {
+                // Se não conseguir parsear, tenta extrair o texto manualmente
+                if let Ok(json) = serde_json::from_str::<serde_json::Value>(&response_text) {
+                    if let Some(texto) = json.get("texto").and_then(|v| v.as_str()) {
+                        Ok(texto.to_string())
+                    } else {
+                        Ok(response_text)
+                    }
+                } else {
+                    Ok(response_text)
+                }
+            }
+        }
     }
 
-    async fn send_to_ml_ws_tts(
+    // Agora apenas envia para o cliente conectado, não coleta chunks
+    async fn stream_tts_audio_to_client(
         ml_endpoint: String,
         text: String,
-    ) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
+        ctx_addr: actix::Addr<AudioWebSocket>,
+    ) -> Result<(), Box<dyn std::error::Error>> {
         let tts_endpoint = format!("{}/tts", ml_endpoint.trim_end_matches('/'));
         let (ws_stream, _) = connect_async(&tts_endpoint).await?;
         let (mut write, mut read) = ws_stream.split();
 
         write.send(WsMessage::Text(text)).await?;
-
-        let mut audio_buffer = Vec::new();
 
         while let Some(msg) = read.next().await {
             match msg? {
@@ -156,33 +174,30 @@ impl AudioWebSocket {
                         break;
                     }
                     
-                    match general_purpose::STANDARD.decode(&bin) {
-                        Ok(audio_bytes) => {
-                            println!("Decoded base64 binary: {} bytes", audio_bytes.len());
-                            audio_buffer.extend_from_slice(&audio_bytes);
+                    let audio_bytes = match general_purpose::STANDARD.decode(&bin) {
+                        Ok(decoded) => {
+                            println!("Decoded base64 binary: {} bytes", decoded.len());
+                            decoded
                         }
                         Err(_) => {
                             println!("Raw binary data: {} bytes", bin.len());
-                            audio_buffer.extend_from_slice(&bin);
+                            bin.to_vec()
                         }
-                    }
-                }
-                WsMessage::Text(text) => {
-                    println!("Received text message: {}", text);
+                    };
                     
-                    if text.trim() == "END" {
+                    ctx_addr.do_send(SendAudioChunk(audio_bytes));
+                }
+                WsMessage::Text(text_msg) => {
+                    println!("Received text message: {}", text_msg);
+                    
+                    if text_msg.trim() == "END" {
                         println!("END signal received");
                         break;
                     }
                     
-                    match general_purpose::STANDARD.decode(text.trim()) {
-                        Ok(audio_bytes) => {
-                            println!("Decoded base64 text: {} bytes", audio_bytes.len());
-                            audio_buffer.extend_from_slice(&audio_bytes);
-                        }
-                        Err(e) => {
-                            println!("Non-base64 text (ignoring): {} - error: {}", text, e);
-                        }
+                    if let Ok(audio_bytes) = general_purpose::STANDARD.decode(text_msg.trim()) {
+                        println!("Decoded base64 text: {} bytes", audio_bytes.len());
+                        ctx_addr.do_send(SendAudioChunk(audio_bytes));
                     }
                 }
                 WsMessage::Close(_) => {
@@ -193,13 +208,7 @@ impl AudioWebSocket {
             }
         }
 
-        println!("Total audio buffer size: {} bytes", audio_buffer.len());
-
-        if audio_buffer.is_empty() {
-            Err("No audio data received from ML model".into())
-        } else {
-            Ok(audio_buffer)
-        }
+        Ok(())
     }
 
     async fn process_audio_to_audio(
@@ -207,7 +216,7 @@ impl AudioWebSocket {
         backend_endpoint: String,
         audio_data: Bytes,
         model_request: ModelRequest,
-    ) -> Result<(String, Vec<u8>, i32, Option<i32>), Box<dyn std::error::Error>> {
+    ) -> Result<(String, i32, Option<i32>), Box<dyn std::error::Error>> {
         println!("Step 1: Converting audio to text (STT)");
         let transcribed_text = Self::send_to_ml_ws_stt(ml_endpoint.clone(), audio_data).await?;
         println!("Transcribed text: {}", transcribed_text);
@@ -217,32 +226,37 @@ impl AudioWebSocket {
         let tour_id = model_request.tour_id;
         let mut request = model_request;
         request.texto = transcribed_text.clone();
-        let model_response = Self::send_to_modelo(backend_endpoint, request).await?;
-        println!("Model response: {}", model_response);
+        let model_response_text = Self::send_to_modelo(backend_endpoint, request).await?;
+        println!("Model response (texto only): {}", model_response_text);
 
-        println!("Step 3: Converting response to audio (TTS)");
-        let audio_bytes = Self::send_to_ml_ws_tts(ml_endpoint, model_response.clone()).await?;
-        println!("Generated audio: {} bytes", audio_bytes.len());
-
-        Ok((model_response, audio_bytes, checkpoint_id, tour_id))
+        Ok((model_response_text, checkpoint_id, tour_id))
     }
 
     async fn process_text_to_audio(
         ml_endpoint: String,
         backend_endpoint: String,
         model_request: ModelRequest,
-    ) -> Result<(String, Vec<u8>, i32, Option<i32>), Box<dyn std::error::Error>> {
+    ) -> Result<(String, i32, Option<i32>), Box<dyn std::error::Error>> {
         println!("Step 1: Sending text to modelo");
         let checkpoint_id = model_request.checkpoint_id;
         let tour_id = model_request.tour_id;
-        let model_response = Self::send_to_modelo(backend_endpoint, model_request).await?;
-        println!("Model response: {}", model_response);
+        let model_response_text = Self::send_to_modelo(backend_endpoint, model_request).await?;
+        println!("Model response (texto only): {}", model_response_text);
 
-        println!("Step 2: Converting response to audio (TTS)");
-        let audio_bytes = Self::send_to_ml_ws_tts(ml_endpoint, model_response.clone()).await?;
-        println!("Generated audio: {} bytes", audio_bytes.len());
+        Ok((model_response_text, checkpoint_id, tour_id))
+    }
+}
 
-        Ok((model_response, audio_bytes, checkpoint_id, tour_id))
+// Mensagem interna para enviar chunks de áudio
+#[derive(Message)]
+#[rtype(result = "()")]
+struct SendAudioChunk(Vec<u8>);
+
+impl Handler<SendAudioChunk> for AudioWebSocket {
+    type Result = ();
+
+    fn handle(&mut self, msg: SendAudioChunk, ctx: &mut Self::Context) {
+        ctx.binary(msg.0);
     }
 }
 
@@ -315,50 +329,69 @@ impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for AudioWebSocket {
                                 let ml_endpoint = self.ml_endpoint.clone();
                                 let backend_endpoint = self.backend_endpoint.clone();
                                 let client_id = self.client_id.clone();
-                                
+                                let ctx_addr = ctx.address();
                                 let model_request = ModelRequest {
                                     checkpoint_id,
                                     estado,
                                     liberado_em,
                                     question_topic,
                                     respondido_em,
-                                    texto: String::new(), // Será preenchido após STT
+                                    texto: String::new(),
                                     tour_id,
                                 };
                                 
                                 let fut = async move {
-                                    AudioWebSocket::process_audio_to_audio(
-                                        ml_endpoint,
+                                    // Processa áudio -> texto -> modelo
+                                    let result = AudioWebSocket::process_audio_to_audio(
+                                        ml_endpoint.clone(),
                                         backend_endpoint,
                                         audio_bytes.into(),
                                         model_request,
-                                    ).await
-                                };
-                                
-                                let fut = actix::fut::wrap_future::<_, Self>(fut);
-                                let fut = fut.map(move |result, _act, ctx| {
+                                    ).await;
+                                    
                                     match result {
-                                        Ok((text_response, audio_bytes, checkpoint_id, tour_id)) => {
-                                            // Envia o texto primeiro
-                                            ctx.text(text_response.clone());
-                                            
-                                            // Faz broadcast da resposta para websockets de texto
+                                        Ok((text_response, checkpoint_id, tour_id)) => {
+                                            // Faz broadcast da resposta de texto
                                             if let Some(server) = get_broadcast_server() {
                                                 let broadcast_msg = BroadcastMessage {
                                                     checkpoint_id,
-                                                    texto: text_response,
+                                                    texto: text_response.clone(),
                                                     message_type: BroadcastMessageType::Resposta,
                                                     tour_id,
                                                 };
                                                 
                                                 server.do_send(Broadcast {
                                                     message: broadcast_msg,
-                                                    exclude_client: Some(client_id),
+                                                    exclude_client: Some(client_id.clone()),
+                                                });
+                                                
+                                                // Solicita TTS com streaming via broadcast
+                                                server.do_send(RequestTTS {
+                                                    texto: text_response.clone(),
+                                                    checkpoint_id,
+                                                    tour_id,
+                                                    exclude_client: Some(client_id.clone()),
                                                 });
                                             }
                                             
-                                            // Depois envia o audio
-                                            ctx.binary(audio_bytes);
+                                            // Stream TTS para este cliente
+                                            let _ = AudioWebSocket::stream_tts_audio_to_client(
+                                                ml_endpoint,
+                                                text_response.clone(),
+                                                ctx_addr,
+                                            ).await;
+                                            
+                                            Ok(text_response)
+                                        }
+                                        Err(e) => Err(e),
+                                    }
+                                };
+                                
+                                let fut = actix::fut::wrap_future::<_, Self>(fut);
+                                let fut = fut.map(|result, _act, ctx| {
+                                    match result {
+                                        Ok(text_response) => {
+                                            ctx.text(text_response);
                                             ctx.text("{\"done\": true}");
                                         }
                                         Err(e) => {
@@ -387,7 +420,7 @@ impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for AudioWebSocket {
                         let ml_endpoint = self.ml_endpoint.clone();
                         let backend_endpoint = self.backend_endpoint.clone();
                         let client_id = self.client_id.clone();
-                        
+                        let ctx_addr = ctx.address();
                         let model_request = ModelRequest {
                             checkpoint_id,
                             estado,
@@ -399,37 +432,56 @@ impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for AudioWebSocket {
                         };
                         
                         let fut = async move {
-                            AudioWebSocket::process_text_to_audio(
-                                ml_endpoint,
+                            // Processa texto -> modelo
+                            let result = AudioWebSocket::process_text_to_audio(
+                                ml_endpoint.clone(),
                                 backend_endpoint,
                                 model_request,
-                            ).await
-                        };
-                        
-                        let fut = actix::fut::wrap_future::<_, Self>(fut);
-                        let fut = fut.map(move |result, _act, ctx| {
+                            ).await;
+                            
                             match result {
-                                Ok((text_response, audio_bytes, checkpoint_id, tour_id)) => {
-                                    // Envia o texto primeiro
-                                    ctx.text(text_response.clone());
-                                    
-                                    // Faz broadcast da resposta para websockets de texto
+                                Ok((text_response, checkpoint_id, tour_id)) => {
+                                    // Faz broadcast da resposta de texto
                                     if let Some(server) = get_broadcast_server() {
                                         let broadcast_msg = BroadcastMessage {
                                             checkpoint_id,
-                                            texto: text_response,
+                                            texto: text_response.clone(),
                                             message_type: BroadcastMessageType::Resposta,
                                             tour_id,
                                         };
                                         
                                         server.do_send(Broadcast {
                                             message: broadcast_msg,
-                                            exclude_client: Some(client_id),
+                                            exclude_client: Some(client_id.clone()),
+                                        });
+                                        
+                                        // Solicita TTS com streaming via broadcast
+                                        server.do_send(RequestTTS {
+                                            texto: text_response.clone(),
+                                            checkpoint_id,
+                                            tour_id,
+                                            exclude_client: Some(client_id.clone()),
                                         });
                                     }
                                     
-                                    // Depois envia o audio
-                                    ctx.binary(audio_bytes);
+                                    // Stream TTS para este cliente
+                                    let _ = AudioWebSocket::stream_tts_audio_to_client(
+                                        ml_endpoint,
+                                        text_response.clone(),
+                                        ctx_addr,
+                                    ).await;
+                                    
+                                    Ok(text_response)
+                                }
+                                Err(e) => Err(e),
+                            }
+                        };
+                        
+                        let fut = actix::fut::wrap_future::<_, Self>(fut);
+                        let fut = fut.map(|result, _act, ctx| {
+                            match result {
+                                Ok(text_response) => {
+                                    ctx.text(text_response);
                                     ctx.text("{\"done\": true}");
                                 }
                                 Err(e) => {

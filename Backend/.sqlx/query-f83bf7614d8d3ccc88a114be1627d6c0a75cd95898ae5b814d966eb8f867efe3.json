@@ -1,0 +1,56 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE respostas SET\n            pergunta_id = $1,\n            respondido_por_tipo = $2,\n            respondido_por_usuario = $3,\n            texto = $4\n        WHERE id = $5\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "pergunta_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "respondido_por_tipo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "respondido_por_usuario",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "texto",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Text",
+        "Int4",
+        "Text",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "f83bf7614d8d3ccc88a114be1627d6c0a75cd95898ae5b814d966eb8f867efe3"
+}

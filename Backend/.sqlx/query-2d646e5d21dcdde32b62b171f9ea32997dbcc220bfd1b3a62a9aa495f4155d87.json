@@ -1,0 +1,77 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO perguntas (\n            tour_id,\n            checkpoint_id,\n            question_topic,\n            texto,\n            estado,\n            liberado_em,\n            respondido_em,\n            criado_em\n        )\n        VALUES (\n            $1,\n            $2,\n            $3,\n            $4,\n            $5,\n            $6,\n            $7,\n            $8\n        )\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "checkpoint_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "question_topic",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "texto",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "estado",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 6,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "liberado_em",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 8,
+        "name": "respondido_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Int4",
+        "Text",
+        "Text",
+        "Text",
+        "Timestamptz",
+        "Timestamptz",
+        "Timestamptz"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true
+    ]
+  },
+  "hash": "2d646e5d21dcdde32b62b171f9ea32997dbcc220bfd1b3a62a9aa495f4155d87"
+}

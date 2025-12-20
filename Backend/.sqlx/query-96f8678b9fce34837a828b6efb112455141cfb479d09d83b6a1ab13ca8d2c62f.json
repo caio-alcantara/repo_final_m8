@@ -1,0 +1,52 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "select * from robos where id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "nome",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "modelo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "numero_serie",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "ativo",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 5,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "96f8678b9fce34837a828b6efb112455141cfb479d09d83b6a1ab13ca8d2c62f"
+}

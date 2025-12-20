@@ -15,7 +15,6 @@ export default function MenuScreen() {
         <Text style={styles.title}>Menu</Text>
 
         <View style={styles.menuList}>
-          <MenuItem label="Perfil" icon="user" showChevron />
           <MenuItem label="Configurações" icon="settings" showChevron />
           <MenuItem
             label="Sair"

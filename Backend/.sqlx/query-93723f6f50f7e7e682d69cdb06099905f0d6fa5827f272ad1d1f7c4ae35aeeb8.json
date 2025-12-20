@@ -1,0 +1,52 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "select * from tour_status_log where id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "status",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "atualizado_por",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "atualizado_em",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 5,
+        "name": "observacoes",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      true
+    ]
+  },
+  "hash": "93723f6f50f7e7e682d69cdb06099905f0d6fa5827f272ad1d1f7c4ae35aeeb8"
+}

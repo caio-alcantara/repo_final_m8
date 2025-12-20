@@ -1,0 +1,55 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO tour_status_log (\n            tour_id,\n            status,\n            atualizado_por,\n            observacoes\n        )\n        VALUES (\n            $1,\n            $2,\n            $3,\n            $4\n        )\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "status",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "atualizado_por",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "atualizado_em",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 5,
+        "name": "observacoes",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Text",
+        "Int4",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      true
+    ]
+  },
+  "hash": "c5692736f1d6bac6858677fed8c6d2b5674d88f6938334c227d064496f8b4c0d"
+}

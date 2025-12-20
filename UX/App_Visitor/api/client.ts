@@ -14,7 +14,7 @@ const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://10.140.0.11:8080
 console.log("API_BASE_URL USADA:", API_BASE_URL);
 
 // Timeout padrão para requisições (em milissegundos)
-const DEFAULT_TIMEOUT = 30000; // 30 segundos
+const DEFAULT_TIMEOUT = 100000; // 30 segundos
 
 /**
  * Cria e configura a instância do Axios

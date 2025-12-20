@@ -1,21 +1,27 @@
-use chrono::{DateTime, Utc};
-use futures_util::{SinkExt, StreamExt, stream::{SplitSink, SplitStream}};
-use log::{debug, error, info, warn};
+use log::{debug, info};
+use serde_json::Value;
 use sqlx::PgPool;
 use std::sync::Arc;
 use tokio::sync::{broadcast, Mutex};
-use tokio_tungstenite::{connect_async, tungstenite::protocol::Message, WebSocketStream, MaybeTlsStream};
+use tokio_tungstenite::{tungstenite::protocol::Message, WebSocketStream, MaybeTlsStream};
 use tokio::net::TcpStream;
+use futures_util::stream::{SplitSink, SplitStream};
 
 use super::websocket::{RobotEvent, RobotCommand, FrontendEvent};
 
+#[allow(dead_code)]
 type WsWriter = SplitSink<WebSocketStream<MaybeTlsStream<TcpStream>>, Message>;
+#[allow(dead_code)]
 type WsReader = SplitStream<WebSocketStream<MaybeTlsStream<TcpStream>>>;
 
 pub struct RobotClient {
+    #[allow(dead_code)]
     robot_ip: String,
+    #[allow(dead_code)]
     writer: Arc<Mutex<Option<WsWriter>>>,
+    #[allow(dead_code)]
     frontend_tx: broadcast::Sender<FrontendEvent>,
+    #[allow(dead_code)]
     db_pool: PgPool,
 }
 
@@ -33,218 +39,134 @@ impl RobotClient {
         }
     }
     
-    /// Conecta ao WebSocket do robô e inicia o loop de recebimento
     pub async fn connect(&self) -> eyre::Result<()> {
-        let url = format!("ws://{}:8080/ws", self.robot_ip);
-        info!("🔌 Conectando ao robô em: {}", url);
-        
-        let (ws_stream, _) = connect_async(&url).await?;
-        info!("✅ Conectado ao robô!");
-        
-        let (write, read) = ws_stream.split();
-        
-        // Armazenar o writer para enviar comandos depois
-        *self.writer.lock().await = Some(write);
-        
-        // Iniciar task de recebimento de eventos
-        self.spawn_reader_task(read).await;
-        
+        info!("🔌 Mock: Ignorando conexão real para teste");
         Ok(())
     }
     
-    /// Inicia uma task assíncrona para processar eventos do robô
-    async fn spawn_reader_task(&self, mut read: WsReader) {
-        let frontend_tx = self.frontend_tx.clone();
-        let db_pool = self.db_pool.clone();
-        
-        tokio::spawn(async move {
-            info!("📡 Iniciando listener de eventos do robô");
-            
-            while let Some(msg) = read.next().await {
-                match msg {
-                    Ok(Message::Text(text)) => {
-                        debug!("📥 Evento do robô: {}", text);
-                        
-                        match serde_json::from_str::<RobotEvent>(&text) {
-                            Ok(event) => {
-                                if let Err(e) = Self::handle_robot_event(
-                                    event,
-                                    &frontend_tx,
-                                    &db_pool,
-                                ).await {
-                                    error!("❌ Erro ao processar evento do robô: {}", e);
-                                }
-                            }
-                            Err(e) => error!("❌ Erro ao parsear evento do robô: {}", e),
-                        }
-                    }
-                    Ok(Message::Close(_)) => {
-                        warn!("🔌 Conexão com robô fechada");
-                        break;
-                    }
-                    Err(e) => {
-                        error!("❌ Erro no WebSocket do robô: {}", e);
-                        break;
-                    }
-                    _ => {}
-                }
-            }
-            
-            warn!("⚠️ Listener de eventos do robô encerrado");
-        });
-    }
-    
-    /// Processa um evento recebido do robô
+    #[allow(dead_code)]
+    async fn spawn_reader_task(&self, _read: WsReader) { }
+
+    #[allow(dead_code)]
     async fn handle_robot_event(
-        event: RobotEvent,
-        frontend_tx: &broadcast::Sender<FrontendEvent>,
-        db_pool: &PgPool,
+        _event: RobotEvent,
+        _frontend_tx: &broadcast::Sender<FrontendEvent>,
+        _db_pool: &PgPool,
     ) -> eyre::Result<()> {
-        match event {
-            RobotEvent::Connected { status } => {
-                info!("🤖 Status inicial do robô: robot_connected={}", status.robot_connected);
-                
-                // Notificar frontend sobre o status do robô
-                let _ = frontend_tx.send(FrontendEvent::RobotStatus {
-                    robot_connected: status.robot_connected,
-                    is_running: status.is_running,
-                    current_checkpoint: status.current_checkpoint,
-                });
-                
-                if !status.robot_connected {
-                    warn!("⚠️ Robô OFFLINE - comandos não serão executados");
-                }
-            }
-            
-            RobotEvent::CheckpointStarted { tipo, ordem, status, inicio_real } => {
-                info!("▶️ Checkpoint INICIADO: {} (ordem: {})", tipo, ordem);
-                
-                // Parsear timestamp
-                let inicio_dt = DateTime::parse_from_rfc3339(&inicio_real)?
-                    .with_timezone(&Utc);
-                
-                // Atualizar banco de dados
-                sqlx::query(
-                    "UPDATE checkpoints 
-                     SET status = $1, inicio_real = $2 
-                     WHERE tipo = $3 AND ordem = $4"
-                )
-                .bind(&status)
-                .bind(inicio_dt)
-                .bind(&tipo)
-                .bind(ordem)
-                .execute(db_pool)
-                .await?;
-                
-                debug!("💾 Checkpoint atualizado no banco: {} -> {}", tipo, status);
-                
-                // Enviar para frontend
-                let _ = frontend_tx.send(FrontendEvent::CheckpointStarted {
-                    tipo,
-                    ordem,
-                    status,
-                    inicio_real: inicio_dt,
-                });
-            }
-            
-            RobotEvent::CheckpointCompleted { tipo, ordem, status, inicio_real, fim_real } => {
-                info!("✅ Checkpoint CONCLUÍDO: {} (status: {})", tipo, status);
-                
-                // Parsear timestamps
-                let fim_dt = DateTime::parse_from_rfc3339(&fim_real)?
-                    .with_timezone(&Utc);
-                let inicio_dt = DateTime::parse_from_rfc3339(&inicio_real)?
-                    .with_timezone(&Utc);
-                
-                // Atualizar banco de dados
-                sqlx::query(
-                    "UPDATE checkpoints 
-                     SET status = $1, fim_real = $2 
-                     WHERE tipo = $3 AND ordem = $4"
-                )
-                .bind(&status)
-                .bind(fim_dt)
-                .bind(&tipo)
-                .bind(ordem)
-                .execute(db_pool)
-                .await?;
-                
-                debug!("💾 Checkpoint finalizado no banco: {} -> {}", tipo, status);
-                
-                // Enviar para frontend
-                let _ = frontend_tx.send(FrontendEvent::CheckpointCompleted {
-                    tipo,
-                    ordem,
-                    status,
-                    inicio_real: inicio_dt,
-                    fim_real: fim_dt,
-                });
-            }
-            
-            RobotEvent::EmergencyStop { tipo, ordem } => {
-                warn!("🛑 PARADA DE EMERGÊNCIA! checkpoint: {:?}", tipo);
-                
-                // Se tinha um checkpoint em execução, marcar como skipped
-                if let (Some(t), Some(o)) = (tipo.clone(), ordem) {
-                    sqlx::query(
-                        "UPDATE checkpoints 
-                         SET status = $1 
-                         WHERE tipo = $2 AND ordem = $3 AND status = 'running'"
-                    )
-                    .bind("skipped")
-                    .bind(&t)
-                    .bind(o)
-                    .execute(db_pool)
-                    .await?;
-                    
-                    debug!("💾 Checkpoint marcado como skipped: {}", t);
-                }
-                
-                // Enviar para frontend
-                let _ = frontend_tx.send(FrontendEvent::EmergencyStop { tipo, ordem });
-            }
-            
-            RobotEvent::RobotConnected { status } => {
-                info!("🟢 Robô ficou ONLINE! Status: {}", status);
-                
-                // Notificar frontend
-                let _ = frontend_tx.send(FrontendEvent::RobotStatus {
-                    robot_connected: true,
-                    is_running: false,
-                    current_checkpoint: None,
-                });
-            }
-        }
-        
         Ok(())
     }
     
-    /// Envia um comando para o robô
-    pub async fn send_command(&self, command: RobotCommand) -> eyre::Result<()> {
-        let mut writer_guard = self.writer.lock().await;
+    pub async fn send_command(&self, _command: RobotCommand) -> eyre::Result<()> {
+        Ok(())
+    }
+
+    pub async fn play(&self) -> eyre::Result<()> {
+        Ok(())
+    }
+
+    pub async fn stop(&self) -> eyre::Result<()> {
+        Ok(())
+    }
+
+    pub async fn get_status(&self) -> eyre::Result<()> {
+        Ok(())
+    }
+
+    pub async fn get_status_http(&self) -> eyre::Result<String> {
+        Ok(r#"{"robot_connected": true, "is_running": false, "current_checkpoint": "entrada"}"#.to_string())
         
-        if let Some(writer) = writer_guard.as_mut() {
-            let json = serde_json::to_string(&command)?;
-            writer.send(Message::Text(json)).await?;
-            debug!("📤 Comando enviado ao robô: {:?}", command.action);
-            Ok(())
+        // self.http_get("/status").await
+    }
+
+    pub async fn start_next_http(&self) -> eyre::Result<String> {
+        Ok(r#"{"success": true, "message": "Movimentação para o próximo ponto iniciada"}"#.to_string())
+        
+        // self.http_post("/start_next").await
+    }
+
+    pub async fn cancel_http(&self) -> eyre::Result<String> {
+        Ok(r#"{"success": true, "message": "Cancelado"}"#.to_string())
+        
+        // self.http_post("/cancel").await
+    }
+
+    pub async fn reset_counter_http(&self) -> eyre::Result<String> {
+        Ok(r#"{"success": true, "message": "Resetado"}"#.to_string())
+        
+        // self.http_post("/reset").await
+    }
+
+    pub async fn add_checkpoint_http(&self, _payload: &Value) -> eyre::Result<String> {
+        Ok(r#"{"success": true, "message": "Adicionado"}"#.to_string())
+        
+        // self.http_post_json("/add_checkpoint", payload).await
+    }
+
+
+    /// Faz uma chamada HTTP GET ao robô
+    #[allow(dead_code)]
+    async fn http_get(&self, endpoint: &str) -> eyre::Result<String> {
+        let url = format!("http://{}:8000{}", self.robot_ip, endpoint);
+        debug!("🌐 Fazendo GET para: {}", url);
+        
+        let client = reqwest::Client::new();
+        let response = client
+            .get(&url)
+            .send()
+            .await?;
+        
+        let status = response.status();
+        let body = response.text().await?;
+        
+        if status.is_success() {
+            Ok(body)
         } else {
-            Err(eyre::eyre!("Não conectado ao robô"))
+            Err(eyre::eyre!("Erro HTTP {}: {}", status, body))
         }
     }
     
-    /// Envia comando PLAY
-    pub async fn play(&self) -> eyre::Result<()> {
-        self.send_command(RobotCommand::play()).await
+    /// Faz uma chamada HTTP POST sem corpo para o robô
+    #[allow(dead_code)]
+    async fn http_post(&self, endpoint: &str) -> eyre::Result<String> {
+        let url = format!("http://{}:8000{}", self.robot_ip, endpoint);
+        debug!("🌐 Fazendo POST para: {}", url);
+        
+        let client = reqwest::Client::new();
+        let response = client
+            .post(&url)
+            .send()
+            .await?;
+        
+        let status = response.status();
+        let body = response.text().await?;
+        
+        if status.is_success() {
+            Ok(body)
+        } else {
+            Err(eyre::eyre!("Erro HTTP {}: {}", status, body))
+        }
     }
     
-    /// Envia comando STOP
-    pub async fn stop(&self) -> eyre::Result<()> {
-        self.send_command(RobotCommand::stop()).await
-    }
-    
-    /// Solicita status atual do robô
-    pub async fn get_status(&self) -> eyre::Result<()> {
-        self.send_command(RobotCommand::get_status()).await
+    /// Faz uma chamada HTTP POST com JSON para o robô
+    #[allow(dead_code)]
+    async fn http_post_json(&self, endpoint: &str, payload: &Value) -> eyre::Result<String> {
+        let url = format!("http://{}:8000{}", self.robot_ip, endpoint);
+        debug!("🌐 Fazendo POST JSON para: {}", url);
+        
+        let client = reqwest::Client::new();
+        let response = client
+            .post(&url)
+            .json(payload)
+            .send()
+            .await?;
+        
+        let status = response.status();
+        let body = response.text().await?;
+        
+        if status.is_success() {
+            Ok(body)
+        } else {
+            Err(eyre::eyre!("Erro HTTP {}: {}", status, body))
+        }
     }
 }

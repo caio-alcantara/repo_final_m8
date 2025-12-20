@@ -1,0 +1,58 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "select * from notificacoes where id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "usuario_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "titulo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "corpo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "payload_json",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 5,
+        "name": "lido",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 6,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "bf7995920d804aa90b603ff7d96db13cd0f16b87815a0c6e765d83bfe0297b6c"
+}

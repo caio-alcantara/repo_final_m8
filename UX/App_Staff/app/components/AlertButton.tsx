@@ -21,20 +21,20 @@ export function AlertButton({ onOpen }: Props) {
 }
 
 const styles = StyleSheet.create({
-    container_add_icon: {
-        width: "95%",
-        position: "absolute",
-        bottom: 100,
-        right: 10,
-        flexDirection: "row",
-        justifyContent: "flex-end",
-    },
-    add_tour_button: {
-        backgroundColor: "#855EDE",
-        width: 90,
-        height: 90,
-        borderRadius: 50,
-        alignItems: "center",
-        justifyContent: "center",
-    }
+  container_add_icon: {
+    width: "95%",
+    position: "absolute",
+    bottom: 130,
+    right: 10,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  add_tour_button: {
+    backgroundColor: "#855EDE",
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    alignItems: "center",
+    justifyContent: "center",
+  }
 })

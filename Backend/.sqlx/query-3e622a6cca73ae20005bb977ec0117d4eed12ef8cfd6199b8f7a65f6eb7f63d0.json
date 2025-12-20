@@ -1,0 +1,56 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE tour_status_log SET\n            tour_id = $1,\n            status = $2,\n            atualizado_por = $3,\n            observacoes = $4\n        WHERE id = $5\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "status",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "atualizado_por",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "atualizado_em",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 5,
+        "name": "observacoes",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Text",
+        "Int4",
+        "Text",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      true
+    ]
+  },
+  "hash": "3e622a6cca73ae20005bb977ec0117d4eed12ef8cfd6199b8f7a65f6eb7f63d0"
+}

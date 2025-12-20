@@ -1,11 +1,34 @@
 import json
 import os
-from typing import Dict, List, Optional
+import sys
 
 import google.generativeai as genai
 from google.adk.tools.tool_context import ToolContext
 
+# Add parent directory to path for utils import
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from backend.agent_flow.utils.json_parser import parse_llm_json
+from typing import Optional, List, Dict, Any
+
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+# Global cache for embedding model (P0-4: Cache embedding model)
+_context_embedding_model_cache = None
+
+
+def _get_context_embedding_model(model_name: str = None):
+    """Get cached embedding model for context tools. Loads once, reuses thereafter."""
+    global _context_embedding_model_cache
+    if _context_embedding_model_cache is None:
+        from sentence_transformers import SentenceTransformer
+
+        if model_name is None:
+            model_name = os.getenv(
+                "EMBEDDINGS_MODEL", "paraphrase-multilingual-MiniLM-L12-v2"
+            )
+        _context_embedding_model_cache = SentenceTransformer(model_name)
+    return _context_embedding_model_cache
+
 
 # ============================================================================
 # 1. RETRIEVE RELEVANT CONTEXT - Get relevant information from knowledge base
@@ -19,41 +42,32 @@ def retrieve_relevant_context(
     similarity_threshold: float = 0.7,
     sources: Optional[List[str]] = None,
 ) -> dict:
-    try:
-        from .knowledge_tools import retrieve_inteli_knowledge
-    except ImportError:
-        retrieved_chunks = []
-        if "context_retrievals" not in tool_context.state:
-            tool_context.state["context_retrievals"] = []
+    """Retrieve relevant context from conversation history ONLY.
 
-        tool_context.state["context_retrievals"].append(
-            {"query": query, "top_k": top_k, "chunks_retrieved": 0}
+    NOTE: This tool retrieves CONVERSATION CONTEXT, not knowledge base information.
+    For knowledge retrieval, the agent should call knowledge_agent separately.
+    This fixes the anti-pattern of tools calling other tools.
+    """
+    try:
+        # Retrieve conversation history from state
+        conversation_history = tool_context.state.get("conversation_history", [])
+
+        if not conversation_history:
+            return {
+                "success": True,
+                "query": query,
+                "context": [],
+                "total_retrieved": 0,
+                "message": "No conversation history available",
+            }
+
+        # Simple relevance: return recent context
+        # In a full implementation, would use semantic similarity on conversation history
+        recent_context = (
+            conversation_history[-top_k:]
+            if len(conversation_history) > top_k
+            else conversation_history
         )
-
-        return {
-            "success": False,
-            "query": query,
-            "chunks": [],
-            "total_retrieved": 0,
-            "sources_searched": sources or ["all"],
-            "message": "Knowledge tools not available",
-            "error": "Could not import retrieve_inteli_knowledge",
-        }
-
-    try:
-        rag_result = retrieve_inteli_knowledge(query, tool_context)
-
-        retrieved_chunks = rag_result.get("chunks", [])
-
-        if similarity_threshold > 0:
-            filtered_chunks = [
-                chunk
-                for chunk in retrieved_chunks
-                if chunk.get("score", 0) >= similarity_threshold
-            ]
-            retrieved_chunks = filtered_chunks
-
-        retrieved_chunks = retrieved_chunks[:top_k]
 
         if "context_retrievals" not in tool_context.state:
             tool_context.state["context_retrievals"] = []
@@ -62,7 +76,7 @@ def retrieve_relevant_context(
             {
                 "query": query,
                 "top_k": top_k,
-                "chunks_retrieved": len(retrieved_chunks),
+                "context_items_retrieved": len(recent_context),
                 "similarity_threshold": similarity_threshold,
             }
         )
@@ -70,12 +84,9 @@ def retrieve_relevant_context(
         return {
             "success": True,
             "query": query,
-            "chunks": retrieved_chunks,
-            "total_retrieved": len(retrieved_chunks),
-            "sources_searched": sources or ["all"],
-            "context": rag_result.get("context", ""),
-            "query_embedding": rag_result.get("query_embedding"),
-            "message": f"Retrieved {len(retrieved_chunks)} relevant context chunks from RAG system",
+            "context": recent_context,
+            "total_retrieved": len(recent_context),
+            "message": f"Retrieved {len(recent_context)} conversation context items",
         }
 
     except Exception as e:
@@ -86,7 +97,7 @@ def retrieve_relevant_context(
             {
                 "query": query,
                 "top_k": top_k,
-                "chunks_retrieved": 0,
+                "context_items_retrieved": 0,
                 "error": str(e),
             }
         )
@@ -94,9 +105,8 @@ def retrieve_relevant_context(
         return {
             "success": False,
             "query": query,
-            "chunks": [],
+            "context": [],
             "total_retrieved": 0,
-            "sources_searched": sources or ["all"],
             "message": f"Context retrieval failed: {str(e)}",
             "error": str(e),
         }
@@ -109,22 +119,23 @@ def retrieve_relevant_context(
 
 def rank_context_chunks(
     query: str,
-    chunks: List[Dict],
+    chunks: list[dict],
     tool_context: ToolContext,
     ranking_method: str = "semantic",
 ) -> dict:
+    """Rerank context chunks by relevance to query. Uses semantic similarity, keyword matching, or recency-based ranking to order retrieved chunks."""
     ranked_chunks = []
 
     try:
         if ranking_method == "semantic":
             import os
 
-            from sentence_transformers import SentenceTransformer, util
+            from sentence_transformers import util
 
             model_name = os.getenv(
-                "EMBEDDINGS_MODEL", "sentence-transformers/all-MiniLM-L6-v2"
+                "EMBEDDINGS_MODEL", "paraphrase-multilingual-MiniLM-L12-v2"
             )
-            model = SentenceTransformer(model_name)
+            model = _get_context_embedding_model(model_name)
 
             query_embedding = model.encode(query, convert_to_tensor=True)
 
@@ -175,7 +186,7 @@ def rank_context_chunks(
             from sentence_transformers import SentenceTransformer, util
 
             model_name = os.getenv(
-                "EMBEDDINGS_MODEL", "sentence-transformers/all-MiniLM-L6-v2"
+                "EMBEDDINGS_MODEL", "paraphrase-multilingual-MiniLM-L12-v2"
             )
             model = SentenceTransformer(model_name)
             query_embedding = model.encode(query, convert_to_tensor=True)
@@ -262,12 +273,13 @@ def rank_context_chunks(
 
 
 def filter_context_by_relevance(
-    chunks: List[Dict],
+    chunks: list[dict],
     query: str,
     tool_context: ToolContext,
     min_score: float = 0.5,
     max_chunks: int = 10,
 ) -> dict:
+    """Filter context chunks by minimum relevance score. Removes low-quality chunks and limits to max_chunks most relevant results."""
     try:
         from datetime import datetime
 
@@ -324,7 +336,7 @@ def filter_context_by_relevance(
             filtered_chunks = score_filtered
         else:
             model_name = os.getenv(
-                "EMBEDDINGS_MODEL", "sentence-transformers/all-MiniLM-L6-v2"
+                "EMBEDDINGS_MODEL", "paraphrase-multilingual-MiniLM-L12-v2"
             )
             model = SentenceTransformer(model_name)
             query_embedding = model.encode(query, convert_to_tensor=True)
@@ -410,6 +422,7 @@ def manage_conversation_memory(
     memory_type: str = "sliding_window",
     max_messages: int = 10,
 ) -> dict:
+    """Manage conversation history and memory. Stores messages using sliding window, selective (important only), or summary-based memory strategies."""
     if "conversation_history" not in tool_context.state:
         tool_context.state["conversation_history"] = []
 
@@ -418,9 +431,7 @@ def manage_conversation_memory(
     if memory_type in ["selective", "summary"]:
         try:
             if os.getenv("GOOGLE_API_KEY"):
-                model = genai.GenerativeModel(
-                    os.getenv("DEFAULT_MODEL", "gemini-2.0-flash-exp")
-                )
+                model = genai.GenerativeModel(os.getenv("DEFAULT_MODEL"))
 
                 importance_prompt = f"""Rate the importance of this message on a scale of 0.0 to 1.0 for conversation memory.
 
@@ -457,9 +468,7 @@ Respond with ONLY a number between 0.0 and 1.0."""
     elif memory_type == "summary" and len(history) > max_messages:
         try:
             if os.getenv("GOOGLE_API_KEY"):
-                model = genai.GenerativeModel(
-                    os.getenv("DEFAULT_MODEL", "gemini-2.0-flash-exp")
-                )
+                model = genai.GenerativeModel(os.getenv("DEFAULT_MODEL"))
 
                 older_messages = history[:-max_messages]
                 recent_messages = history[-max_messages:]
@@ -511,10 +520,11 @@ Focus on key facts, decisions, and important points."""
 
 
 def track_topics_discussed(
-    conversation_history: List[str],
+    conversation_history: list[str],
     tool_context: ToolContext,
     extract_subtopics: bool = True,
 ) -> dict:
+    """Track and analyze topics discussed in conversation. Identifies main topics, subtopics, and topic transitions for context awareness."""
     if not os.getenv("GOOGLE_API_KEY"):
         return {
             "success": False,
@@ -522,9 +532,7 @@ def track_topics_discussed(
         }
 
     try:
-        model = genai.GenerativeModel(
-            os.getenv("DEFAULT_MODEL", "gemini-2.0-flash-exp")
-        )
+        model = genai.GenerativeModel(os.getenv("DEFAULT_MODEL"))
 
         history_context = "\n".join(
             [
@@ -565,12 +573,16 @@ Respond in JSON format:
         response = model.generate_content(prompt)
         result_text = response.text.strip()
 
-        if result_text.startswith("```json"):
-            result_text = result_text[7:-3].strip()
-        elif result_text.startswith("```"):
-            result_text = result_text[3:-3].strip()
-
-        result = json.loads(result_text)
+        # Use robust JSON parsing
+        default_result = {
+            "main_topics": [],
+            "subtopics": {},
+            "topic_transitions": [],
+            "coverage": {},
+            "confidence": 0.5,
+            "reasoning": "",
+        }
+        result = parse_llm_json(result_text, default=default_result)
 
         topics_discussed = {
             "main_topics": result.get("main_topics", []),
@@ -616,6 +628,7 @@ def detect_context_gaps(
     tool_context: ToolContext,
     available_context: str = "",
 ) -> dict:
+    """Identify missing information needed to answer query. Analyzes query against available context to detect gaps and suggest additional retrieval."""
     if not os.getenv("GOOGLE_API_KEY"):
         return {
             "success": False,
@@ -623,9 +636,7 @@ def detect_context_gaps(
         }
 
     try:
-        model = genai.GenerativeModel(
-            os.getenv("DEFAULT_MODEL", "gemini-2.0-flash-exp")
-        )
+        model = genai.GenerativeModel(os.getenv("DEFAULT_MODEL"))
 
         # Handle both string and list inputs
         if isinstance(available_context, str):
@@ -666,12 +677,16 @@ Respond in JSON format:
         response = model.generate_content(prompt)
         result_text = response.text.strip()
 
-        if result_text.startswith("```json"):
-            result_text = result_text[7:-3].strip()
-        elif result_text.startswith("```"):
-            result_text = result_text[3:-3].strip()
-
-        result = json.loads(result_text)
+        # Use robust JSON parsing
+        default_result = {
+            "missing_information": [],
+            "incomplete_topics": [],
+            "ambiguous_points": [],
+            "confidence_score": 0.0,
+            "can_answer": True,
+            "reasoning": "",
+        }
+        result = parse_llm_json(result_text, default=default_result)
 
         gaps_detected = {
             "missing_information": result.get("missing_information", []),
@@ -728,11 +743,12 @@ Respond in JSON format:
 
 
 def summarize_context(
-    context_chunks: List[Dict],
+    context_chunks: list[dict],
     tool_context: ToolContext,
     max_length: int = 500,
     summary_type: str = "abstractive",
 ) -> dict:
+    """Summarize context chunks into concise text. Uses abstractive (AI-generated) or extractive (sentence selection) summarization to condense information."""
     if not os.getenv("GOOGLE_API_KEY"):
         return {
             "success": False,
@@ -740,9 +756,7 @@ def summarize_context(
         }
 
     try:
-        model = genai.GenerativeModel(
-            os.getenv("DEFAULT_MODEL", "gemini-2.0-flash-exp")
-        )
+        model = genai.GenerativeModel(os.getenv("DEFAULT_MODEL"))
 
         combined_text = "\n".join(
             [
@@ -784,12 +798,15 @@ Respond in JSON format:
         response = model.generate_content(prompt)
         result_text = response.text.strip()
 
-        if result_text.startswith("```json"):
-            result_text = result_text[7:-3].strip()
-        elif result_text.startswith("```"):
-            result_text = result_text[3:-3].strip()
-
-        result = json.loads(result_text)
+        # Use robust JSON parsing
+        default_result = {
+            "summary": "",
+            "key_points": [],
+            "word_count": 0,
+            "compression_ratio": 0.0,
+            "confidence": 0.5,
+        }
+        result = parse_llm_json(result_text, default=default_result)
 
         summary = result.get("summary", "")
 
@@ -835,6 +852,7 @@ def extract_key_information(
     tool_context: ToolContext,
     info_types: Optional[List[str]] = None,
 ) -> dict:
+    """Extract key facts and entities from context. Identifies entities (people, places, organizations), dates, numbers, and other important information types."""
     if not os.getenv("GOOGLE_API_KEY"):
         return {
             "success": False,
@@ -842,9 +860,7 @@ def extract_key_information(
         }
 
     try:
-        model = genai.GenerativeModel(
-            os.getenv("DEFAULT_MODEL", "gemini-2.0-flash-exp")
-        )
+        model = genai.GenerativeModel(os.getenv("DEFAULT_MODEL"))
 
         if info_types is None:
             info_types = ["facts", "dates", "numbers", "entities", "definitions"]
@@ -880,12 +896,16 @@ Respond in JSON format:
         response = model.generate_content(prompt)
         result_text = response.text.strip()
 
-        if result_text.startswith("```json"):
-            result_text = result_text[7:-3].strip()
-        elif result_text.startswith("```"):
-            result_text = result_text[3:-3].strip()
-
-        result = json.loads(result_text)
+        # Use robust JSON parsing
+        default_result = {
+            "facts": [],
+            "dates": [],
+            "numbers": [],
+            "entities": [],
+            "definitions": [],
+            "confidence": 0.5,
+        }
+        result = parse_llm_json(result_text, default=default_result)
 
         extracted_info = {
             "facts": result.get("facts", []),
@@ -928,8 +948,9 @@ Respond in JSON format:
 
 
 def deduplicate_context(
-    chunks: List[Dict], tool_context: ToolContext, similarity_threshold: float = 0.9
+    chunks: list[dict], tool_context: ToolContext, similarity_threshold: float = 0.9
 ) -> dict:
+    """Remove redundant and duplicate context chunks. Uses semantic similarity to identify and remove near-duplicate information."""
     try:
         import os
 
@@ -1045,12 +1066,14 @@ def deduplicate_context(
 
 
 def manage_context_window(
-    context_chunks: List[Dict],
-    conversation_history: List[str],
+    context_chunks: list[dict],
+    conversation_history: list[str],
     tool_context: ToolContext,
     max_tokens: int = 8000,
     priority: str = "recent",
 ) -> dict:
+    """Manage LLM context window token limits. Prioritizes and truncates context to fit within max_tokens using recent, relevant, or balanced strategies."""
+
     def estimate_tokens(text: str) -> int:
         if not text:
             return 0
@@ -1242,11 +1265,12 @@ def manage_context_window(
 
 
 def prepare_context_for_llm(
-    context_chunks: List[Dict],
+    context_chunks: list[dict],
     query: str,
     tool_context: ToolContext,
     format_style: str = "structured",
 ) -> dict:
+    """Format context for LLM consumption. Structures chunks as structured (numbered), narrative (flowing text), or bullet_points for optimal LLM understanding."""
     try:
         if not context_chunks:
             formatted_context = "No context available."
@@ -1369,10 +1393,11 @@ def prepare_context_for_llm(
 
 
 def build_context_profile(
-    conversation_history: List[str],
-    topics_discussed: List[str],
+    conversation_history: list[str],
+    topics_discussed: list[str],
     tool_context: ToolContext,
 ) -> dict:
+    """Build profile of user's knowledge state and context needs. Tracks what user knows, information gaps, preferred topics, and context requirements."""
     if not os.getenv("GOOGLE_API_KEY"):
         return {
             "success": False,
@@ -1380,9 +1405,7 @@ def build_context_profile(
         }
 
     try:
-        model = genai.GenerativeModel(
-            os.getenv("DEFAULT_MODEL", "gemini-2.0-flash-exp")
-        )
+        model = genai.GenerativeModel(os.getenv("DEFAULT_MODEL"))
 
         history_context = "\n".join(
             [
@@ -1428,12 +1451,20 @@ Respond in JSON format:
         response = model.generate_content(prompt)
         result_text = response.text.strip()
 
-        if result_text.startswith("```json"):
-            result_text = result_text[7:-3].strip()
-        elif result_text.startswith("```"):
-            result_text = result_text[3:-3].strip()
-
-        result = json.loads(result_text)
+        # Use robust JSON parsing
+        default_result = {
+            "topics_covered": topics_discussed,
+            "knowledge_level": {},
+            "questions_asked": [],
+            "information_provided": [],
+            "knowledge_gaps": [],
+            "knowledge_completeness": 0.0,
+            "learning_progress": "moderate",
+            "recommended_next_topics": [],
+            "confidence": 0.5,
+            "summary": "",
+        }
+        result = parse_llm_json(result_text, default=default_result)
 
         context_profile = {
             "topics_covered": result.get("topics_covered", topics_discussed),
@@ -1472,8 +1503,9 @@ Respond in JSON format:
 
 
 def check_context_freshness(
-    context_chunks: List[Dict], tool_context: ToolContext, max_age_days: int = 90
+    context_chunks: list[dict], tool_context: ToolContext, max_age_days: int = 90
 ) -> dict:
+    """Verify context information is up-to-date. Checks timestamps and identifies stale context chunks that may need refreshing."""
     from datetime import datetime, timedelta
 
     try:
@@ -1638,11 +1670,12 @@ def check_context_freshness(
 
 def manage_context(
     query: str,
-    conversation_history: List[str],
+    conversation_history: list[str],
     tool_context: ToolContext,
     operations: Optional[List[str]] = None,
     max_tokens: int = 8000,
 ) -> dict:
+    """Comprehensive context management wrapper. Orchestrates retrieve, rank, filter, deduplicate, optimize, and format operations for complete context handling."""
     if operations is None:
         operations = ["retrieve", "rank", "filter", "deduplicate", "optimize", "format"]
 

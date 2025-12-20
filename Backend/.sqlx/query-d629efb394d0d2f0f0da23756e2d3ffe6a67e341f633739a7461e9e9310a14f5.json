@@ -1,0 +1,50 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "select * from rastreios_robo",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "checkpoint_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "waypoint",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "progresso_pct",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 5,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "d629efb394d0d2f0f0da23756e2d3ffe6a67e341f633739a7461e9e9310a14f5"
+}

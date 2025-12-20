@@ -1,12 +1,24 @@
-import axios from 'axios';
+import axios from "axios";
 
 // Axios instance shared by all services
 const api = axios.create({
-  baseURL: 'http://10.140.0.11:8080/v1',
+  baseURL: "http://10.140.0.11:8080/v1",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const method = error?.config?.method?.toUpperCase?.() ?? "UNKNOWN";
+    const url = error?.config?.url ?? "UNKNOWN_URL";
+    const status = error?.response?.status ?? "NO_STATUS";
+    const data = error?.response?.data ?? null;
+    console.error(`[API] ${method} ${url} -> ${status}`, data);
+    return Promise.reject(error);
+  }
+);
 
 // Shared response envelope
 export interface ApiResponse<T> {
@@ -15,12 +27,12 @@ export interface ApiResponse<T> {
 }
 
 // --- Alertas ---
-export type AlertaNivel = 'Baixo' | 'medio' | 'Alto';
-export type AlertaOrigem =  'visitor' | 'robot' | 'manager' | null;
+export type AlertaNivel = "baixo" | "medio" | "alto";
+export type AlertaOrigem = string | null;
 
 export interface Alerta {
   id?: number;
-  tour_id: number;
+  tour_id: number | null;
   origem: AlertaOrigem;
   nivel: AlertaNivel;
   mensagem: string | null;
@@ -31,30 +43,80 @@ export interface Alerta {
 
 export const alertasService = {
   list: async () => {
-    const response = await api.get<ApiResponse<Alerta[]>>('/alertas');
+    const response = await api.get<ApiResponse<Alerta[]>>("/alertas");
     return response.data;
   },
-  create: async (data: Omit<Alerta, 'id' | 'criado_em'>) => {
-    const response = await api.post<ApiResponse<Alerta>>('/alertas', data);
+  create: async (data: Omit<Alerta, "id" | "criado_em">) => {
+    const response = await api.post<ApiResponse<Alerta>>("/alertas", data);
     return response.data;
   },
   getById: async (id: number) => {
     const response = await api.get<ApiResponse<Alerta>>(`/alertas/${id}`);
     return response.data;
   },
-  update: async (id: number, data: Omit<Alerta, 'id' | 'criado_em'>) => {
+  update: async (id: number, data: Omit<Alerta, "id" | "criado_em">) => {
     const response = await api.put<ApiResponse<Alerta>>(`/alertas/${id}`, data);
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/alertas/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/alertas/${id}`
+    );
+    return response.data;
+  },
+};
+
+// --- Acompanhante ---
+export interface Acompanhante {
+  id?: number;
+  cpf: string | null;
+  nome: string | null;
+  visitante_id: number | null;
+}
+
+export const acompanhanteService = {
+  list: async () => {
+    const response = await api.get<ApiResponse<Acompanhante[]>>(
+      "/acompanhante"
+    );
+    return response.data;
+  },
+  create: async (data: Omit<Acompanhante, "id">) => {
+    const response = await api.post<ApiResponse<Acompanhante>>(
+      "/acompanhante",
+      data
+    );
+    return response.data;
+  },
+  getById: async (id: number) => {
+    const response = await api.get<ApiResponse<Acompanhante>>(
+      `/acompanhante/${id}`
+    );
+    return response.data;
+  },
+  update: async (id: number, data: Omit<Acompanhante, "id">) => {
+    const response = await api.put<ApiResponse<Acompanhante>>(
+      `/acompanhante/${id}`,
+      data
+    );
+    return response.data;
+  },
+  remove: async (id: number) => {
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/acompanhante/${id}`
+    );
     return response.data;
   },
 };
 
 // --- Checkpoints ---
-export type CheckpointStatus = 'pending' | 'running' | 'finished';
-export type CheckpointTipo = 'recepcao' | 'auditorio' | 'atelie' | 'casinhas' | 'dog_house';
+export type CheckpointStatus = "pending" | "running" | "finished" | "skipped";
+export type CheckpointTipo =
+  | "recepcao"
+  | "auditorio"
+  | "atelie"
+  | "casinhas"
+  | "dog_house";
 
 export interface Checkpoint {
   id?: number;
@@ -69,27 +131,47 @@ export interface Checkpoint {
 
 export const checkpointService = {
   list: async () => {
-    const response = await api.get<ApiResponse<Checkpoint[]>>('/checkpoint');
+    const response = await api.get<ApiResponse<Checkpoint[]>>("/checkpoint");
     return response.data;
   },
   listByTour: async (tourId: number) => {
-    const response = await api.get<ApiResponse<Checkpoint[]>>(`/checkpoint/tour/${tourId}`);
+    const response = await api.get<ApiResponse<Checkpoint[]>>(
+      `/checkpoint/tour/${tourId}`
+    );
     return response.data;
   },
-  create: async (data: Omit<Checkpoint, 'id'>) => {
-    const response = await api.post<ApiResponse<Checkpoint>>('/checkpoint', data);
+  create: async (data: Omit<Checkpoint, "id">) => {
+    const response = await api.post<ApiResponse<Checkpoint>>(
+      "/checkpoint",
+      data
+    );
     return response.data;
   },
   getById: async (id: number) => {
-    const response = await api.get<ApiResponse<Checkpoint>>(`/checkpoint/${id}`);
+    const response = await api.get<ApiResponse<Checkpoint>>(
+      `/checkpoint/${id}`
+    );
     return response.data;
   },
-  update: async (id: number, data: Omit<Checkpoint, 'id'>) => {
-    const response = await api.put<ApiResponse<Checkpoint>>(`/checkpoint/${id}`, data);
+  update: async (id: number, data: Omit<Checkpoint, "id">) => {
+    const response = await api.put<ApiResponse<Checkpoint>>(
+      `/checkpoint/${id}`,
+      data
+    );
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/checkpoint/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/checkpoint/${id}`
+    );
+    return response.data;
+  },
+};
+
+// --- Modelo ---
+export const modeloService = {
+  processQuestion: async (data: Omit<Pergunta, "id" | "criado_em">) => {
+    const response = await api.post<ApiResponse<Resposta>>("/modelo", data);
     return response.data;
   },
 };
@@ -98,38 +180,48 @@ export const checkpointService = {
 export interface Notificacao {
   id?: number;
   usuario_id: number | null;
-  titulo: string;
+  titulo: string | null;
   corpo: string | null;
-  payload_json: Record<string, unknown> | null;
+  payload_json: string | null;
   lido: boolean;
   criado_em?: string;
 }
 
 export const notificacoesService = {
   list: async () => {
-    const response = await api.get<ApiResponse<Notificacao[]>>('/notificacoes');
+    const response = await api.get<ApiResponse<Notificacao[]>>("/notificacoes");
     return response.data;
   },
-  create: async (data: Omit<Notificacao, 'id' | 'criado_em'>) => {
-    const response = await api.post<ApiResponse<Notificacao>>('/notificacoes', data);
+  create: async (data: Omit<Notificacao, "id" | "criado_em">) => {
+    const response = await api.post<ApiResponse<Notificacao>>(
+      "/notificacoes",
+      data
+    );
     return response.data;
   },
   getById: async (id: number) => {
-    const response = await api.get<ApiResponse<Notificacao>>(`/notificacoes/${id}`);
+    const response = await api.get<ApiResponse<Notificacao>>(
+      `/notificacoes/${id}`
+    );
     return response.data;
   },
-  update: async (id: number, data: Omit<Notificacao, 'id' | 'criado_em'>) => {
-    const response = await api.put<ApiResponse<Notificacao>>(`/notificacoes/${id}`, data);
+  update: async (id: number, data: Omit<Notificacao, "id" | "criado_em">) => {
+    const response = await api.put<ApiResponse<Notificacao>>(
+      `/notificacoes/${id}`,
+      data
+    );
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/notificacoes/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/notificacoes/${id}`
+    );
     return response.data;
   },
 };
 
 // --- Perguntas ---
-export type PerguntaEstado = 'queued' | 'answerable' | 'answered' | 'discarded';
+export type PerguntaEstado = "queued" | "answerable" | "answered" | "discarded";
 
 export interface Pergunta {
   id?: number;
@@ -145,33 +237,40 @@ export interface Pergunta {
 
 export const perguntasService = {
   list: async () => {
-    const response = await api.get<ApiResponse<Pergunta[]>>('/perguntas');
+    const response = await api.get<ApiResponse<Pergunta[]>>("/perguntas");
     return response.data;
   },
   listByTour: async (tourId: number) => {
-    const response = await api.get<ApiResponse<Pergunta[]>>(`/perguntas/tour/${tourId}`);
+    const response = await api.get<ApiResponse<Pergunta[]>>(
+      `/perguntas/tour/${tourId}`
+    );
     return response.data;
   },
-  create: async (data: Omit<Pergunta, 'id' | 'criado_em'>) => {
-    const response = await api.post<ApiResponse<Pergunta>>('/perguntas', data);
+  create: async (data: Omit<Pergunta, "id" | "criado_em">) => {
+    const response = await api.post<ApiResponse<Pergunta>>("/perguntas", data);
     return response.data;
   },
   getById: async (id: number) => {
     const response = await api.get<ApiResponse<Pergunta>>(`/perguntas/${id}`);
     return response.data;
   },
-  update: async (id: number, data: Omit<Pergunta, 'id' | 'criado_em'>) => {
-    const response = await api.put<ApiResponse<Pergunta>>(`/perguntas/${id}`, data);
+  update: async (id: number, data: Omit<Pergunta, "id" | "criado_em">) => {
+    const response = await api.put<ApiResponse<Pergunta>>(
+      `/perguntas/${id}`,
+      data
+    );
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/perguntas/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/perguntas/${id}`
+    );
     return response.data;
   },
 };
 
 // --- Respostas ---
-export type RespostaAutorTipo = 'robot' | 'manager';
+export type RespostaAutorTipo = "robot" | "manager";
 
 export interface Resposta {
   id?: number;
@@ -184,27 +283,34 @@ export interface Resposta {
 
 export const respostasService = {
   list: async () => {
-    const response = await api.get<ApiResponse<Resposta[]>>('/respostas');
+    const response = await api.get<ApiResponse<Resposta[]>>("/respostas");
     return response.data;
   },
   listByPergunta: async (perguntaId: number) => {
-    const response = await api.get<ApiResponse<Resposta[]>>(`/respostas/pergunta/${perguntaId}`);
+    const response = await api.get<ApiResponse<Resposta[]>>(
+      `/respostas/pergunta/${perguntaId}`
+    );
     return response.data;
   },
-  create: async (data: Omit<Resposta, 'id' | 'criado_em'>) => {
-    const response = await api.post<ApiResponse<Resposta>>('/respostas', data);
+  create: async (data: Omit<Resposta, "id" | "criado_em">) => {
+    const response = await api.post<ApiResponse<Resposta>>("/respostas", data);
     return response.data;
   },
   getById: async (id: number) => {
     const response = await api.get<ApiResponse<Resposta>>(`/respostas/${id}`);
     return response.data;
   },
-  update: async (id: number, data: Omit<Resposta, 'id' | 'criado_em'>) => {
-    const response = await api.put<ApiResponse<Resposta>>(`/respostas/${id}`, data);
+  update: async (id: number, data: Omit<Resposta, "id" | "criado_em">) => {
+    const response = await api.put<ApiResponse<Resposta>>(
+      `/respostas/${id}`,
+      data
+    );
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/respostas/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/respostas/${id}`
+    );
     return response.data;
   },
 };
@@ -221,23 +327,35 @@ export interface RastreioRobo {
 
 export const rastreioRoboService = {
   list: async () => {
-    const response = await api.get<ApiResponse<RastreioRobo[]>>('/rastreio-robo');
+    const response = await api.get<ApiResponse<RastreioRobo[]>>(
+      "/rastreio-robo"
+    );
     return response.data;
   },
-  create: async (data: Omit<RastreioRobo, 'id' | 'criado_em'>) => {
-    const response = await api.post<ApiResponse<RastreioRobo>>('/rastreio-robo', data);
+  create: async (data: Omit<RastreioRobo, "id" | "criado_em">) => {
+    const response = await api.post<ApiResponse<RastreioRobo>>(
+      "/rastreio-robo",
+      data
+    );
     return response.data;
   },
   getById: async (id: number) => {
-    const response = await api.get<ApiResponse<RastreioRobo>>(`/rastreio-robo/${id}`);
+    const response = await api.get<ApiResponse<RastreioRobo>>(
+      `/rastreio-robo/${id}`
+    );
     return response.data;
   },
-  update: async (id: number, data: Omit<RastreioRobo, 'id' | 'criado_em'>) => {
-    const response = await api.put<ApiResponse<RastreioRobo>>(`/rastreio-robo/${id}`, data);
+  update: async (id: number, data: Omit<RastreioRobo, "id" | "criado_em">) => {
+    const response = await api.put<ApiResponse<RastreioRobo>>(
+      `/rastreio-robo/${id}`,
+      data
+    );
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/rastreio-robo/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/rastreio-robo/${id}`
+    );
     return response.data;
   },
 };
@@ -245,38 +363,44 @@ export const rastreioRoboService = {
 // --- Robo ---
 export interface Robo {
   id?: number;
-  nome: string;
+  nome: string | null;
   modelo: string | null;
   numero_serie: string | null;
-  ativo: boolean;
+  ativo: boolean | null;
   criado_em?: string;
 }
 
 export const roboService = {
   list: async () => {
-    const response = await api.get<ApiResponse<Robo[]>>('/robo');
+    const response = await api.get<ApiResponse<Robo[]>>("/robo");
     return response.data;
   },
-  create: async (data: Omit<Robo, 'id' | 'criado_em'>) => {
-    const response = await api.post<ApiResponse<Robo>>('/robo', data);
+  create: async (data: Omit<Robo, "id" | "criado_em">) => {
+    const response = await api.post<ApiResponse<Robo>>("/robo", data);
     return response.data;
   },
   getById: async (id: number) => {
     const response = await api.get<ApiResponse<Robo>>(`/robo/${id}`);
     return response.data;
   },
-  update: async (id: number, data: Omit<Robo, 'id' | 'criado_em'>) => {
+  update: async (id: number, data: Omit<Robo, "id" | "criado_em">) => {
     const response = await api.put<ApiResponse<Robo>>(`/robo/${id}`, data);
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/robo/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/robo/${id}`
+    );
     return response.data;
   },
 };
 
 // --- Tour ---
-export type TourStatus = 'scheduled' | 'in_progress' | 'paused' | 'finished';
+export type TourStatus =
+  | "scheduled"
+  | "in_progress"
+  | "completed"
+  | "cancelled";
 
 export interface Tour {
   id?: number;
@@ -290,39 +414,41 @@ export interface Tour {
   status: TourStatus;
   robo_id: number;
   responsavel_id: number | null;
-  criado_por: number;
+  criado_por?: number;
   criado_em?: string;
 }
 
 export const tourService = {
   list: async () => {
-    const response = await api.get<ApiResponse<Tour[]>>('/tour');
+    const response = await api.get<ApiResponse<Tour[]>>("/tour");
     return response.data;
   },
-  create: async (data: Omit<Tour, 'id' | 'criado_em'>) => {
-    const response = await api.post<ApiResponse<Tour>>('/tour', data);
+  create: async (data: Omit<Tour, "id" | "criado_em">) => {
+    const response = await api.post<ApiResponse<Tour>>("/tour", data);
     return response.data;
   },
   getById: async (id: number) => {
     const response = await api.get<ApiResponse<Tour>>(`/tour/${id}`);
     return response.data;
   },
-  update: async (id: number, data: Omit<Tour, 'id' | 'criado_em'>) => {
+  update: async (id: number, data: Omit<Tour, "id" | "criado_em">) => {
     const response = await api.put<ApiResponse<Tour>>(`/tour/${id}`, data);
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/tour/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/tour/${id}`
+    );
     return response.data;
   },
   // Mock helper enquanto a rota real não existe
   tourMock: async () => {
     return 27;
   },
-  tourNow: async(id:number) =>{
-    if(id === 27) return true;
+  tourNow: async (id: number) => {
+    if (id === 27) return true;
     return false;
-  }
+  },
 };
 
 // --- Tour status log ---
@@ -337,27 +463,44 @@ export interface TourStatusLog {
 
 export const tourStatusLogService = {
   list: async () => {
-    const response = await api.get<ApiResponse<TourStatusLog[]>>('/tour-status-log');
+    const response = await api.get<ApiResponse<TourStatusLog[]>>(
+      "/tour-status-log"
+    );
     return response.data;
   },
   listByTour: async (tourId: number) => {
-    const response = await api.get<ApiResponse<TourStatusLog[]>>(`/tour-status-log/tour/${tourId}`);
+    const response = await api.get<ApiResponse<TourStatusLog[]>>(
+      `/tour-status-log/tour/${tourId}`
+    );
     return response.data;
   },
-  create: async (data: Omit<TourStatusLog, 'id' | 'atualizado_em'>) => {
-    const response = await api.post<ApiResponse<TourStatusLog>>('/tour-status-log', data);
+  create: async (data: Omit<TourStatusLog, "id" | "atualizado_em">) => {
+    const response = await api.post<ApiResponse<TourStatusLog>>(
+      "/tour-status-log",
+      data
+    );
     return response.data;
   },
   getById: async (id: number) => {
-    const response = await api.get<ApiResponse<TourStatusLog>>(`/tour-status-log/${id}`);
+    const response = await api.get<ApiResponse<TourStatusLog>>(
+      `/tour-status-log/${id}`
+    );
     return response.data;
   },
-  update: async (id: number, data: Omit<TourStatusLog, 'id' | 'atualizado_em'>) => {
-    const response = await api.put<ApiResponse<TourStatusLog>>(`/tour-status-log/${id}`, data);
+  update: async (
+    id: number,
+    data: Omit<TourStatusLog, "id" | "atualizado_em">
+  ) => {
+    const response = await api.put<ApiResponse<TourStatusLog>>(
+      `/tour-status-log/${id}`,
+      data
+    );
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/tour-status-log/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/tour-status-log/${id}`
+    );
     return response.data;
   },
 };
@@ -373,29 +516,40 @@ export interface TourVisitante {
 
 export const tourVisitanteService = {
   list: async () => {
-    const response = await api.get<ApiResponse<TourVisitante[]>>('/tour-visitante');
+    const response = await api.get<ApiResponse<TourVisitante[]>>(
+      "/tour-visitante"
+    );
     return response.data;
   },
-  create: async (data: Omit<TourVisitante, 'id' | 'adicionado_em'>) => {
-    const response = await api.post<ApiResponse<TourVisitante>>('/tour-visitante', data);
+  create: async (data: Omit<TourVisitante, "id" | "adicionado_em">) => {
+    const response = await api.post<ApiResponse<TourVisitante>>(
+      "/tour-visitante",
+      data
+    );
     return response.data;
   },
   listByTour: async (tourId: number) => {
-    const response = await api.get<ApiResponse<TourVisitante[]>>(`/tour-visitante/tour/${tourId}`);
+    const response = await api.get<ApiResponse<TourVisitante[]>>(
+      `/tour-visitante/tour/${tourId}`
+    );
     return response.data;
   },
   listByVisitante: async (visitanteId: number) => {
     const response = await api.get<ApiResponse<TourVisitante[]>>(
-      `/tour-visitante/visitante/${visitanteId}`,
+      `/tour-visitante/visitante/${visitanteId}`
     );
     return response.data;
   },
   getById: async (id: number) => {
-    const response = await api.get<ApiResponse<TourVisitante>>(`/tour-visitante/${id}`);
+    const response = await api.get<ApiResponse<TourVisitante>>(
+      `/tour-visitante/${id}`
+    );
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/tour-visitante/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/tour-visitante/${id}`
+    );
     return response.data;
   },
 };
@@ -405,29 +559,38 @@ export interface Visitante {
   id?: number;
   nome: string | null;
   email: string | null;
+  perfil: "student" | "executive";
+  estado: string | null;
+  cidade: string | null;
+  cpf: string | null;
   telefone: string | null;
   criado_em?: string;
 }
 
 export const visitanteService = {
   list: async () => {
-    const response = await api.get<ApiResponse<Visitante[]>>('/visitante');
+    const response = await api.get<ApiResponse<Visitante[]>>("/visitante");
     return response.data;
   },
-  create: async (data: Omit<Visitante, 'id' | 'criado_em'>) => {
-    const response = await api.post<ApiResponse<Visitante>>('/visitante', data);
+  create: async (data: Omit<Visitante, "id" | "criado_em">) => {
+    const response = await api.post<ApiResponse<Visitante>>("/visitante", data);
     return response.data;
   },
   getById: async (id: number) => {
     const response = await api.get<ApiResponse<Visitante>>(`/visitante/${id}`);
     return response.data;
   },
-  update: async (id: number, data: Omit<Visitante, 'id' | 'criado_em'>) => {
-    const response = await api.put<ApiResponse<Visitante>>(`/visitante/${id}`, data);
+  update: async (id: number, data: Omit<Visitante, "id" | "criado_em">) => {
+    const response = await api.put<ApiResponse<Visitante>>(
+      `/visitante/${id}`,
+      data
+    );
     return response.data;
   },
   remove: async (id: number) => {
-    const response = await api.delete<ApiResponse<{ message: string }>>(`/visitante/${id}`);
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/visitante/${id}`
+    );
     return response.data;
   },
 };

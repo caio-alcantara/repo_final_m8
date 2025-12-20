@@ -1,0 +1,71 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE alertas SET\n            tour_id = $1,\n            origem = $2,\n            nivel = $3,\n            mensagem = $4,\n            autor_usuario_id = $5,\n            criado_em = $6,\n            resolvido_em = $7\n        WHERE id = $8\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "origem",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "nivel",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "mensagem",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "autor_usuario_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 6,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "resolvido_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Text",
+        "Text",
+        "Text",
+        "Int4",
+        "Timestamptz",
+        "Timestamptz",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      true
+    ]
+  },
+  "hash": "31ab96c7e28097247a5c7d1e89a03df65489bc29089ea876ce499bd176f9bcab"
+}

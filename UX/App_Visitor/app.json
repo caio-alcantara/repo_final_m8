@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "softwareKeyboardLayoutMode": "pan", 
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
@@ -50,9 +50,9 @@
       "reactCompiler": true
     },
     "androidNavigationBar": {
-      "visible": "sticky-immersive",
       "backgroundColor": "#1E1730",
-      "barStyle": "light-content"
+      "barStyle": "light-content",
+      "borderColor": "#1E1730"
     }
   }
 }

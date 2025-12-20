@@ -96,7 +96,7 @@ impl TourWebSocket {
             AND hora_fim_prevista IS NOT NULL
             AND $2 >= hora_inicio_prevista
             AND $2 <= hora_fim_prevista
-            AND status IN ('scheduled', 'in_progress')
+            AND status IN ('in_progress')
             ORDER BY hora_inicio_prevista ASC
             LIMIT 1
             "#,

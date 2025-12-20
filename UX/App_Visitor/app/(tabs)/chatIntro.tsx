@@ -1,67 +1,184 @@
-// app/(tabs)/chatIntro.tsx
-import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Animated,
+  Dimensions,
+  StatusBar,
+  SafeAreaView,
+  Platform,
+  Easing
+} from "react-native";
 import { useRouter } from "expo-router";
-import { BlurView } from "expo-blur";
+import { Ionicons } from "@expo/vector-icons";
 import { useTour } from "@/context/TourContext";
 import Logo from "../../assets/images/logo-branca.png";
+
+const { width } = Dimensions.get("window");
 
 export default function ChatIntro() {
   const router = useRouter();
   const { tour } = useTour();
-
   const visitorName = tour?.visitorName || "Visitante";
 
+  // --- ANIMAÇÕES ---
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(50)).current;
+  const buttonScale = useRef(new Animated.Value(1)).current;
+  
+  // Animação da mãozinha (Rotação)
+  const waveAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    // 1. Entrada dos elementos (Fade + Slide)
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 800,
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+    // 2. Loop da mãozinha acenando
+    Animated.loop(
+      Animated.sequence([
+        // Balança para a esquerda
+        Animated.timing(waveAnim, {
+          toValue: -1, 
+          duration: 150,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+        // Balança para a direita
+        Animated.timing(waveAnim, {
+          toValue: 1, 
+          duration: 150,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+        // Esquerda
+        Animated.timing(waveAnim, {
+          toValue: -1, 
+          duration: 150,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+        // Centro (pausa)
+        Animated.timing(waveAnim, {
+          toValue: 0, 
+          duration: 150,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+        // Pausa de 2 segundos antes de acenar de novo
+        Animated.delay(2000) 
+      ])
+    ).start();
+  }, []);
+
+  // Interpolação da rotação da mão (-20 graus a +20 graus)
+  const waveRotation = waveAnim.interpolate({
+    inputRange: [-1, 1],
+    outputRange: ['-20deg', '20deg']
+  });
+
   const handleStartChat = () => {
-    // 👉 Depois daqui ele vai direto pro chat e não volta pra intro
-    router.push("/(tabs)/home");
+    Animated.sequence([
+      Animated.timing(buttonScale, {
+        toValue: 0.95,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(buttonScale, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      router.push("/(tabs)/home");
+    });
   };
 
   return (
     <View style={styles.container}>
-      {/* Header com logo */}
-      <View style={styles.header}>
-        <Image source={Logo} style={styles.logo} resizeMode="contain" />
-      </View>
+      <StatusBar barStyle="light-content" backgroundColor="#1E1730" />
+      
+      <SafeAreaView style={styles.safeArea}>
+        
+        {/* HEADER */}
+        <Animated.View 
+          style={[
+            styles.header, 
+            { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }
+          ]}
+        >
+          <Image source={Logo} style={styles.logo} resizeMode="contain" />
+        </Animated.View>
 
-      {/* Conteúdo central */}
-      <View style={styles.overlay}>
-        <View style={styles.card}>
-          <Text style={styles.smallTitle}>Bem-vindo ao tour do Inteli</Text>
+        {/* CONTEÚDO */}
+        <View style={styles.contentContainer}>
+          
+          <Animated.View 
+            style={[
+              styles.textWrapper,
+              { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }
+            ]}
+          >
+            <Text style={styles.eyebrow}>TUDO PRONTO</Text>
+            
+            {/* TÍTULO COM A MÃOZINHA ANIMADA AO LADO */}
+            <View style={styles.titleRow}>
+              <Text style={styles.greetingTitle}>Olá, {visitorName}!</Text>
+              <Animated.View style={{ transform: [{ rotate: waveRotation }] }}>
+                <Text style={styles.greetingTitle}> 👋</Text>
+              </Animated.View>
+            </View>
 
-          <Text style={styles.bigTitle}>Olá, {visitorName}! 👋</Text>
+            <View style={styles.divider} />
 
-          <Text style={styles.text}>
-            Aqui você poderá conversar com a{" "}
-            <Text style={styles.highlight}>LIA</Text>, a inteligência do nosso
-            robô.
-          </Text>
+            <Text style={styles.bodyText}>
+              Aqui você poderá conversar com a <Text style={styles.highlight}>LIA</Text>, 
+              a inteligência artificial do nosso robô.
+            </Text>
 
-          <Text style={styles.text}>
-            Você pode enviar suas perguntas{" "}
-            <Text style={styles.highlight}>por voz</Text> ou{" "}
-            <Text style={styles.highlight}>por texto</Text> usando o botão
-            principal da tela.
-          </Text>
+            <Text style={styles.bodyText}>
+              Envie perguntas por <Text style={styles.highlight}>voz</Text> ou <Text style={styles.highlight}>texto</Text>. 
+              As respostas serão dadas ao longo do seu tour pelo Inteli.
+            </Text>
 
-          <Text style={[styles.text, { marginTop: 8 }]}>
-            As respostas serão mostradas ao longo do tour, principalmente ao
-            final de cada etapa. Fique à vontade para testar e tirar suas
-            dúvidas!
-          </Text>
+          </Animated.View>
 
-          <TouchableOpacity style={styles.buttonWrapper} onPress={handleStartChat}>
-            <BlurView intensity={40} tint="dark" style={styles.buttonBlur}>
-              <Text style={styles.buttonText}>Começar a usar o chat</Text>
-            </BlurView>
-          </TouchableOpacity>
+          {/* BOTÃO */}
+          <Animated.View 
+            style={[
+              styles.footer, 
+              { opacity: fadeAnim, transform: [{ scale: buttonScale }] }
+            ]}
+          >
+            <TouchableOpacity 
+              style={styles.primaryButton} 
+              onPress={handleStartChat}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.buttonText}>Começar Conversa</Text>
+              <Ionicons name="chatbubble-ellipses-outline" size={24} color="#FFF" style={{ marginLeft: 10 }} />
+            </TouchableOpacity>
 
-          <Text style={styles.footerText}>
-            Você verá essa tela só agora, no início do tour. Depois, poderá
-            acessar o chat diretamente.
-          </Text>
+            <Text style={styles.disclaimer}>
+              Toque para iniciar a interação com a LIA
+            </Text>
+          </Animated.View>
+
         </View>
-      </View>
+      </SafeAreaView>
     </View>
   );
 }
@@ -69,87 +186,100 @@ export default function ChatIntro() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1E1730",
+    // Cor sólida mais clara (Roxo Inteli Dark) conforme solicitado
+    backgroundColor: "#1E1730", 
+  },
+  safeArea: {
+    flex: 1,
+    paddingTop: Platform.OS === "android" ? 40 : 0,
+    justifyContent: "space-between",
   },
   header: {
     alignItems: "center",
-    marginTop: 40,
-    marginBottom: 20,
+    marginTop: 20,
   },
   logo: {
-    width: 120,
-    height: 100,
+    width: 100,
+    height: 40,
   },
-  overlay: {
+  contentContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(30, 23, 48, 0.9)",
-  },
-  card: {
-    width: "70%",
-    maxWidth: 800,
-    backgroundColor: "rgba(30, 23, 48, 0.95)",
-    borderRadius: 24,
-    paddingVertical: 40,
     paddingHorizontal: 32,
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "rgba(255, 255, 255, 0.08)",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 10,
+    paddingBottom: 40,
   },
-  smallTitle: {
-    color: "rgba(255,255,255,0.7)",
-    fontSize: 16,
-    marginBottom: 8,
+  textWrapper: {
+    alignItems: "flex-start",
+    marginBottom: 40,
   },
-  bigTitle: {
-    color: "#fff",
-    fontSize: 28,
+  eyebrow: {
+    color: "#8B2CF5",
+    fontSize: 14,
     fontWeight: "700",
-    marginBottom: 16,
-    textAlign: "center",
+    letterSpacing: 2,
+    marginBottom: 10,
+    textTransform: "uppercase",
   },
-  text: {
-    color: "rgba(255,255,255,0.9)",
-    fontSize: 16,
-    textAlign: "center",
-    marginTop: 4,
+  // Container para alinhar Texto + Emoji na mesma linha
+  titleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+    flexWrap: 'wrap', // Garante que não quebre feio em telas pequenas
+  },
+  greetingTitle: {
+    color: "#FFFFFF",
+    fontSize: 36,
+    fontWeight: "800",
+    lineHeight: 42,
+  },
+  divider: {
+    width: 40,
+    height: 4,
+    backgroundColor: "#8B2CF5",
+    borderRadius: 2,
+    marginBottom: 24,
+  },
+  bodyText: {
+    color: "#E0E0E0",
+    fontSize: 18,
+    lineHeight: 28,
+    fontWeight: "400",
+    marginBottom: 20,
   },
   highlight: {
     color: "#B794FF",
-    fontWeight: "600",
-  },
-  buttonWrapper: {
-    marginTop: 32,
-    width: "70%",
-    maxWidth: 360,
-    borderRadius: 999,
-    overflow: "hidden",
-  },
-  buttonBlur: {
-    paddingVertical: 14,
-    paddingHorizontal: 24,
-    borderRadius: 999,
-    backgroundColor: "rgba(106, 64, 196, 0.9)",
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.18)",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
     fontWeight: "700",
   },
-  footerText: {
-    marginTop: 18,
-    color: "rgba(255,255,255,0.6)",
-    fontSize: 13,
+  footer: {
+    alignItems: "center",
+    marginTop: 20,
+  },
+  primaryButton: {
+    width: "100%",
+    height: 64,
+    backgroundColor: "#8B2CF5",
+    borderRadius: 32,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#8B2CF5",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 16,
+    elevation: 10,
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 18,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
+  disclaimer: {
+    marginTop: 20,
+    color: "rgba(255,255,255,0.4)",
+    fontSize: 12,
     textAlign: "center",
   },
 });

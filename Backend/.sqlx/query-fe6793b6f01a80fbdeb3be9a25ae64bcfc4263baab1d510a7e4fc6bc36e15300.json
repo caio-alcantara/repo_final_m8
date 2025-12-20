@@ -1,0 +1,77 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE perguntas SET\n            tour_id = $1,\n            checkpoint_id = $2,\n            question_topic = $3,\n            texto = $4,\n            estado = $5,\n            liberado_em = $6,\n            respondido_em = $7\n        WHERE id = $8\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "checkpoint_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "question_topic",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "texto",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "estado",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 6,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "liberado_em",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 8,
+        "name": "respondido_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Int4",
+        "Text",
+        "Text",
+        "Text",
+        "Timestamptz",
+        "Timestamptz",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true
+    ]
+  },
+  "hash": "fe6793b6f01a80fbdeb3be9a25ae64bcfc4263baab1d510a7e4fc6bc36e15300"
+}

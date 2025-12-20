@@ -10,14 +10,22 @@ use crate::api::models::{
     database::Robo,
     responses::{GenericResponse, ListAllResponse, SingleItemResponse},
 };
+use serde_json::Value;
 
 pub const SLUG: &str = "/robo";
 pub fn router(cfg: &mut ServiceConfig) {
     cfg.service(
         scope(self::SLUG)
+            // Rotas específicas do robô (devem vir ANTES das rotas com parâmetros)
+            .service(status)
+            .service(start_next)
+            .service(cancel)
+            .service(reset_counter)
+            .service(add_checkpoint)
+            // Rotas CRUD do banco de dados
             .service(get_all)
-            .service(get_one)
             .service(create)
+            .service(get_one)  // GET /{id} - deve vir DEPOIS das rotas específicas
             .service(update)
             .service(delete),
     );
@@ -164,4 +172,95 @@ async fn delete(id: web::Path<i32>, data: Data) -> Response {
     Ok(HttpResponse::Ok().json(GenericResponse {
         message: "Successfully deleted robo".to_string(),
     }))
+}
+
+#[utoipa::path(
+    responses(
+        (status = OK, description = "Status do robô obtido com sucesso"),
+        (status = INTERNAL_SERVER_ERROR, description = "Erro ao obter status do robô", body = GenericResponse),
+    )
+)]
+#[get("/status")]
+async fn status(data: Data) -> Response {
+    let response = data.robot_client
+        .get_status_http()
+        .await
+        .map_err(ErrorInternalServerError)?;
+    
+    // Retorna a resposta do robô como JSON (assumindo que o robô retorna JSON)
+    Ok(HttpResponse::Ok()
+        .content_type("application/json")
+        .body(response))
+}
+
+#[utoipa::path(
+    responses(
+        (status = OK, description = "Próximo passo iniciado com sucesso"),
+        (status = INTERNAL_SERVER_ERROR, description = "Erro ao iniciar próximo passo", body = GenericResponse),
+    )
+)]
+#[post("/start_next")]
+async fn start_next(data: Data) -> Response {
+    let response = data.robot_client
+        .start_next_http()
+        .await
+        .map_err(ErrorInternalServerError)?;
+    
+    Ok(HttpResponse::Ok()
+        .content_type("application/json")
+        .body(response))
+}
+
+#[utoipa::path(
+    responses(
+        (status = OK, description = "Cancelamento enviado com sucesso"),
+        (status = INTERNAL_SERVER_ERROR, description = "Erro ao cancelar execução", body = GenericResponse),
+    )
+)]
+#[post("/cancel")]
+async fn cancel(data: Data) -> Response {
+    let response = data.robot_client
+        .cancel_http()
+        .await
+        .map_err(ErrorInternalServerError)?;
+    
+    Ok(HttpResponse::Ok()
+        .content_type("application/json")
+        .body(response))
+}
+
+#[utoipa::path(
+    responses(
+        (status = OK, description = "Reset do contador enviado com sucesso"),
+        (status = INTERNAL_SERVER_ERROR, description = "Erro ao resetar contador", body = GenericResponse),
+    )
+)]
+#[post("/reset")]
+async fn reset_counter(data: Data) -> Response {
+    let response = data.robot_client
+        .reset_counter_http()
+        .await
+        .map_err(ErrorInternalServerError)?;
+    
+    Ok(HttpResponse::Ok()
+        .content_type("application/json")
+        .body(response))
+}
+
+#[utoipa::path(
+    responses(
+        (status = OK, description = "Checkpoint adicionado com sucesso"),
+        (status = INTERNAL_SERVER_ERROR, description = "Erro ao adicionar checkpoint", body = GenericResponse),
+    )
+)]
+#[post("/add_checkpoint")]
+async fn add_checkpoint(data: Data, body: web::Json<Value>) -> Response {
+    let response = data.robot_client
+        .add_checkpoint_http(&body.0)
+        .await
+        .map_err(ErrorInternalServerError)?;
+    
+    Ok(HttpResponse::Ok()
+        .content_type("application/json")
+        .body(response))
 }

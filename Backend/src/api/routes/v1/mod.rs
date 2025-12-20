@@ -14,6 +14,7 @@ pub mod tour_ws;
 mod modelo;
 mod text_ws;
 pub mod broadcast;
+pub mod acompanhante;
 
 use utoipa_actix_web::scope;
 use utoipa_actix_web::service_config::ServiceConfig;
@@ -35,6 +36,7 @@ pub fn router(cfg: &mut ServiceConfig) {
             .configure(audio_ws::router)
             .configure(tour_ws::router)
             .configure(text_ws::router)
-            .configure(modelo::router),
+            .configure(modelo::router)
+            .configure(acompanhante::router),
     );
 }

@@ -1,0 +1,92 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "select * from tours",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "codigo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "titulo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "data_local",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 4,
+        "name": "hora_inicio_prevista",
+        "type_info": "Time"
+      },
+      {
+        "ordinal": 5,
+        "name": "hora_fim_prevista",
+        "type_info": "Time"
+      },
+      {
+        "ordinal": 6,
+        "name": "inicio_real",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "fim_real",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 8,
+        "name": "status",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 9,
+        "name": "robo_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 10,
+        "name": "responsavel_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 11,
+        "name": "criado_por",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 12,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "1045c753752ae108917cf7ecd916251131e30ff602035f5ab8b1b5681d3222c4"
+}

@@ -66,10 +66,10 @@ impl From<TourStatus> for String {
 impl Display for TourStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let status_str = match self {
-            TourStatus::Scheduled => "Scheduled",
-            TourStatus::InProgress => "In Progress",
-            TourStatus::Completed => "Completed",
-            TourStatus::Cancelled => "Cancelled",
+            TourStatus::Scheduled => "scheduled",
+            TourStatus::InProgress => "in_progress",
+            TourStatus::Completed => "completed",
+            TourStatus::Cancelled => "cancelled",
         };
         write!(f, "{}", status_str)
     }

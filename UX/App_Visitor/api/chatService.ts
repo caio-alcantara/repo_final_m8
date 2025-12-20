@@ -1,11 +1,5 @@
-// api/chatService.ts
 import axios from "axios";
 import { apiClient } from "@/api/client";
-
-/**
- * Tipos das estruturas de Pergunta e Resposta
- * de acordo com o backend
- */
 
 export type PerguntaEstado =
   | "queued"
@@ -60,7 +54,7 @@ export interface ModeloRequest {
  * Agora criamos um client específico para o serviço do modelo (porta 8000)
  */
 const MODEL_API_BASE_URL =
-  process.env.EXPO_PUBLIC_MODEL_API_URL || "http://10.140.0.11:8000";
+  process.env.EXPO_PUBLIC_MODEL_API_URL || "http://10.140.0.11:8080";
 
 const modelClient = axios.create({
   baseURL: MODEL_API_BASE_URL,

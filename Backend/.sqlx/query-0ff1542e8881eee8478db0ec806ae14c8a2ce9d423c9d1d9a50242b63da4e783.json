@@ -1,0 +1,52 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "select * from respostas where id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "pergunta_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "respondido_por_tipo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "respondido_por_usuario",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "texto",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "0ff1542e8881eee8478db0ec806ae14c8a2ce9d423c9d1d9a50242b63da4e783"
+}

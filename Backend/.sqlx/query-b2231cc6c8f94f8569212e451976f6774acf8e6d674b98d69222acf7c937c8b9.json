@@ -1,0 +1,48 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE tour_visitantes SET\n            tour_id = $1,\n            visitante_id = $2\n        WHERE id = $3\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "visitante_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "adicionado_por",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "adicionado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false
+    ]
+  },
+  "hash": "b2231cc6c8f94f8569212e451976f6774acf8e6d674b98d69222acf7c937c8b9"
+}

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   container_add_icon: {
     width: "95%",
     position: "absolute",
-    bottom: 100,
+    bottom: 130,
     right: 10,
     flexDirection: "row",
     justifyContent: "flex-end",

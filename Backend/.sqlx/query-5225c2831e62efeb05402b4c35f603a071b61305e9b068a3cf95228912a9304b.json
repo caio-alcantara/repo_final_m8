@@ -1,0 +1,63 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO notificacoes (\n            usuario_id,\n            titulo,\n            corpo,\n            payload_json,\n            lido,\n            criado_em\n        )\n        VALUES (\n            $1,\n            $2,\n            $3,\n            $4,\n            $5,\n            $6\n        )\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "usuario_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "titulo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "corpo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "payload_json",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 5,
+        "name": "lido",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 6,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Text",
+        "Text",
+        "Jsonb",
+        "Bool",
+        "Timestamptz"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "5225c2831e62efeb05402b4c35f603a071b61305e9b068a3cf95228912a9304b"
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Pressable, ScrollView, Alert } from "react-native";
+import { StyleSheet, View, Text, Pressable, ScrollView, Alert, KeyboardAvoidingView, Platform } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import type { Tour } from "@/app/(tabs)/index";
@@ -8,7 +9,7 @@ import { DatePickerField } from "./DatePickerField";
 import { TimePickerField } from "./TimePickerField";
 import { StatePickerField } from "./StatePickerField";
 import { CompanionSection } from "./CompanionSection";
-import { tourService, visitanteService, tourVisitanteService, type Usuario } from "@/services/api";
+import { acompanhanteService, tourService, visitanteService, tourVisitanteService, type Usuario } from "@/services/api";
 
 type Props = {
   onClose: () => void;
@@ -31,7 +32,7 @@ export function AddTourPopup({ onClose, addTour }: Props) {
     status: "scheduled",
     nomeVisitante: "",
     emailVisitante: "",
-    perfilvisitante: "",
+    perfilvisitante: "student",
     estado: "",
     cpf: "",
     telefone: "",
@@ -93,9 +94,10 @@ export function AddTourPopup({ onClose, addTour }: Props) {
     return value;
   }
 
-  function normalizeStatusInput(value: string) {
-    const allowed: Tour["status"][] = ["scheduled", "in_progress", "paused", "finished", "cancelled"];
-    return allowed.includes(value as Tour["status"]) ? (value as Tour["status"]) : "scheduled";
+  function normalizeStatusFromApi(value: string | undefined) {
+    if (value === "completed") return "finished";
+    if (value === "scheduled" || value === "in_progress" || value === "cancelled") return value;
+    return "scheduled";
   }
 
   async function handleSubmit() {
@@ -116,14 +118,23 @@ export function AddTourPopup({ onClose, addTour }: Props) {
       return;
     }
 
+    if (form.acompanhante && (!form.nomeAcompanhante || !form.cpfAcompanhante)) {
+      Alert.alert("Acompanhante", "Preencha nome e CPF do acompanhante.");
+      return;
+    }
+
     setIsSubmitting(true);
     const codigo = generateCode();
 
     try {
       const visitanteResp = await visitanteService.create({
-        email: form.emailVisitante,
-        nome: form.nomeVisitante,
-        telefone: form.telefone,
+        email: form.emailVisitante || null,
+        nome: form.nomeVisitante || null,
+        telefone: form.telefone || null,
+        perfil: (form.perfilvisitante as "student" | "executive") || "student",
+        estado: form.estado || null,
+        cidade: form.cidade || null,
+        cpf: form.cpf || null,
       });
 
       const visitanteId = visitanteResp.data.id;
@@ -136,10 +147,8 @@ export function AddTourPopup({ onClose, addTour }: Props) {
         hora_fim_prevista: timeWithSeconds(form.horaFimPrevista),
         responsavel_id: responsavelSelecionado.id,
         robo_id: Number(form.roboId) || 1,
-        status: normalizeStatusInput(form.status),
+        status: "scheduled",
         titulo: form.titulo || "Tour",
-        inicio_real: null,
-        fim_real: null,
       });
 
       const tourId = tourResp.data.id;
@@ -150,10 +159,18 @@ export function AddTourPopup({ onClose, addTour }: Props) {
         visitante_id: visitanteId,
       });
 
+      if (form.acompanhante) {
+        await acompanhanteService.create({
+          visitante_id: visitanteId,
+          nome: form.nomeAcompanhante || null,
+          cpf: form.cpfAcompanhante || null,
+        });
+      }
+
       const newTour: Tour = {
         codigo: tourResp.data.codigo ?? codigo,
         responsavel: responsavelSelecionado?.nome ?? `Responsável #${tourResp.data.responsavel_id ?? ""}`,
-        status: normalizeStatusInput(tourResp.data.status),
+        status: normalizeStatusFromApi(tourResp.data.status),
         data: form.data.toLocaleDateString("pt-BR"),
         hora_inicio_prevista: tourResp.data.hora_inicio_prevista?.slice(0, 5) ?? form.horaInicioPrevista,
         hora_fim_prevista: tourResp.data.hora_fim_prevista?.slice(0, 5) ?? form.horaFimPrevista,
@@ -190,23 +207,24 @@ export function AddTourPopup({ onClose, addTour }: Props) {
 
   return (
     <View style={styles.overlay}>
-      <View style={styles.add_tour_popup}>
-        <View style={styles.topo}>
-          <Text style={styles.title}>Cadastrar novo tour</Text>
-          <View style={styles.botoes}>
-            <Pressable onPress={handleSubmit}>
-              <Feather name="check-circle" size={20} color="#9747FF" />
-            </Pressable>
-
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.keyboardAvoid}
+      >
+        <View style={styles.add_tour_popup}>
+          <View style={styles.topo}>
+            <Text style={styles.title}>Cadastrar novo tour</Text>
             <Pressable onPress={onClose}>
               <MaterialIcons name="close" size={20} color="black" />
             </Pressable>
           </View>
-        </View>
 
-        <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-          {/* Informações gerais */}
-          <View style={styles.bloco_input}>
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+          >
+            {/* Informações gerais */}
+            <View style={styles.bloco_input}>
             <View style={[styles.input_section, { width: "95%" }]}>
               <Text style={styles.label}>Staff responsável</Text>
               <Pressable onPress={() => setShowResponsavelList((prev) => !prev)} style={styles.selectBox}>
@@ -274,12 +292,18 @@ export function AddTourPopup({ onClose, addTour }: Props) {
               width="95%"
             />
 
-            <FormInput
-              label="Perfil"
-              value={form.perfilvisitante}
-              onChangeText={(text) => updateField("perfilvisitante", text)}
-              width="95%"
-            />
+            <View style={[styles.input_section, { width: "95%" }]}>
+              <Text style={styles.label}>Perfil</Text>
+              <View style={styles.pickerContainer}>
+                <Picker
+                  selectedValue={form.perfilvisitante}
+                  onValueChange={(value) => updateField("perfilvisitante", value)}
+                >
+                  <Picker.Item label="Estudante" value="student" />
+                  <Picker.Item label="Executivo" value="executive" />
+                </Picker>
+              </View>
+            </View>
 
             <FormInput label="CPF" value={form.cpf} onChangeText={(text) => updateField("cpf", text)} width="48%" />
 
@@ -298,8 +322,23 @@ export function AddTourPopup({ onClose, addTour }: Props) {
             onChangeCompanionName={(text) => updateField("nomeAcompanhante", text)}
             onChangeCompanionCpf={(text) => updateField("cpfAcompanhante", text)}
           />
-        </ScrollView>
-      </View>
+          <View style={styles.buttonContainer}>
+            <Pressable
+              style={[
+                styles.submitButton,
+                isSubmitting && styles.submitButtonDisabled,
+              ]}
+              onPress={handleSubmit}
+              disabled={isSubmitting}
+            >
+              <Text style={styles.submitButtonText}>
+                {isSubmitting ? "Salvando..." : "Criar tour"}
+              </Text>
+            </Pressable>
+          </View>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -314,6 +353,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.3)",
+    zIndex: 2000,
+  },
+  keyboardAvoid: {
+    width: "100%",
+    alignItems: "center",
   },
   add_tour_popup: {
     width: "90%",
@@ -322,8 +366,11 @@ const styles = StyleSheet.create({
     marginTop: 60,
     elevation: 6,
     padding: 16,
-    zIndex: 2,
+    zIndex: 2001,
     maxHeight: "95%",
+  },
+  scrollContent: {
+    paddingBottom: 20,
   },
   title: {
     fontSize: 16,
@@ -334,13 +381,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  botoes: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-    width: "20%",
   },
   bloco_input: {
     flexDirection: "row",
@@ -359,6 +399,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     marginBottom: 12,
+  },
+  pickerContainer: {
+    marginTop: 8,
+    borderWidth: 1,
+    borderColor: "#E5E5E5",
+    borderRadius: 12,
+    backgroundColor: "#F8F8F8",
   },
   label: {
     color: "rgba(19, 26, 41, 0.48)",
@@ -386,5 +433,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderBottomWidth: 1,
     borderBottomColor: "#EEE",
+  },
+  buttonContainer: {
+    marginTop: 12,
+    alignItems: "center",
+  },
+  submitButton: {
+    backgroundColor: "#9747FF",
+    borderRadius: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    minWidth: 220,
+    alignItems: "center",
+  },
+  submitButtonDisabled: {
+    opacity: 0.7,
+  },
+  submitButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });

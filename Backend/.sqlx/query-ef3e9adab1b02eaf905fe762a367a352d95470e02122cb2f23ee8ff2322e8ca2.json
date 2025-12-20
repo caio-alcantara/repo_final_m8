@@ -1,0 +1,64 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE notificacoes SET\n            usuario_id = $1,\n            titulo = $2,\n            corpo = $3,\n            payload_json = $4,\n            lido = $5,\n            criado_em = $6\n        WHERE id = $7\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "usuario_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "titulo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "corpo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "payload_json",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 5,
+        "name": "lido",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 6,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Text",
+        "Text",
+        "Jsonb",
+        "Bool",
+        "Timestamptz",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "ef3e9adab1b02eaf905fe762a367a352d95470e02122cb2f23ee8ff2322e8ca2"
+}

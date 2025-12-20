@@ -9,6 +9,7 @@ mod tour;
 mod tour_status_log;
 mod tour_visitante;
 mod visitante;
+mod acompanhante;
 
 pub use alertas::*;
 pub use checkpoint::*;
@@ -21,3 +22,4 @@ pub use tour::*;
 pub use tour_status_log::*;
 pub use tour_visitante::*;
 pub use visitante::*;
+pub use acompanhante::*;

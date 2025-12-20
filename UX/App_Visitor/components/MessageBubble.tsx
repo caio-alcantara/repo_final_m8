@@ -14,7 +14,7 @@ type Props = {
   side: "left" | "right";
   avatar: ImageSourcePropType;
   status?: "normal" | "pending" | "error";
-  renderMarkdown?: boolean; // 👈 NOVO
+  renderMarkdown?: boolean; 
 };
 
 export default function MessageBubble({

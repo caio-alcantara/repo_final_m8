@@ -137,16 +137,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 40,
-    paddingBottom: 60,
+    paddingBottom: 40,
   },
   buttonCircle: {
-    width: 280,
-    height: 280,
-    borderRadius: 140,
+    width: 220,
+    height: 220,
+    borderRadius: 110,
     backgroundColor: "#6440C4",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 40,
+    marginBottom: 28,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.4,
@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   alertButton: {
-    width: 180,
-    height: 180,
+    width: 140,
+    height: 140,
   },
   title: {
     fontSize: 24,
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#6440C4",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 80,
+    marginTop: 40,
     paddingHorizontal: 30,
     paddingVertical: 10
   }

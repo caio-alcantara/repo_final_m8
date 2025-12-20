@@ -3,42 +3,65 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
+
+import { useTour } from "@/context/TourContext";
+import { tourService } from "../../services/tourService";
 
 const Logo = require("../../assets/images/logo-branca.png");
 const APP_VERSION = "1.0.0";
 
 export default function Menu() {
   const router = useRouter();
+  const { tour } = useTour();
+
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showEndTourModal, setShowEndTourModal] = useState(false);
+  const [isEnding, setIsEnding] = useState(false);
 
   const handleEndTour = () => {
     setShowEndTourModal(true);
   };
 
-  const confirmEndTour = () => {
-    setShowEndTourModal(false);
-    // Navega diretamente para a tela de login dentro de (tabs)
-    router.dismissAll();
-    router.replace("/(tabs)");
+  const confirmEndTour = async () => {
+    setIsEnding(true);
+
+    try {
+      if (tour?.tourId) {
+        console.log("Encerrando tour:", tour.tourId);
+
+        const currentTourData = await tourService.getTourById(tour.tourId);
+        
+        const { id, ...tourDataWithoutId } = currentTourData;
+
+        await tourService.updateTour(tour.tourId, {
+          ...tourDataWithoutId,
+          status: 'completed',
+          fim_real: new Date().toISOString()
+        });
+
+        console.log("Tour encerrado com sucesso!");
+      }
+    } catch (error) {
+      console.error("Erro ao encerrar tour (prosseguindo para NPS):", error);
+    } finally {
+      setIsEnding(false);
+      setShowEndTourModal(false);
+      router.push("/nps");
+    }
   };
 
   return (
     <>
       <StatusBar hidden />
       <View style={styles.container}>
-        {/* Logo do Inteli no topo */}
         <View style={styles.header}>
           <Image source={Logo} style={styles.logo} resizeMode="contain" />
         </View>
 
-        {/* Título */}
         <Text style={styles.title}>Menu</Text>
 
-        {/* Conteúdo central */}
         <View style={styles.content}>
-          {/* Botão Sobre */}
           <TouchableOpacity
             style={styles.menuButton}
             onPress={() => setShowAboutModal(true)}
@@ -51,7 +74,6 @@ export default function Menu() {
             <Ionicons name="chevron-forward" size={24} color="#FFFFFF" />
           </TouchableOpacity>
 
-          {/* Botão Encerrar Tour */}
           <TouchableOpacity
             style={[styles.menuButton, styles.endTourButton]}
             onPress={handleEndTour}
@@ -65,12 +87,10 @@ export default function Menu() {
           </TouchableOpacity>
         </View>
 
-        {/* Versão do app */}
         <View style={styles.versionContainer}>
           <Text style={styles.versionText}>Versão {APP_VERSION}</Text>
         </View>
 
-        {/* Modal Sobre */}
         <Modal
           visible={showAboutModal}
           transparent={true}
@@ -87,17 +107,14 @@ export default function Menu() {
                 </TouchableOpacity>
               </View>
 
-              {/* Conteúdo scrollável */}
               <ScrollView
                 style={styles.modalScroll}
                 showsVerticalScrollIndicator={false}
               >
-                {/* Logo no modal */}
                 <View style={styles.modalLogoContainer}>
                   <Image source={Logo} style={styles.modalLogo} resizeMode="contain" />
                 </View>
 
-                {/* Seção Projeto */}
                 <View style={styles.modalSection}>
                   <View style={styles.sectionHeader}>
                     <Ionicons name="bulb-outline" size={24} color="#8141C2" />
@@ -108,7 +125,6 @@ export default function Menu() {
                   </Text>
                 </View>
 
-                {/* Seção Objetivo */}
                 <View style={styles.modalSection}>
                   <View style={styles.sectionHeader}>
                     <Ionicons name="flag-outline" size={24} color="#8141C2" />
@@ -119,7 +135,6 @@ export default function Menu() {
                   </Text>
                 </View>
 
-                {/* Seção Sobre o Inteli */}
                 <View style={styles.modalSection}>
                   <View style={styles.sectionHeader}>
                     <Ionicons name="school-outline" size={24} color="#8141C2" />
@@ -130,44 +145,55 @@ export default function Menu() {
                   </Text>
                 </View>
 
-                {/* Espaço extra no final */}
+                <View style={styles.modalSection}>
+                  <View style={styles.sectionHeader}>
+                    <Text style={styles.sectionTitle}>Versão</Text>
+                  </View>
+                  <Text style={styles.modalText}>
+                    Versão 1.0.0.
+                    </Text>
+                    <Text style={styles.modalText}>
+                      Direitos reservados pelo Instituto de Tecnologia e Liderança - Inteli
+                    </Text>
+                </View>
+
                 <View style={{ height: 20 }} />
               </ScrollView>
             </View>
           </View>
         </Modal>
 
-        {/* Modal Encerrar Tour */}
         <Modal
           visible={showEndTourModal}
           transparent={true}
           animationType="fade"
-          onRequestClose={() => setShowEndTourModal(false)}
+          onRequestClose={() => {
+             if(!isEnding) setShowEndTourModal(false);
+          }}
         >
           <View style={styles.modalOverlay}>
             <View style={styles.confirmModalContent}>
-              {/* Ícone de alerta */}
               <View style={styles.alertIconContainer}>
                 <Ionicons name="warning" size={80} color="#FF4B4B" />
               </View>
 
-              {/* Título */}
               <Text style={styles.confirmTitle}>Encerrar Tour</Text>
 
-              {/* Mensagem */}
               <Text style={styles.confirmMessage}>
                 Tem certeza que deseja encerrar o tour? Você voltará para a tela inicial.
               </Text>
 
-              {/* Botões */}
               <View style={styles.confirmButtons}>
                 <TouchableOpacity
                   style={[styles.confirmButton, styles.cancelButton]}
                   onPress={() => {
-                    console.log("❌ Cancelado");
-                    setShowEndTourModal(false);
+                    if (!isEnding) {
+                      console.log("Cancelado");
+                      setShowEndTourModal(false);
+                    }
                   }}
                   activeOpacity={0.8}
+                  disabled={isEnding}
                 >
                   <Text style={styles.cancelButtonText}>Cancelar</Text>
                 </TouchableOpacity>
@@ -176,15 +202,18 @@ export default function Menu() {
                   style={[styles.confirmButton, styles.endButton]}
                   onPress={confirmEndTour}
                   activeOpacity={0.8}
+                  disabled={isEnding}
                 >
-                  <Text style={styles.endButtonText}>Encerrar</Text>
+                  {isEnding ? (
+                    <ActivityIndicator size="small" color="#FFF" />
+                  ) : (
+                    <Text style={styles.endButtonText}>Encerrar</Text>
+                  )}
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </Modal>
-
-        {/* Navbar */}
         <Navbar />
       </View>
     </>
@@ -254,7 +283,6 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     opacity: 0.5,
   },
-  // Estilos do Modal
   modalOverlay: {
     flex: 1,
     backgroundColor: "rgba(0, 0, 0, 0.8)",
@@ -319,7 +347,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#8141C2",
   },
-  // Estilos do Modal de Confirmação
+
   confirmModalContent: {
     backgroundColor: "#1E1730",
     borderRadius: 20,

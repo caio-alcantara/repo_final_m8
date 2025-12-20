@@ -1,0 +1,70 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO alertas (\n            tour_id,\n            origem,\n            nivel,\n            mensagem,\n            autor_usuario_id,\n            criado_em,\n            resolvido_em\n        )\n        VALUES (\n            $1,\n            $2,\n            $3,\n            $4,\n            $5,\n            $6,\n            $7\n        )\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "tour_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "origem",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "nivel",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "mensagem",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "autor_usuario_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 6,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "resolvido_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Text",
+        "Text",
+        "Text",
+        "Int4",
+        "Timestamptz",
+        "Timestamptz"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      true
+    ]
+  },
+  "hash": "b06e9d41f39ddd642250682a9f8d92766cee88847b6b4b79cb0d981a70810e18"
+}

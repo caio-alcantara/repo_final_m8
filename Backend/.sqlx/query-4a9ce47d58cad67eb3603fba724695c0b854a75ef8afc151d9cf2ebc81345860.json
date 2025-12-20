@@ -1,0 +1,56 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO robos (\n            nome,\n            modelo,\n            numero_serie,\n            ativo,\n            criado_em\n        )\n        VALUES (\n            $1,\n            $2,\n            $3,\n            $4,\n            $5\n        )\n        RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "nome",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "modelo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "numero_serie",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "ativo",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 5,
+        "name": "criado_em",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Text",
+        "Bool",
+        "Timestamptz"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "4a9ce47d58cad67eb3603fba724695c0b854a75ef8afc151d9cf2ebc81345860"
+}

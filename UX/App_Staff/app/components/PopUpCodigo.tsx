@@ -1,4 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Image } from "react-native";
+import { useRouter } from "expo-router";
 
 interface Props {
   visible: boolean;
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export default function PopUpCodigo({ visible, onClose, onConfirm, codigo }: Props) {
+  const router = useRouter();
+
   return (
     <Modal visible={visible} transparent animationType="fade">
       <View style={styles.overlay}>
@@ -40,7 +43,13 @@ export default function PopUpCodigo({ visible, onClose, onConfirm, codigo }: Pro
               <Text style={styles.cancelText}>Cancelar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.confirmButton} onPress={onClose}>
+            <TouchableOpacity
+              style={styles.confirmButton}
+              onPress={() => {
+                onClose();
+                router.push("/mapa");
+              }}
+            >
               <Image
                 source={require("@/assets/images/icons/iconMap.png")}
                 style={{ marginRight: 6 }}
@@ -103,7 +112,7 @@ const styles = StyleSheet.create({
   },
 
   codeText: {
-    fontSize: 96,
+    fontSize: 64,
     fontWeight: "bold",
     color: "#855EDE",
     fontFamily:"Arial",

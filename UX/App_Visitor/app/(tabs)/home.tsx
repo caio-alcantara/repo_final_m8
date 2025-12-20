@@ -1,12 +1,19 @@
-// app/(tabs)/home.tsx
-import React, { useEffect, useState } from "react";
-import { Image, View, StyleSheet } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import {
+  Image,
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
+} from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import LottieView from "lottie-react-native"; // <--- 1. IMPORTAR LOTTIE
 
 import Logo from "../../assets/images/logo-branca.png";
 import ChatArea, { ChatMessage } from "../../components/chatArea";
 import VoiceButton from "../../components/VoiceButton";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/navbar"; 
 
 import { useTour } from "@/context/TourContext";
 import {
@@ -17,12 +24,20 @@ import {
   Resposta,
 } from "@/api/chatService";
 
+const BG = "#1E1730";
+// <--- 2. IMPORTAR O ARQUIVO JSON
+const LoadingAnimation = require("../../assets/animations/loading.json");
+
 export default function Home() {
   const { tourId: tourIdParam } = useLocalSearchParams<{ tourId?: string }>();
-
   const { tour } = useTour();
-
+  
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [isLoading, setIsLoading] = useState(true); 
+  
+  // Controle do Teclado
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   const numericTourId: number | null =
     tour?.tourId ?? (tourIdParam ? Number(tourIdParam) : null);
@@ -36,7 +51,6 @@ export default function Home() {
         minute: "2-digit",
       });
     }
-
     return new Date(iso).toLocaleTimeString("pt-BR", {
       hour: "2-digit",
       minute: "2-digit",
@@ -49,20 +63,45 @@ export default function Home() {
       minute: "2-digit",
     });
 
- 
+  // Listeners de Teclado
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      (e) => {
+        setKeyboardVisible(true);
+        if (Platform.OS === "android") {
+          setKeyboardHeight(e.endCoordinates.height);
+        }
+      }
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+        if (Platform.OS === "android") {
+          setKeyboardHeight(0);
+        }
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   useEffect(() => {
     const loadHistory = async () => {
+      setIsLoading(true);
+
       try {
         if (!numericTourId) {
-          console.log(
-            "⚠️ [CHAT] Sem tourId ainda, não dá pra carregar histórico."
-          );
-          return;
+            setIsLoading(false);
+            return;
         }
 
-        console.log("📜 [CHAT] Carregando histórico bruto (todas as perguntas)...");
         const historico: Pergunta[] = await getHistoricoChat();
-
         const msgs: ChatMessage[] = [];
 
         msgs.push({
@@ -75,10 +114,6 @@ export default function Home() {
 
         const perguntasDoTourAtual = historico.filter(
           (p) => p.tour_id === numericTourId
-        );
-
-        console.log(
-          `📌 [CHAT] Encontradas ${perguntasDoTourAtual.length} perguntas do tour ${numericTourId}`
         );
 
         for (const pergunta of perguntasDoTourAtual) {
@@ -112,119 +147,41 @@ export default function Home() {
               });
             }
           } catch (err) {
-            console.log(
-              `⚠️ [CHAT] Erro ao buscar resposta da pergunta ${pergunta.id}:`,
-              err
-            );
             msgs.push({
               id: `r-error-${pergunta.id}`,
-              text:
-                "Tivemos um problema ao carregar a resposta desta pergunta. Ela pode aparecer aqui em breve.",
+              text: "Erro ao carregar resposta.",
               time: formatTime(null),
               side: "left",
               status: "error",
             });
           }
         }
-
         setMessages(msgs);
       } catch (err) {
         console.error("Erro ao carregar histórico:", err);
-
-        setMessages([
-          {
-            id: "error-load",
-            text:
-              "Não consegui carregar o histórico agora, mas você já pode me enviar perguntas normalmente.",
-            time: getCurrentTime(),
-            side: "left",
-            status: "error",
-          },
-        ]);
+      } finally {
+        // <--- 4. FINALIZAR LOADING (Seja sucesso ou erro)
+        setIsLoading(false);
       }
     };
-
     loadHistory();
   }, [numericTourId]);
 
-
   const sendQuestionToBackend = async (userText: string) => {
-    console.log("🧠 [sendQuestionToBackend] Chamado com texto:", userText);
-    console.log("🧩 [sendQuestionToBackend] IDs atuais:", {
-      numericTourId,
-      numericCheckpointId,
-    });
-
     try {
-      if (!numericTourId) {
-        console.warn(
-          "⚠️ [sendQuestionToBackend] Sem tourId, não tem como criar pergunta."
-        );
-        const errorMessage: ChatMessage = {
-          id: `no-tour-${Date.now()}`,
-          text:
-            "Não encontrei o tour atual. Volte à tela inicial e entre novamente com o código, por favor. 🙏",
-          time: getCurrentTime(),
-          side: "left",
-          status: "error",
-        };
-        setMessages((prev) => [...prev, errorMessage]);
-        return;
-      }
-
-      // 1️⃣ tenta usar o checkpoint do contexto
+      if (!numericTourId) return;
       let checkpointIdToUse: number | null = numericCheckpointId;
 
-      // 2️⃣ se for null, tenta inferir pelo histórico
       if (!checkpointIdToUse) {
-        console.log(
-          "[CHAT] checkpointId não definido, tentando inferir via histórico..."
-        );
-        try {
-          const historico: Pergunta[] = await getHistoricoChat();
-          const perguntasDoTourAtual = historico.filter(
-            (p) => p.tour_id === numericTourId
-          );
-
-          if (perguntasDoTourAtual.length > 0) {
-            const ultimaPergunta =
-              perguntasDoTourAtual[perguntasDoTourAtual.length - 1];
-            checkpointIdToUse = ultimaPergunta.checkpoint_id;
-            console.log(
-              "[CHAT] checkpoint_id inferido do histórico:",
-              checkpointIdToUse
-            );
-          } else {
-            console.log(
-              "[CHAT] Nenhuma pergunta anterior encontrada para este tour."
-            );
-          }
-        } catch (err) {
-          console.error(
-            "[CHAT] Erro ao tentar inferir checkpoint via histórico:",
-            err
-          );
+        const historico = await getHistoricoChat();
+        const perguntas = historico.filter((p) => p.tour_id === numericTourId);
+        if (perguntas.length > 0) {
+          checkpointIdToUse = perguntas[perguntas.length - 1].checkpoint_id;
         }
       }
 
-      // 3️⃣ se mesmo assim não tiver checkpoint, avisa e não chama o backend
-      if (!checkpointIdToUse) {
-        console.warn(
-          "⚠️ [sendQuestionToBackend] Continua sem checkpointId, não vou chamar o modelo."
-        );
-        const errorMessage: ChatMessage = {
-          id: `no-checkpoint-${Date.now()}`,
-          text:
-            "Não encontrei o checkpoint atual para este tour. Avise um monitor, por favor. 🙏",
-          time: getCurrentTime(),
-          side: "left",
-          status: "error",
-        };
-        setMessages((prev) => [...prev, errorMessage]);
-        return;
-      }
+      if (!checkpointIdToUse) return;
 
-      // 4️⃣ Chama o modelo (porta 8000) - integração definitiva 🎯
       const resposta = await askModelo({
         tour_id: numericTourId,
         checkpoint_id: checkpointIdToUse,
@@ -234,8 +191,6 @@ export default function Home() {
         liberado_em: null,
         respondido_em: null,
       });
-
-      console.log("✅ [sendQuestionToBackend] Resposta do modelo:", resposta);
 
       const botMessage: ChatMessage = {
         id: `bot-${Date.now()}`,
@@ -247,18 +202,7 @@ export default function Home() {
 
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      console.error("Erro ao falar com o backend/modelo:", error);
-
-      const errorMessage: ChatMessage = {
-        id: `error-${Date.now()}`,
-        text:
-          "Tive um problema para falar com a LIA agora. Pode tentar de novo daqui a pouco? 🙏",
-        time: getCurrentTime(),
-        side: "left",
-        status: "error",
-      };
-
-      setMessages((prev) => [...prev, errorMessage]);
+      console.error("Erro backend:", error);
     }
   };
 
@@ -269,28 +213,82 @@ export default function Home() {
       time: getCurrentTime(),
       side: "right",
     };
-
     setMessages((prev) => [...prev, userMessage]);
     sendQuestionToBackend(text);
   };
 
+  if (Platform.OS === "ios") {
+    return (
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior="padding"
+        keyboardVerticalOffset={0}
+      >
+        <View style={styles.inner}>
+          <View style={styles.header}>
+            <Image source={Logo} style={styles.logo} resizeMode="contain" />
+          </View>
+
+          <View style={styles.body}>
+            <View style={styles.leftPane}>
+              {/* <--- 5. RENDERIZAÇÃO CONDICIONAL DO LOADING */}
+              {isLoading ? (
+                <View style={styles.loadingContainer}>
+                  <LottieView
+                    source={LoadingAnimation}
+                    autoPlay
+                    loop
+                    style={styles.lottie}
+                  />
+                </View>
+              ) : (
+                <ChatArea messages={messages} />
+              )}
+            </View>
+
+            <View style={styles.rightPane}>
+              <VoiceButton onSendText={handleSendText} />
+            </View>
+          </View>
+          
+          {!isKeyboardVisible && <Navbar />}
+        </View>
+      </KeyboardAvoidingView>
+    );
+  }
+
+  // Layout Android
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={Logo} style={styles.logo} resizeMode="contain" />
-      </View>
-
-      <View style={styles.body}>
-        <View style={styles.leftPane}>
-          <ChatArea messages={messages} />
+    <View style={[styles.container, { paddingBottom: keyboardHeight }]}>
+      <View style={styles.inner}>
+        <View style={styles.header}>
+          <Image source={Logo} style={styles.logo} resizeMode="contain" />
         </View>
 
-        <View style={styles.rightPane}>
-          <VoiceButton onSendText={handleSendText} />
-        </View>
-      </View>
+        <View style={styles.body}>
+          <View style={styles.leftPane}>
+            {/* <--- 5. RENDERIZAÇÃO CONDICIONAL DO LOADING (Android) */}
+            {isLoading ? (
+                <View style={styles.loadingContainer}>
+                  <LottieView
+                    source={LoadingAnimation}
+                    autoPlay
+                    loop
+                    style={styles.lottie}
+                  />
+                </View>
+              ) : (
+                <ChatArea messages={messages} />
+              )}
+          </View>
 
-      <Navbar />
+          <View style={styles.rightPane}>
+            <VoiceButton onSendText={handleSendText} />
+          </View>
+        </View>
+        
+        {!isKeyboardVisible && <Navbar />}
+      </View>
     </View>
   );
 }
@@ -298,7 +296,11 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1E1730",
+    backgroundColor: BG,
+  },
+  inner: {
+    flex: 1,
+    backgroundColor: BG,
   },
   header: {
     alignItems: "center",
@@ -318,10 +320,20 @@ const styles = StyleSheet.create({
   leftPane: {
     flex: 1.5,
     marginRight: 12,
+    justifyContent: 'center', 
   },
   rightPane: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  lottie: {
+    width: 150,
+    height: 150,
   },
 });
